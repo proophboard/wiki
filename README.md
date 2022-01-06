@@ -1,6 +1,51 @@
-# Jekyll GitBook
+# Gitbook clone for jekyll
 
-Make Jelly site have a GitBook look!
+Based on [https://sighingnow.github.io/jekyll-gitbook](https://sighingnow.github.io/jekyll-gitbook)
+
+## Run Locally with docker
+
+`docker run — rm -v $(pwd):/srv/jekyll -p 4000:4000 -it jekyll/jekyll:builder jekyll serve`
+
+## Additions
+
+Compared to org jekyll-gitbook
+
+### Bootstrap alert messages
+
+#### Info
+
+``̀`markdown
+Some text with a [link](https://example.com/some/link){: .alert-link} that should be displayed as alert info
+{: .alert .alert-info}
+```
+
+#### Success
+
+``̀`markdown
+Some text with a [link](https://example.com/some/link){: .alert-link} that should be displayed as alert success message
+{: .alert .alert-success}
+```
+
+
+#### Warning
+
+``̀`markdown
+Some text with a [link](https://example.com/some/link){: .alert-link} that should be displayed as alert warning
+{: .alert .alert-warning}
+```
+
+#### Danger
+
+``̀`markdown
+Some text with a [link](https://example.com/some/link){: .alert-link} that should be displayed as alert danger message
+{: .alert .alert-danger}
+```
+### Copy link to paragraph
+
+The template includes a little JavaScript to add link icons in front of all `h1, h2, h3` **if they have a non empty id attribute**.
+The icon becomes visible when hovering over a headline and on click a deep link to that headline is put into the clipboard.
+
+The script is located in `/assets/js/paragraph-link.js`
 
 ## Demo
 
@@ -65,7 +110,7 @@ toc:
 
 This work is open sourced under the Apache License, Version 2.0.
 
-Copyright 2019 Tao He.
+Copyright 2022 Alexander Miertsch
 
 [1]: https://pages.github.com
 [2]: https://pages.github.com/themes
