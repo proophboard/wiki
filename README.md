@@ -108,7 +108,8 @@ toc:
 
 ## License
 
-This work is open sourced under the Apache License, Version 2.0.
+This work is open sourced under the Apache License, Version 2.0, using the
+same license as the original [GitBook](https://github.com/GitbookIO/gitbook) repository and [https://sighingnow.github.io/jekyll-gitbook](https://sighingnow.github.io/jekyll-gitbook).
 
 Copyright 2022 Alexander Miertsch
 

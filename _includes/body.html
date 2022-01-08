@@ -6,7 +6,7 @@
             {% if page.title %}
                 <a href="." >{{ page.title | escape }}</a>
             {% else %}
-                <a href="." >{{ site.title | escape }}</a>
+                <a href="/" >{{ site.title | escape }}</a>
             {% endif %}
         </h1>
     </div>
@@ -17,9 +17,7 @@
                     <section class="normal markdown-section">
 
                         {% if page.title %}
-                            <h1 id="{{ page.id }}">{{ page.title | escape }}</h1>
-                        {% else %}
-                            <h1 id="{{ page.id }}">{{ site.title | escape }}</h1>
+                            <h1 id="{{ page.id }}" style="text-align: center; padding-bottom: 40px;text-transform: uppercase">{{ page.title | escape }}</h1>
                         {% endif %}
 
                         {{ content }}

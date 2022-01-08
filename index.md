@@ -1,99 +1,55 @@
 ---
-layout: home
+layout: default
+title: prooph board Wiki
 ---
 
-Make Jelly site have a GitBook look!
+:wave: **Welcome to the prooph board wiki!**
 
-## Demo
+Cross-functional teams, collaboration and experiments are key drivers to innovate and keep software and business aligned. We see Event Storming and Collaborative Modeling as one of the best ways to achieve this goal.
 
-Live demo on Github Pages: [https://sighingnow.github.io/jekyll-gitbook](https://sighingnow.github.io/jekyll-gitbook)
-
-[![Jekyll Themes](https://img.shields.io/badge/featured%20on-JekyllThemes-red.svg)](https://jekyll-themes.com/jekyll-gitbook/)
-
-## Why Jekyll with GitBook
-
-GitBook is an amazing frontend style to present and organize contents (such as book chapters
-and blogs) on Web. The typical to deploy GitBook at [Github Pages][1]{: .alert-link}
-is building HTML files locally and then push to Github repository, usually to the `gh-pages`
-branch. It's quite annoying to repeat such workload and make it hard for people do version
-control via git for when there are generated HTML files to be staged in and out.
-{: .alert .alert-info}
-
-GitBook is an amazing frontend style to present and organize contents (such as book chapters
-and blogs) on Web. The typical to deploy GitBook at [Github Pages][1]{: .alert-link}
-is building HTML files locally and then push to Github repository, usually to the `gh-pages`
-branch. It's quite annoying to repeat such workload and make it hard for people do version
-control via git for when there are generated HTML files to be staged in and out.
+With prooph board you can digitize your storming. Model together in a (remote) team, document the system and generate code from event models.
 {: .alert .alert-success}
 
-GitBook is an amazing frontend style to present and organize contents (such as book chapters
-and blogs) on Web. The typical to deploy GitBook at [Github Pages][1]{: .alert-link}
-is building HTML files locally and then push to Github repository, usually to the `gh-pages`
-branch. It's quite annoying to repeat such workload and make it hard for people do version
-control via git for when there are generated HTML files to be staged in and out.
+The wiki is structured into three main parts: **Event Storming** on prooph board, **Collaborative Modeling** for system engineering and working with **Cody** - the Coding Bot.
+{: .alert .alert-info}
+
+## Introduction Slides
+
+<iframe src="https://slides.com/prooph/event-driven-development/embed?style=light" width="100%" height="420" title="Visual Programming" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+
+## :sparkles: Free Version :sparkles:
+
+[:cyclone: Start Modeling Now!](https://free.prooph-board.com/){: .btn .btn-default target="_blank"}
+
+The free version of prooph board offers a very easy way to get started. **No credit card and even no registration required.** It is a browser-only version of prooph board.
+All Cody features are available :heavy_check_mark:.
+{: .alert .alert-success}
+
+Since the free client has no server connection, cloud storage is disabled and your work is only stored in the browser's local storage. Use import/export functions to backup your work!
 {: .alert .alert-warning}
 
-GitBook is an amazing frontend style to present and organize contents (such as book chapters
-and blogs) on Web. The typical to deploy GitBook at [Github Pages][1]{: .alert-link}
-is building HTML files locally and then push to Github repository, usually to the `gh-pages`
-branch. It's quite annoying to repeat such workload and make it hard for people do version
-control via git for when there are generated HTML files to be staged in and out.
-{: .alert .alert-danger}
 
-This theme takes style definition out of generated GitBook site and provided the template
-for Jekyll to rendering markdown documents to HTML, thus the whole site can be deployed
-to [Github Pages][1] without generating and uploading HTML bundle every time when there are
-changes to the original repo.
 
-## How to Get Started
+## Example Boards
 
-This theme can be used just as other [Jekyll themes][1].
+:pushpin: Here is a list of example boards that open directly in the free client. Check them out for some inspiration!
 
-[Fork][3] this repository and add your markdown posts to the `_posts` folder.
+- [Annotated prooph board Example](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2Fprooph board%2520Example.xml){: target="_blank"}
 
-### Deploy Locally with Jekyll Serve
+- [Event Storming - The Picture](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2FThe%2520Picture.xml){: target="_blank"}
 
-This theme can be ran locally using Ruby and Gemfiles.
+- [Event Modeling Example](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2FEvent%2520Modeling.xml){: target="_blank"}
 
-[Testing your GitHub Pages site locally with Jekyll](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/testing-your-github-pages-site-locally-with-jekyll) - GitHub
+## Cody Tutorial
 
-## Full-text search
+:robot: Want to get started with Cody? These two coding bot introduction tutorials explain the basics.
 
-The search functionality in jekyll-gitbook theme is powered by the [gitbook-plugin-search-pro][5] plugin and is enabled by default.
+- [Node.js Code Generation Tutorial]({{site.baseurl}}/cody_node_tutorial/Node.js-Cody-Tutorial-Quick-Start)
+- [PHP Code Generation Tutorial]({{site.baseurl}}/cody_php_tutorial/PHP-Cody-Tutorial-Quick-Start)
 
-[https://sighingnow.github.io/jekyll-gitbook/?q=generated](https://sighingnow.github.io/jekyll-gitbook/?q=generated)
+## Powered by prooph software
 
-## Code highlight
-
-The code highlight style is configurable the following entry in `_config.yaml`:
-
-```yaml
-syntax_highlighter_style: colorful
-```
-
-The default code highlight style is `colorful`, the full supported styles can be found from [the rouge repository][6]. Customized
-style can be added to [./gitbook/rouge/](./gitbook/rouge/).
-
-## How to generate TOC
-
-The jekyll-gitbook theme leverages [jekyll-toc][4] to generate the *Contents* for the page.
-The TOC feature is not enabled by default. To use the TOC feature, modify the TOC
-configuration in `_config.yml`:
-
-```yaml
-toc:
-    enabled: true
-```
-
-## License
-
-This work is open sourced under the Apache License, Version 2.0.
-
-Copyright 2019 Tao He.
-
-[1]: https://pages.github.com
-[2]: https://pages.github.com/themes
-[3]: https://github.com/sighingnow/jekyll-gitbook/fork
-[4]: https://github.com/allejo/jekyll-toc
-[5]: https://github.com/gitbook-plugins/gitbook-plugin-search-pro
-[6]: https://github.com/rouge-ruby/rouge/tree/master/lib/rouge/themes
+We run [Event Storming workshops](http://prooph-software.de/#consultancy-section){: .alert-link target="_blank"} for product development teams — onsite or remote.
+[If you need support with Event Sourcing, Event Driven Architecture, Domain Driven Design or Frontend applications](http://prooph-software.de/#development-section){: .alert-link target="_blank"},
+we are available as a well-coordinated external team or join-force with your internal teams.
+{: .alert .alert-info}
