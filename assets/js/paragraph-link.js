@@ -102,21 +102,61 @@
         });
     }
 
-    var currentHref = null;
+    const initAccordion = (accordionName) => {
+        const accord = document.querySelector('#'+accordionName);
+        const accordItems = document.querySelectorAll('.'+accordionName);
+        accord.addEventListener('click', () => {
+            accord.classList.toggle('open')
+
+            accordItems.forEach(item => {
+                item.classList.toggle('accordion-visible');
+                item.classList.toggle('accordion-hidden');
+            })
+        })
+    }
+
+    /** Sidebar Nav Accordion */
+    const initAccordions = () => {
+        document.querySelectorAll('ul.summary h4 span').forEach(accordIndicator => {
+            initAccordion(accordIndicator.id);
+        })
+
+        const activeChapter = document.querySelector('.chapter.active');
+
+        if(activeChapter) {
+            activeChapter.classList.forEach(className => {
+                if(className.match(/[a-z]+-accordion/)) {
+                    const activeAccord = document.querySelector('#'+className);
+                    const activeAccordItems = document.querySelectorAll('.'+className);
+                    activeAccord.classList.toggle('open');
+                    activeAccordItems.forEach(item => {
+                        item.classList.toggle('accordion-visible');
+                        item.classList.toggle('accordion-hidden');
+                    })
+                }
+            })
+        }
+    }
+
+
+    var currentPath = null;
 
     window.setInterval(() => {
-        if(currentHref !== window.location.href) {
+        if(currentPath !== window.location.pathname) {
             addParagraphLinks();
+            initAccordions();
 
+            const bookBody = document.querySelector('.book-body');
             const innerBody = document.querySelector('.book-body .body-inner');
 
-            if(innerBody) {
+            if(bookBody && innerBody) {
                 console.log("attach scroll listener", innerBody);
 
                 innerBody.addEventListener('scroll', scrollListener);
+                bookBody.addEventListener('scroll', scrollListener);
             }
 
-            currentHref = window.location.href;
+            currentPath = window.location.pathname;
         }
     }, 100);
 

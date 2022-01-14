@@ -8,12 +8,12 @@
     </div>
     <nav role="navigation">
         <ul class="summary">
-            <li class="chapter"><h4>Event Storming</h4></li>
+            <li class="chapter"><h4>Event Storming<span id="es-accordion" class="accordion-indicator"></span></h4></li>
             {% for col_page in site.event_storming %}
             {% if page.url == col_page.url %}
-            <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
+            <li class="chapter active es-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% else %}
-            <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
+            <li class="chapter es-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% endif %}
                 <a href="{{site.baseurl}}{{col_page.url}}">
                     {%- if col_page.sidebar_label -%}
@@ -31,12 +31,12 @@
             {% endfor %}
 
             <li class="divider"></li>
-            <li class="chapter"><h4>Board Workspace</h4></li>
+            <li class="chapter"><h4>Board Workspace<span id="ws-accordion" class="accordion-indicator"></span></h4></li>
             {% for workspace_page in site.board_workspace %}
             {% if page.url == workspace_page.url %}
-            <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{workspace_page.url}}">
+            <li class="chapter active ws-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{workspace_page.url}}">
                 {% else %}
-            <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{workspace_page.url}}">
+            <li class="chapter ws-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{workspace_page.url}}">
                 {% endif %}
                 <a href="{{site.baseurl}}{{workspace_page.url}}">
                     {%- if page.sidebar_label -%}

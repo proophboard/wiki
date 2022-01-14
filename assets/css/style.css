@@ -114,6 +114,40 @@ strong.bg.ui {
     color: white;
 }
 
+/* Sidebar Nav Accordion */
+.accordion-hidden {
+    opacity: 0;
+    height: 0;
+}
+
+.accordion-visible {
+    opacity: 1;
+    height: auto;
+    transition: all 1s ease;
+}
+
+.book-summary ul.summary li span.accordion-indicator {
+    float: right;
+    right: 20px;
+    position: relative;
+    display: inline-block;
+    padding: 0;
+    cursor: pointer;
+}
+
+.accordion-indicator::before {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-chevron-right' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+    display: block;
+    transition: all 0.5s ease;
+}
+
+.accordion-indicator.open::before {
+    transform: rotate(90deg);
+    transition: all 0.5s ease;
+}
+
+
+
 /* Bootstrap-like Alerts */
 .alert {
     padding: 15px;
