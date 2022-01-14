@@ -21,6 +21,9 @@ collections:
   event_storming:
     output: true
     sort_by: toc_order
+  collaborative_modelling:
+    output: true
+    sort_by: toc_order
   cody_php_tutorial:
     output: true
   cody_node_tutorial:
@@ -35,6 +38,7 @@ gitbook_search:
     pages: true
     collections:
       - event_storming
+      - collaborative_modelling
       - board_workspace
       - access_management
       - cody_node_tutorial

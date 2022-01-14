@@ -15,7 +15,8 @@ prooph board provides an answer to these questions. It's the result of many year
 We distilled the good parts and combined them to a product. prooph board supports cross-functional teams in exploring unknown requirements and turn them into scalable solutions.
 {: .alert .alert-success}
 
-The wiki is structured into three main parts: **Event Storming** on prooph board, **Collaborative Modelling** for system engineering and working with **Cody** - the Coding Bot.
+The wiki is structured into three main parts: [Event Storming]({{site.baseurl}}/event_storming/what-is-event-storming.html){: .alert-link} on prooph board,
+[Collaborative Modelling]({{site.baseurl}}/collaborative_modelling/what-is-collaborative-modelling.html){: .alert-link} for system engineering and working with **Cody** - the Coding Bot.
 The three pillars on which prooph board is built.
 {: .alert .alert-info}
 

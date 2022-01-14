@@ -13,7 +13,7 @@ require(['gitbook', 'jquery'], function(gitbook, $) {
             'icon': 'fa fa-github',
             'onClick': function(e) {
                 e.preventDefault();
-                window.open('https://github.com/proophboard/wiki');
+                window.open('https://github.com/proophboard');
             }
         }
     };

@@ -15,7 +15,7 @@ When writing on a card a toolbar shows up with text formatting options like chan
 ## Horizontal rulers
 A horizontal ruler on a Card has special meaning.
 It divides the name of the Card from it's details.
-The name of the card is used to reference it in the [tree view]({{site.baseurl}}/collaborative_modelling/tree-view.html) and for history entries.
+The name of the card is used to reference it in the [tree view]({{site.baseurl}}/board_workspace/tree-view.html) and for history entries.
 When you select a card and press **Ctrl+F** (Cmd+F on Mac), the Card is looked up in the tree view using it's name.
 This way you can quickly find Cards with the same name on a large board.
 
