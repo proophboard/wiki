@@ -5,12 +5,18 @@ title: prooph board Wiki
 
 :wave: **Welcome to the prooph board wiki!**
 
-Cross-functional teams, collaboration and experiments are key drivers to innovate and keep software and business aligned. We see Event Storming and Collaborative Modeling as one of the best ways to achieve this goal.
+Cross-functional teams, collaboration and experiments are key drivers to innovate and keep software and business aligned.
+Cloud-native, event-driven architecture ensures that software does not become a bottleneck in this fast moving digital world.
+This means, development teams are asked more than ever to be multidisciplinary. How can they tackle domain and tech complexity
+in an efficient and sustainable way? How can they keep an overview of a large, distributed system that is constantly changing?
 
-With prooph board you can digitize your storming. Model together in a (remote) team, document the system and generate code from event models.
+
+prooph board provides an answer to these questions. It's the result of many years working with teams, who develop event sourced systems and practice Domain-Driven Design.
+We distilled the good parts and combined them to a product. prooph board supports cross-functional teams in exploring unknown requirements and turn them into scalable solutions.
 {: .alert .alert-success}
 
-The wiki is structured into three main parts: **Event Storming** on prooph board, **Collaborative Modeling** for system engineering and working with **Cody** - the Coding Bot.
+The wiki is structured into three main parts: **Event Storming** on prooph board, **Collaborative Modelling** for system engineering and working with **Cody** - the Coding Bot.
+The three pillars on which prooph board is built.
 {: .alert .alert-info}
 
 ## Introduction Slides

@@ -34,10 +34,84 @@ footer {
     border-left: 2px solid #008cff;
 }
 
+/* Lightbox */
+.lightbox-indicator {
+    float: right;
+    top: 50px;
+    right: 20px;
+    position: relative;
+}
+
+.lightbox-indicator::before {
+    content: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-search' viewBox='0 0 16 16'%3E%3Cpath d='M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z'/%3E%3C/svg%3E");
+}
+
+
 /* Positioning */
 .block-center {
     margin: 0 auto;
     display: block;
+}
+
+/* Formatting */
+p.small, p em.small {
+    font-size: small;
+}
+
+img.card {
+    display: inline-block;
+    float: left;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+img.card.horizontal {
+    width: 100px;
+}
+
+img.card.vertical {
+    height: 70px;
+}
+
+strong.bg {
+    padding: 0 5px;
+}
+
+strong.bg.event {
+    background-color: #FF9F4B;
+}
+
+strong.bg.command {
+    background-color: #26C0E7;
+}
+
+strong.bg.actor {
+    background-color: #f7f727;
+}
+
+strong.bg.aggregate {
+    background-color: #F5E339;
+}
+
+strong.bg.information {
+    background-color: #73dd8e;
+}
+
+strong.bg.policy {
+    background-color: #EABFF1;
+}
+
+strong.bg.hot_spot {
+    background-color: #f31d30;
+}
+
+strong.bg.external_system {
+    background-color: #ec98ac;
+}
+
+strong.bg.ui {
+    background-color: #000000;
+    color: white;
 }
 
 /* Bootstrap-like Alerts */

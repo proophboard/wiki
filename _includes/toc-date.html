@@ -8,6 +8,29 @@
     </div>
     <nav role="navigation">
         <ul class="summary">
+            <li class="chapter"><h4>Event Storming</h4></li>
+            {% for col_page in site.event_storming %}
+            {% if page.url == col_page.url %}
+            <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
+                {% else %}
+            <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
+                {% endif %}
+                <a href="{{site.baseurl}}{{col_page.url}}">
+                    {%- if col_page.sidebar_label -%}
+                    {{col_page.sidebar_label | escape }}
+                    {%- else -%}
+                    {{ col_page.title | escape }}
+                    {%- endif -%}
+                </a>
+                {% if site.toc.enabled %}
+                {% if page.url == col_page.url %}
+                {% include toc.html html=content h_min=site.toc.h_min h_max=site.toc.h_max %}
+                {% endif %}
+                {% endif %}
+            </li>
+            {% endfor %}
+
+            <li class="divider"></li>
             <li class="chapter"><h4>Board Workspace</h4></li>
             {% for workspace_page in site.board_workspace %}
             {% if page.url == workspace_page.url %}
@@ -56,7 +79,7 @@
     </nav>
     <footer>
         <p class="markdown-section">
-            Join the community chat on <a href="https://gitter.im/proophboard/community">Gitter</a>.<br/>
+            Join the community on <a href="https://gitter.im/proophboard/community" target="_blank" rel="noopener noreferrer">Gitter</a> or <a href="https://www.linkedin.com/groups/9135097/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.<br/>
             <br/>
             <a href="https://github.com/proophboard/issue-tracker/issues">Issues & RFCs</a><br/>
         </p>

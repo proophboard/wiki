@@ -18,6 +18,9 @@ toc:
   h_max: 3
 
 collections:
+  event_storming:
+    output: true
+    sort_by: toc_order
   cody_php_tutorial:
     output: true
   cody_node_tutorial:
@@ -31,6 +34,7 @@ gitbook_search:
   include:
     pages: true
     collections:
+      - event_storming
       - board_workspace
       - access_management
       - cody_node_tutorial

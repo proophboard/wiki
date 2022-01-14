@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Frames
+title: Use Frames For Grouping
 ---
 
 Frames are used to group [cards]({{site.baseurl}}/board_workspace/Cards.html) and other elements.
@@ -23,8 +23,6 @@ The two frame types collapse at different zoom levels:
 
 **Context / Module**: collapses later than **Feature** (later = more zoomed out).
 
-### Disable Bird View
-
 The bird view can be disabled for a frame. Open the context menu (right mouse click / tap and hold on touch device) and toggle **Bird View -> Hide Details**.
 If you want turn off bird view for all frames, please see [Lite Mode]({{site.baseurl}}/board_workspace/Lite-Mode.html).
 
@@ -35,15 +33,11 @@ Disabling the collapse functionality can be useful if you want to use frames as 
 
 To be able to navigate on the board even if a frame fills the entire screen, they only have a small drag zone. Otherwise you would always move the frame instead of moving around on the board.
 
-### How it works
-
 <img src="{{site.baseurl}}/assets/images/bc_move.gif" alt="Move BC" />
 
 As you can see in the GIF, the border of a frame gets highlighted when the mouse pointer is close to it. You need to select the frame, move your mouse next to border, so that the pointer turns into a hand and only then you're able to move the frame. Don't worry if it is a bit tricky at the beginning. You should get used to it quickly and it really helps to navigate on the board.
 
-## Styling
-
-### Change Shape
+## Change Shape
 
 Frames can have different shapes e.g. to represent different kinds of modules or contexts.
 

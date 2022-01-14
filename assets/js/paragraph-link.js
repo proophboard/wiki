@@ -119,5 +119,13 @@
             currentHref = window.location.href;
         }
     }, 100);
+
+    if(window.location.hash !== '') {
+        const scrollToEl = document.querySelector(window.location.hash);
+
+        if(scrollToEl) {
+            scrollToEl.scrollIntoView(true);
+        }
+    }
 })();
 
