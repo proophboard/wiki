@@ -116,14 +116,11 @@ strong.bg.ui {
 
 /* Sidebar Nav Accordion */
 .accordion-hidden {
-    opacity: 0;
-    height: 0;
+    display: none;
 }
 
 .accordion-visible {
-    opacity: 1;
-    height: auto;
-    transition: all 1s ease;
+    display: block;
 }
 
 .book-summary ul.summary li span.accordion-indicator {

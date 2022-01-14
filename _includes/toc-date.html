@@ -54,12 +54,12 @@
             {% endfor %}
 
             <li class="divider"></li>
-            <li class="chapter"><h4>Organization & Teams</h4></li>
+            <li class="chapter"><h4>Organization & Teams<span id="og-accordion" class="accordion-indicator"></span></h4></li>
             {% for col_page in site.access_management %}
             {% if page.url == col_page.url %}
-            <li class="chapter active" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
+            <li class="chapter active og-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% else %}
-            <li class="chapter" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
+            <li class="chapter og-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% endif %}
                 <a href="{{site.baseurl}}{{col_page.url}}">
                     {%- if col_page.sidebar_label -%}

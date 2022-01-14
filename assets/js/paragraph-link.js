@@ -41,6 +41,7 @@
 
     const detectActiveAnchor = () => {
         const anchors = Array.from(document.querySelectorAll('h2, h3'));
+        const bookBody = document.querySelector('.book-body');
         const innerBody = document.querySelector('.book-body .body-inner');
 
         if(anchors.length === 0) {
@@ -56,7 +57,8 @@
         })
 
         // Page is scrollable and bottom is reached. Let's highlight the anchor that's closest to the top, but fully visible
-        if(anchors.indexOf(lastAnchor) < anchors.length - 1 && innerBody.scrollTop > 0 && isScrolledToBottom(innerBody)) {
+        if(anchors.indexOf(lastAnchor) < anchors.length - 1
+            && (innerBody.scrollTop > 0 && isScrolledToBottom(innerBody) || bookBody.scrollTop > 0 && isScrolledToBottom(bookBody))) {
             [...anchors].reverse().forEach(anchor => {
                 if(anchor.getBoundingClientRect().top > 100) {
                     lastAnchor = anchor;
