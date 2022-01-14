@@ -107,7 +107,8 @@
     const initAccordion = (accordionName) => {
         const accord = document.querySelector('#'+accordionName);
         const accordItems = document.querySelectorAll('.'+accordionName);
-        accord.addEventListener('click', () => {
+
+        accord.parentElement.addEventListener('click', () => {
             accord.classList.toggle('open')
 
             accordItems.forEach(item => {

@@ -24,10 +24,9 @@ collections:
   collaborative_modelling:
     output: true
     sort_by: toc_order
-  cody_php_tutorial:
+  cody:
     output: true
-  cody_node_tutorial:
-    output: true
+    sort_by: toc_order
   board_workspace:
     output: true
   access_management:
@@ -41,8 +40,8 @@ gitbook_search:
       - collaborative_modelling
       - board_workspace
       - access_management
-      - cody_node_tutorial
-      - cody_php_tutorial
+      - cody
+      - cody
 
 
 # markdown render engine.

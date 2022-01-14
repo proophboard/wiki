@@ -54,6 +54,29 @@
             {% endfor %}
 
             <li class="divider"></li>
+            <li class="chapter"><h4>Cody - The Coding Bot<span id="co-accordion" class="accordion-indicator"></span></h4></li>
+            {% for col_page in site.cody %}
+            {% if page.url == col_page.url %}
+            <li class="chapter active co-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
+                {% else %}
+            <li class="chapter co-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
+                {% endif %}
+                <a href="{{site.baseurl}}{{col_page.url}}">
+                    {%- if col_page.sidebar_label -%}
+                    {{col_page.sidebar_label | escape }}
+                    {%- else -%}
+                    {{ col_page.title | escape }}
+                    {%- endif -%}
+                </a>
+                {% if site.toc.enabled %}
+                {% if page.url == col_page.url %}
+                {% include toc.html html=content h_min=site.toc.h_min h_max=site.toc.h_max %}
+                {% endif %}
+                {% endif %}
+            </li>
+            {% endfor %}
+
+            <li class="divider"></li>
             <li class="chapter"><h4>Board Workspace<span id="ws-accordion" class="accordion-indicator"></span></h4></li>
             {% for workspace_page in site.board_workspace %}
             {% if page.url == workspace_page.url %}
