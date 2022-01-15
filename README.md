@@ -14,14 +14,14 @@ Compared to org jekyll-gitbook
 
 #### Info
 
-``̀`markdown
+```markdown
 Some text with a [link](https://example.com/some/link){: .alert-link} that should be displayed as alert info
 {: .alert .alert-info}
 ```
 
 #### Success
 
-``̀`markdown
+```markdown
 Some text with a [link](https://example.com/some/link){: .alert-link} that should be displayed as alert success message
 {: .alert .alert-success}
 ```
@@ -29,14 +29,14 @@ Some text with a [link](https://example.com/some/link){: .alert-link} that shoul
 
 #### Warning
 
-``̀`markdown
+```markdown
 Some text with a [link](https://example.com/some/link){: .alert-link} that should be displayed as alert warning
 {: .alert .alert-warning}
 ```
 
 #### Danger
 
-``̀`markdown
+```markdown
 Some text with a [link](https://example.com/some/link){: .alert-link} that should be displayed as alert danger message
 {: .alert .alert-danger}
 ```
