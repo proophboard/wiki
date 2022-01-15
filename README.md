@@ -1,4 +1,4 @@
-# Gitbook clone for jekyll
+# prooph board Wiki source
 
 Based on [https://sighingnow.github.io/jekyll-gitbook](https://sighingnow.github.io/jekyll-gitbook)
 
