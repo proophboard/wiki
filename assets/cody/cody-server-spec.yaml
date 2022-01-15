@@ -1,0 +1,286 @@
+openapi: 3.0.1
+info:
+  title: Cody Server Spec
+  version: v0.2.0
+servers:
+  - url: http://localhost:3311/
+paths:
+  /messages/IioSaidHello:
+    post:
+      tags:
+        - Connect
+      description: Connect request initiated by prooph board
+      operationId: IioSaidHello
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/IioSaidHello'
+        required: true
+      responses:
+        200:
+          description: Should always return a CodyResponse of one of the available types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodyResponse'
+      x-codegen-request-body-name: body
+  /messages/ElementEdited:
+    post:
+      tags:
+        - User Actions
+      description: 'Invoked for each element on prooph board when user triggered Cody. Invocation is always single threaded. You can return a Question to the user and await a reply.'
+      operationId: ElementEdited
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ElementEdited'
+        required: true
+      responses:
+        200:
+          description: Should always return a CodyResponse of one of the available types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodyResponse'
+  /messages/UserReplied:
+    post:
+      tags:
+        - User Actions
+      description: 'Invoked when user replied to a Cody Question.'
+      operationId: UserReplied
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserReplied'
+        required: true
+      responses:
+        200:
+          description: Should always return a CodyResponse of one of the available types
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodyResponse'
+  /messages/ConfirmTest:
+    post:
+      tags:
+        - User Actions
+      description: 'Invoked when user types /talk into console. CodyResponse should be a test question. The endpoint is meant to be used as a health check to verify that question-answer/confirmation mechanism works'
+      operationId: ConfirmTest
+      responses:
+        200:
+          description: Should return a CodyResonse of type Question
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodyResponse'
+  /messages/Sync:
+    post:
+      tags:
+        - Synchronization
+      description: 'If prooph board receives a SyncRequired CodyResponse it switches to synchronization mode and sends all elements in batches to this Sync endpoint. The server should store a list of elements in memory.'
+      operationId: FullSync
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sync'
+        required: true
+      responses:
+        200:
+          description: Return an Error CodyResponse to abort the sync, otherwise an Empty response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodyResponse'
+    put:
+      tags:
+        - Synchronization
+      description: 'After full sync, prooph board continues synchronizing elements each time a change was made on the board (within the current session). Updated elements are sent in batches to this Sync endpoint. The server should update its in-memory list of elements.'
+      operationId: UpdateSync
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sync'
+        required: true
+      responses:
+        200:
+          description: Return an Error CodyResponse to abort the sync, otherwise an Empty response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodyResponse'
+  /messages/SyncDeleted:
+    post:
+      tags:
+        - Synchronization
+      description: 'Deleted elements are synced through this endpoint. HTTP DELETE requests do not have a body, hence we use another POST request to let the Cody server remove elements from its in-memory element list. Deleted elements are sent in batches.'
+      operationId: DeleteSync
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Sync'
+        required: true
+      responses:
+        200:
+          description: Return an Error CodyResponse to abort the sync, otherwise an Empty response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CodyResponse'
+components:
+  schemas:
+    IioSaidHello:
+      type: object
+      properties:
+        user:
+          type: string
+          description: Name of the user who initiated Cody connect
+    ElementEdited:
+      type: object
+      additionalProperties: false
+      required: [node]
+      properties:
+        node:
+          $ref: '#/components/schemas/Element'
+    UserReplied:
+      type: object
+      required: [reply]
+      properties:
+        reply:
+          type: string
+          description: 'Entered text in Cody Console as a reply to a Question CodyResponse'
+    Sync:
+      type: object
+      required: [nodes]
+      properties:
+        boardId:
+          type: string
+          description: 'Id of the prooph board that is currently be synced'
+        nodes:
+          description: 'List of elements to be synced. Elements are sent in batches.'
+          type: array
+          items:
+            $ref: '#/components/schemas/Element'
+    Element:
+      type: object
+      description: 'Element node on prooph board passed to Cody'
+      additionalProperties: false
+      required: [id, name, type, link, tags, layer, defaultLayer, parent, childrenList, sourcesList, targetsList, geometry, metadata]
+      properties:
+        id:
+          type: string
+          description: 'Unique id of the element on prooph board'
+        name:
+          type: string
+          description: 'Element name, see https://wiki.prooph-board.com/Cards.html#horizontal-rulers for details about Card names'
+        type:
+          type: string
+          enum:
+            - event
+            - command
+            - role
+            - aggregate
+            - document
+            - policy
+            - hotSpot
+            - externalSystem
+            - ui
+            - feature
+            - boundedContext
+            - freeText
+            - edge
+            - misc
+            - icon
+            - image
+            - layer
+        link:
+          type: string
+          description: 'Direct link to element on prooph board'
+        tags:
+          description: 'Features can be tagged as: important, planned, ready, deployed. Other tags will be added in the future'
+          type: array
+          items:
+            type: string
+        layer:
+          type: boolean
+          description: 'Indicates if given element is layer. See https://wiki.prooph-board.com/Working-with-Layers'
+        defaultLayer:
+          type: boolean
+          description: 'Indicates if given element is the default layer. See https://wiki.prooph-board.com/Working-with-Layers'
+        parent:
+          allOf:
+            - $ref: '#/components/schemas/Element'
+            - description: 'Parent element. You can walk up the tree to a layer'
+            - nullable: true
+        childrenList:
+          type: array
+          description: 'List of child elements'
+          items:
+            $ref: '#/components/schemas/Element'
+        sourcesList:
+          type: array
+          description: 'List of elements that connect to this element. Please note: It is not possible to follow connections further than direct neighbours. This is to avoid circular dependencies or overloading prooph board processes. Use optional Sync mechanism, to keep track of the entire prooph board graph. See https://wiki.prooph-board.com/Cody-Server'
+          items:
+            $ref: '#/components/schemas/Element'
+        targetsList:
+          type: array
+          description: 'List of elements that are connected with this element. Please note: It is not possible to follow connections further than direct neighbours. This is to avoid circular dependencies or overloading prooph board processes. Use optional Sync mechanism, to keep track of the entire prooph board graph. See https://wiki.prooph-board.com/Cody-Server'
+          items:
+            $ref: '#/components/schemas/Element'
+        geometry:
+          type: object
+          description: 'Coordinates of the element on prooph board'
+          properties:
+            x:
+              type: number
+            y:
+              type: number
+        metadata:
+          type: string
+          description: 'Metadata of element, entered by user in Metadata Sidebar'
+          nullable: true
+    CodyResponse:
+      type: object
+      additionalProperties: false
+      required: [cody]
+      properties:
+        cody:
+          description: 'Main response text of Cody shown to user'
+          oneOf:
+            - $ref: '#/components/schemas/CodyMessage'
+            - $ref: '#/components/schemas/StyledCodyMessage'
+        details:
+          description: 'Optional details. Can be toggled by user.'
+          oneOf:
+            - $ref: '#/components/schemas/CodyMessage'
+            - $ref: '#/components/schemas/StyledCodyMessage'
+        type:
+          type: string
+          description: 'Each type triggers different behavior in prooph board. See wiki for details: https://wiki.prooph-board.com/Cody-Server'
+          default: Info
+          enum:
+            - Info
+            - Error
+            - Warning
+            - Question
+            - SyncRequired
+            - Empty
+
+    CodyMessage:
+      type: string
+      description: 'Non styled response text. Default styling depends on response type'
+    StyledCodyMessage:
+      description: 'Styled response text. Works like styling browser console, see https://developer.mozilla.org/en-US/docs/Web/API/console#styling_console_output'
+      example:
+        - '%cStyled Message. %cSwitched color'
+        - 'color: #73dd8e;font-weight: bold'
+        - 'color: #dddddd;font-weight: bold'
+      type: array
+      items:
+        type: string
+

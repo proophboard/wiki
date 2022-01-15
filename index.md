@@ -11,13 +11,13 @@ This means, development teams are asked more than ever to be multidisciplinary. 
 in an efficient and sustainable way? How can they keep an overview of a large, distributed system that is constantly changing?
 
 
-prooph board provides an answer to these questions. It's the result of many years working with teams, who develop event sourced systems and practice Domain-Driven Design.
-We distilled the good parts and combined them to a product. prooph board supports cross-functional teams in exploring unknown requirements and turn them into scalable solutions.
+[prooph board](https://prooph-board.com/){: .alert-link} provides an answer to these questions. It's the result of many years working with teams, who develop event sourced systems and practice Domain-Driven Design.
+We distilled the good parts and combined them to a product. [prooph board](https://prooph-board.com/){: .alert-link} supports cross-functional teams in exploring unknown requirements and turn them into scalable solutions.
 {: .alert .alert-success}
 
 The wiki is structured into three main parts: [Event Storming]({{site.baseurl}}/event_storming/what-is-event-storming.html){: .alert-link} on prooph board,
-[Collaborative Modelling]({{site.baseurl}}/collaborative_modelling/what-is-collaborative-modelling.html){: .alert-link} for system engineering and working with **Cody** - the Coding Bot.
-The three pillars on which prooph board is built.
+[Collaborative Modelling]({{site.baseurl}}/collaborative_modelling/what-is-collaborative-modelling.html){: .alert-link} for system engineering and working with [Cody]({{site.baseurl}}/cody/Cody-Server.html){: .alert-link} - the Coding Bot.
+The three pillars on which [prooph board](https://prooph-board.com/){: .alert-link} is built.
 {: .alert .alert-info}
 
 ## Introduction Slides

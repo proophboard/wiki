@@ -4,7 +4,7 @@ title: Prepare Big Picture Session
 toc_order: 03
 ---
 
-In this chapter you'll learn how to organize and run your first Big Picture Event Storming on prooph board.
+In this chapter you'll learn how to organize and run your first Big Picture Event Storming on [prooph board](https://prooph-board.com/).
 
 ## Plan Session(s)
 

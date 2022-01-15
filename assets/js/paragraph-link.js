@@ -161,14 +161,17 @@
 
             currentPath = window.location.pathname;
         }
+
     }, 100);
 
-    if(window.location.hash !== '') {
-        const scrollToEl = document.querySelector(window.location.hash);
+    window.setTimeout(() => {
+        if(window.location.hash !== '') {
+            const scrollToEl = document.querySelector(window.location.hash);
 
-        if(scrollToEl) {
-            scrollToEl.scrollIntoView(true);
+            if(scrollToEl) {
+                scrollToEl.scrollIntoView(true);
+            }
         }
-    }
+    }, 150)
 })();
 

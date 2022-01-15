@@ -33,7 +33,7 @@ To avoid wrong assumptions, requirements need to be defined by the people who al
 Collaborative Modelling provides a way for cross-functional teams to design software together, even if not all people know how to code. An abstract model helps to communicate on a level
 that is easy to understand on the one hand but still powerful enough to be a blueprint for software solutions.
 
-prooph board uses ideas from [Event Storming]({{site.baseurl}}/event_storming/what-is-event-storming.html){: .alert-link} to let a cross-functional team design an abstract model. The cherry on top is a coding bot
+[prooph board](https://prooph-board.com/){: .alert-link} uses ideas from [Event Storming]({{site.baseurl}}/event_storming/what-is-event-storming.html){: .alert-link} to let a cross-functional team design an abstract model. The cherry on top is a coding bot
 that becomes a hidden team member and provides assistance for translation of an abstract model into working software.
 {: .alert .alert-info}
 
