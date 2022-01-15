@@ -169,4 +169,4 @@ We hope you enjoyed your first Event Storming and it was a success! Big Picture 
 detailed sessions. Every Event Storming will sharpen your knowledge of the domain and create a common understanding of the things going on in the company.
 
 But you can even take it one step further and integrate Event Storming techniques into daily work to improve requirements engineering, collaboration, story writing and task breakdowns, documentation and even code assistance.
-How this works is covered in details in the next chapter: Collaborative Modelling.
+How this works is covered in details in the next chapter: [Collaborative Modelling]({{site.baseurl}}/collaborative_modelling/what-is-collaborative-modelling).

@@ -9,7 +9,7 @@
     <nav role="navigation">
         <ul class="summary">
             <li class="chapter"><h4>Event Storming<span id="es-accordion" class="accordion-indicator"></span></h4></li>
-            {% for col_page in site.event_storming %}
+            {% for col_page in site.event_storming | sort: "order_by" %}
             {% if page.url == col_page.url %}
             <li class="chapter active es-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% else %}
@@ -32,7 +32,7 @@
 
             <li class="divider"></li>
             <li class="chapter"><h4>Collaborative Modelling<span id="cm-accordion" class="accordion-indicator"></span></h4></li>
-            {% for col_page in site.collaborative_modelling %}
+            {% for col_page in site.collaborative_modelling | sort: "order_by" %}
             {% if page.url == col_page.url %}
             <li class="chapter active cm-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% else %}
@@ -55,7 +55,7 @@
 
             <li class="divider"></li>
             <li class="chapter"><h4>Cody - The Coding Bot<span id="co-accordion" class="accordion-indicator"></span></h4></li>
-            {% for col_page in site.cody %}
+            {% for col_page in site.cody | sort: "order_by" %}
             {% if page.url == col_page.url %}
             <li class="chapter active co-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% else %}
