@@ -6,7 +6,14 @@ toc_order: 01
 
 The classical approach to software development is throwing requirements specifications over the wall to a group of developers.
 Developers then take those requirements, interpret them and write code that they think does exactly what was asked for.
-Sounds simple, but we all know it isn't. Agile methods like Scrum aim to solve the problem by allowing only a rough roadmap.
+Sounds simple, but we all know it isn't.
+
+<a href="{{site.baseurl}}/assets/images/Waterfall.png" data-lightbox="Waterfall" data-title="Waterfall">
+    <span class="lightbox-indicator"></span>
+    <img src="{{site.baseurl}}/assets/images/Waterfall.png" />
+</a>
+
+Agile methods like Scrum aim to solve the problem by allowing only a rough roadmap.
 Precise requirements are defined for one or two sprints only (sprint usually equals 2 weeks). That makes sense, because requirements
 are never perfect. There are just too much unknown unknowns along the way. So agile methods have improved the situation a lot.
 Unfortunately, in many cases results are still not as expected. Development takes too long, users are not satisfied, the software is buggy.
@@ -14,6 +21,11 @@ Unfortunately, in many cases results are still not as expected. Development take
 Why this? Well, agile methods alone are only half of the story. A common mistake is that requirements are still thrown over the wall.
 They are only planned for a couple of weeks ahead &mdash; not 6 months or more &mdash; but the problem stays the same. One group of people is responsible
 for requirements engineering while another group tries to interpret them and writes the software.
+
+<a href="{{site.baseurl}}/assets/images/Scrum.png" data-lightbox="Scrum" data-title="Scrum">
+    <span class="lightbox-indicator"></span>
+    <img src="{{site.baseurl}}/assets/images/Scrum.png" />
+</a>
 
 The translation process from requirements into software is the problematic part. When people are not able to fully understand the reasoning behind
 requirements, they start making their own assumptions and more often than not these assumptions are wrong. A sprint cycle of two weeks reduces the risk
@@ -27,6 +39,11 @@ The earlier you get wrong assumptions out of the way, the cheaper becomes the wh
 ## Cross-Functional Teams
 
 To avoid wrong assumptions, requirements need to be defined by the people who also build the software. The only reasonable way is working in cross-functional teams.
+
+<a href="{{site.baseurl}}/assets/images/Cross-functional.png" data-lightbox="Cross-functional" data-title="Cross-functional">
+    <span class="lightbox-indicator"></span>
+    <img src="{{site.baseurl}}/assets/images/Cross-functional.png" />
+</a>
 
 :bulb: Only if business experts, UX designers (even end users), product managers and tech people work closely together and have in depth discussions the problem can be solved.
 

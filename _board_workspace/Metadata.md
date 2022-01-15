@@ -5,7 +5,7 @@ title: Metadata
 
 prooph board bridges the gap between problem and solution space. Start from a High Level Event Storming and walk all the way down to a detailed solution. Therefore, prooph board offers advanced documentation features like **Metadata** support for most of the elements available on a board.
 
-Metadata is useful to document technical details like message schema or information for [Cody]({{site.baseurl}}/cody_node_tutorial/Node.js-Cody-Tutorial){: .alert-link} (the coding bot), without distracting non-technical team members, when working together on a board.
+Metadata is useful to document technical details like message schema or information for [Cody]({{site.baseurl}}/cody/Cody-Server){: .alert-link} (the coding bot), without distracting non-technical team members, when working together on a board.
 {: .alert .alert-info}
 
 ## Add Metadata

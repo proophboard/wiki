@@ -62,7 +62,7 @@ If you want to prepare some supportive areas (recommended) like an overview of t
     <img src="{{site.baseurl}}/assets/images/big_picture_prepare_board.gif" />
 </a>
 
-Frames help you structuring the modelling space and allow for quick navigation using the [Tree View]({{site.baseurl}}/board_workspace/Tree-View.html) in the left sidebar.
+Frames help you structuring the modelling space and allow for quick navigation using the [Tree View]({{site.baseurl}}/board_workspace/Tree-View.html){: .alert-link} in the left sidebar.
 {: .alert .alert-info}
 
 Ok everything is prepared. The session can start!

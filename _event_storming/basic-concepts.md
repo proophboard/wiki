@@ -47,7 +47,7 @@ However, one command can cause one, multiple or no events. It depends on the [bu
 ## Actor
 
 ![Actor]({{site.baseurl}}/assets/images/Cards/Actor.png){: .card .vertical} Actor cards are used to highlight that users with a certain **role** are involved in a business process
-or use a specific [UI](#ui) to make [decisions](#command). The color code is **lemon yellow**{: .bg .actor} and the card is in portrait.
+or use a specific [UI](#ui--api) to make [decisions](#command). The color code is **lemon yellow**{: .bg .actor} and the card is in portrait.
 
 Write the user role on the card and put it next to a UI or Command card.
 
@@ -67,7 +67,7 @@ Writing down business rules on Aggregate Cards is a good preparation for detaile
 ## Information
 
 ![Information Card]({{site.baseurl}}/assets/images/Cards/Information.png){: .card .horizontal} **Green**{: .bg .information} cards represent information needed to make a [decision](#command).
-Information are usually displayed in a [UI](#ui), but can also be in an excel sheet, PDF document or printed out on paper. [External Systems](#external-system) fetch information via API or from a database to make decisions.
+Information are usually displayed in a [UI](#ui--api), but can also be in an excel sheet, PDF document or printed out on paper. [External Systems](#external-system) fetch information via API or from a database to make decisions.
 All these cases can be visualized with green Information Cards in combination with others.
 
 <a href="{{site.baseurl}}/assets/images/event_storming_information_example.png" data-lightbox="Information-Example" data-title="Information Cards Example">

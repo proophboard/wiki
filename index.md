@@ -7,7 +7,7 @@ title: prooph board Wiki
 
 Cross-functional teams, collaboration and experiments are key drivers to innovate and keep software and business aligned.
 Cloud-native, event-driven architecture ensures that software does not become a bottleneck in this fast moving digital world.
-This means, development teams are asked more than ever to be multidisciplinary. How can they tackle domain and tech complexity
+**Development teams are asked more than ever to be multidisciplinary.** How can they tackle domain and tech complexity
 in an efficient and sustainable way? How can they keep an overview of a large, distributed system that is constantly changing?
 
 
@@ -51,8 +51,8 @@ Since the free client has no server connection, cloud storage is disabled and yo
 
 :robot: Want to get started with Cody? These two coding bot introduction tutorials explain the basics.
 
-- [Node.js Code Generation Tutorial]({{site.baseurl}}/cody_node_tutorial/Node.js-Cody-Tutorial-Quick-Start)
-- [PHP Code Generation Tutorial]({{site.baseurl}}/cody_php_tutorial/PHP-Cody-Tutorial-Quick-Start)
+- [Node.js Code Generation Tutorial]({{site.baseurl}}/cody/nodejs-cody-tutorial)
+- [PHP Code Generation Tutorial]({{site.baseurl}}/cody/php-cody-tutorial)
 
 ## Powered by prooph software
 
