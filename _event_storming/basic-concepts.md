@@ -28,7 +28,7 @@ This enables rich model analysis and conversion to source code. We'll cover that
 ![Domain Event Card]({{site.baseurl}}/assets/images/Cards/Domain_Event.png){: .card .horizontal} Probably the most important element in Event Storming is the Domain Event. It represents a fact &mdash; **something that has happened**.
 The corresponding color is **orange**{: .bg .event}.
 
-You can describe every activity, data flow or process as a series of Domain Events e.g. *"User Browsed Online Shop" -> "Item Put Into Card" -> "Order Placed" -> "Order Paid" -> "Order Shipped"*.
+You can describe every activity, data flow or process as a series of Domain Events e.g. *"User Browsed Online Shop" -> "Item Put Into Cart" -> "Order Placed" -> "Order Paid" -> "Order Shipped"*.
 
 It's this simple concept that makes Event Storming successful. A quick explanation how to formulate an Event and the Big Picture Event Storming session can start.
 
