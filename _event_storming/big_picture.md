@@ -62,7 +62,7 @@ If you want to prepare some supportive areas (recommended) like an overview of t
     <img src="{{site.baseurl}}/assets/images/big_picture_prepare_board.gif" />
 </a>
 
-Frames help you structuring the modelling space and allow for quick navigation using the [Tree View]({{site.baseurl}}/board_workspace/Tree-View.html){: .alert-link} in the left sidebar.
+Frames help structuring the modelling space and allow for quick navigation using the [Tree View]({{site.baseurl}}/board_workspace/Tree-View.html){: .alert-link} in the left sidebar.
 {: .alert .alert-info}
 
 Ok everything is prepared. The session can start!
@@ -73,12 +73,12 @@ At the beginning of each workshop it is useful to give an introduction. *What ar
 Then the facilitator should quickly explain [what Event Storming is]({{site.baseurl}}/event_storming/what-is-event-storming.html) and how to work with [Domain Events]({{site.baseurl}}/event_storming/basic-concepts.html#domain-event).
 
 It is not recommended to explain all Event Storming concepts in one go, but rather explain them as needed. It saves time and reduces cognitive load. You usually don't need all Card types in a Big Picture Event Storming anyway.
-Explaining the concept of Domain Events and just start with that.
+Explain the concept of Domain Events and just start with that.
 {: .alert .alert-warning}
 
 ## First Event
 
-The first event is the most difficult to write. Everybody is still unsure what to do and how it works. But don't worry, this changes quickly.
+The first event is the most difficult one. Everybody is still unsure what to do and how it works. But don't worry, this changes quickly.
 A good starting point is to ask about the goals of the company/business unit. *What user needs do we serve? How do we make money?*
 
 <a href="{{site.baseurl}}/assets/images/Big_Picture/First_Event.png" data-lightbox="First_Event" data-title="First Event">
@@ -88,9 +88,9 @@ A good starting point is to ask about the goals of the company/business unit. *W
 
 ## Chaotic Mode
 
-After the first event is found (the icebreaker event), you ask every attendee to write down more events.
-This happens in parallel. Everybody should ask themself questions like: *What happens before the event? What comes after? What events are important for the company and our users?*
-Ordering is not important at this phase. Just brainstorm whatever comes to mind and put it somewhere. 10 - 15 minutes is a good timeframe for chaotic mode.
+After the first event is on the board (the icebreaker event), you can ask every attendee to write down more events.
+This happens in parallel. Everybody should think about questions like: *What happens before the event? What comes after? What events are important for the company and our users?*
+Ordering is not important at this stage. Just eventstorm whatever comes to mind and put it somewhere. 10 - 15 minutes is a good timeframe for chaotic mode.
 
 :bulb: Use prooph boards integrated timer to keep an eye on the clock. One can start a timer by clicking on the **hour glass** icon in the top bar. Set a time, press enter and the timer will start to tick. It is synchronized with all attendees.
 So everybody can see how much time is left.
