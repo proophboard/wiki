@@ -12,7 +12,7 @@ prooph board has two frame types:
 Depending on the scope of the board, this frame refers to a team, a DDD Bounded Context, a sub-domain, a business capability, a software module or a (micro)service. It's meant to group information, concepts and design that belong together. And it's the next level in the [tree view]({{site.baseurl}}/board_workspace/Tree-View.html) after layers.
 
 ## Feature Frame
-Within a Context Frame you can further group elements that document a specific feature or belong to the same use case. Features are the second level below layers and contexts in the [tree view]({{site.baseurl}}/board_workspace/Tree-View.html).
+Within a Feature Frame you can further group elements that document a specific feature or belong to the same use case. Features are the second level below layers and contexts in the [tree view]({{site.baseurl}}/board_workspace/Tree-View.html).
 
 ## Bird View
 
