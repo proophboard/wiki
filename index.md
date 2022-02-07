@@ -20,6 +20,10 @@ The wiki is structured into three main parts: [Event Storming]({{site.baseurl}}/
 The three pillars on which [prooph board](https://prooph-board.com/){: .alert-link} is built.
 {: .alert .alert-info}
 
+## Introduction Video
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/v96adgiOKts" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 ## Introduction Slides
 
 <iframe src="https://slides.com/prooph/event-driven-development/embed?style=light" width="100%" height="420" title="Visual Programming" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
