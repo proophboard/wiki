@@ -177,7 +177,10 @@ components:
           description: 'Unique id of the element on prooph board'
         name:
           type: string
-          description: 'Element name, see https://wiki.prooph-board.com/Cards.html#horizontal-rulers for details about Card names'
+          description: 'Element name, see https://wiki.prooph-board.com/board_workspace/Cards.html#horizontal-rulers for details about Card names'
+        description:
+          type: string
+          description: 'Rest of the text after first horizontal ruler (if one is used), see https://wiki.prooph-board.com/board_workspace/Cards.html#horizontal-rulers'
         type:
           type: string
           enum:
@@ -211,7 +214,7 @@ components:
           description: 'Indicates if given element is layer. See https://wiki.prooph-board.com/Working-with-Layers'
         defaultLayer:
           type: boolean
-          description: 'Indicates if given element is the default layer. See https://wiki.prooph-board.com/Working-with-Layers'
+          description: 'Indicates if given element is the default layer. See https://wiki.prooph-board.com/board_workspace/Tree-View.html#working-with-layers'
         parent:
           allOf:
             - $ref: '#/components/schemas/Element'
@@ -224,12 +227,12 @@ components:
             $ref: '#/components/schemas/Element'
         sourcesList:
           type: array
-          description: 'List of elements that connect to this element. Please note: It is not possible to follow connections further than direct neighbours. This is to avoid circular dependencies or overloading prooph board processes. Use optional Sync mechanism, to keep track of the entire prooph board graph. See https://wiki.prooph-board.com/Cody-Server'
+          description: 'List of elements that connect to this element. Please note: It is not possible to follow connections further than direct neighbours. This is to avoid circular dependencies or overloading prooph board processes. Use optional Sync mechanism, to keep track of the entire prooph board graph. See https://wiki.prooph-board.com/cody/Cody-Server.html'
           items:
             $ref: '#/components/schemas/Element'
         targetsList:
           type: array
-          description: 'List of elements that are connected with this element. Please note: It is not possible to follow connections further than direct neighbours. This is to avoid circular dependencies or overloading prooph board processes. Use optional Sync mechanism, to keep track of the entire prooph board graph. See https://wiki.prooph-board.com/Cody-Server'
+          description: 'List of elements that are connected with this element. Please note: It is not possible to follow connections further than direct neighbours. This is to avoid circular dependencies or overloading prooph board processes. Use optional Sync mechanism, to keep track of the entire prooph board graph. See https://wiki.prooph-board.com/cody/Cody-Server.html'
           items:
             $ref: '#/components/schemas/Element'
         geometry:
@@ -261,7 +264,7 @@ components:
             - $ref: '#/components/schemas/StyledCodyMessage'
         type:
           type: string
-          description: 'Each type triggers different behavior in prooph board. See wiki for details: https://wiki.prooph-board.com/Cody-Server'
+          description: 'Each type triggers different behavior in prooph board. See wiki for details: https://wiki.prooph-board.com/cody/Cody-Server.html'
           default: Info
           enum:
             - Info
