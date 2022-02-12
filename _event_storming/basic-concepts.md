@@ -15,7 +15,7 @@ Event Storming defines a limited set of elements. This simplicity is a key reaso
 </a>
 
 
-*Open [The Picture](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2FThe%2520Picture.xml){: target="_blank" rel="noopener noreferrer"} in the free client*{: .small}
+*Open [The Picture](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2FThe%2520Picture.xml?temp=1){: target="_blank" rel="noopener noreferrer"} in the free client*{: .small}
 
 [prooph board's](https://prooph-board.com/){: .alert-link} primary modelling elements (called Cards) are based on Event Storming concepts. Instead of simple colored sticky notes, Cards have a type assigned.
 This enables rich model analysis and conversion to source code. We'll cover that later in detail.

@@ -444,7 +444,7 @@ This avoids circular reference problems and keeps payload exchanged between proo
 However, it's possible to request a full board sync and build up a node map in Cody. But this is an advanced topic, that should be covered later.
 {: .alert .alert-info}
 
-:bulb: _`Node` interface also provides information about `parent()` and `children()` which are useful when grouping cards in a [frame](https://wiki.prooph-board.com/Move-Frames)_
+:bulb: _`Node` interface also provides information about `parent()` and `children()` which are useful when grouping cards in a [frame](https://wiki.prooph-board.com/board_workspace/Frames.html)_
 
 Enough theory! Let's see it in action. Update your `AggregateHook` with this version:
 
@@ -558,11 +558,11 @@ Meanwhile checkout these libraries for advanced code generation:
 
 And have a look at the example boards to learn more about working on prooph board:
 
-- [Annotated prooph board Example](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2Fprooph board%2520Example.xml)
+- [Annotated prooph board Example](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2Fprooph board%2520Example.xml?temp=1)
 
-- [Event Storming - The Picture](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2FThe%2520Picture.xml)
+- [Event Storming - The Picture](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2FThe%2520Picture.xml?temp=1)
 
-- [Event Modeling Example](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2FEvent%2520Modeling.xml)
+- [Event Modeling Example](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2FEvent%2520Modeling.xml?temp=1)
 
 
 
