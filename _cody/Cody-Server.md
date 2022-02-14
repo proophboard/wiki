@@ -7,7 +7,14 @@ toc_order: 01
 Implementing your own Cody server is as easy as implementing any other web application that handles HTTP requests.
 In this guide we're looking at the necessary steps and the API spec.
 
-Let's start with a basic overview:
+## Intro Video
+Cody meets Event Catalog
+
+<div class="video-container">
+    <iframe class="video" src="https://www.youtube-nocookie.com/embed/0FAgsPNqUV4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
+## Intro Slides
 
 <iframe src="https://slides.com/prooph/event-driven-development/embed?style=light#/18" width="100%" height="420" title="Visual Programming" scrolling="no" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
 
