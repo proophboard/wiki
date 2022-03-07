@@ -6,6 +6,14 @@ toc_order: 03
 
 In this chapter you'll learn how to organize and run your first Big Picture Event Storming on [prooph board](https://prooph-board.com/).
 
+## Recorded Session
+
+This recorded Big Picture Event Storming session gives you some insights about the format:
+
+<div class="video-container">
+    <iframe class="video" src="https://www.youtube-nocookie.com/embed/vwuSDCRghb8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+
 ## Plan Session(s)
 
 Ok, you decided to organize your first Event Storming. That's great :clap:. Welcome to the club of Event Stormers. You won't regret it!
