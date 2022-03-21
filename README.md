@@ -4,7 +4,7 @@ Based on [https://sighingnow.github.io/jekyll-gitbook](https://sighingnow.github
 
 ## Run Locally with docker
 
-`docker run — rm -v $(pwd):/srv/jekyll -p 4000:4000 -it jekyll/jekyll:builder jekyll serve`
+`docker run --rm -v $(pwd):/srv/jekyll -p 4000:4000 -it jekyll/jekyll:builder jekyll serve`
 
 ## Additions
 
