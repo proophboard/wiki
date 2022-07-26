@@ -26,7 +26,7 @@ require(['gitbook', 'jquery'], function(gitbook, $) {
 
             gitbook.toolbar.createButton({
                 icon: site.icon,
-                label: site.text,
+                label: site.label,
                 position: 'right',
                 onClick: site.onClick
             });
