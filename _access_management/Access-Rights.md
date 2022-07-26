@@ -48,4 +48,4 @@ While user and team permissions will also make the board visible on the board ov
 So people need to know the direct link to the board.
 
 {: .alert .alert-warning}
-Access for anyone works as long as enough user quota is available in the organization. Each unknown person that opens a board is added as [guest]({{site.baseurl}}/access_management/Managing-an-Organization.html#guests){: .alert-link}.
+Access for anyone works as long as enough user quota is available in the organization. Each unknown person who opens a board is added as [guest]({{site.baseurl}}/access_management/Managing-an-Organization.html#guests){: .alert-link}.
