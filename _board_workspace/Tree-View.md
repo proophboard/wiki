@@ -40,7 +40,9 @@ By clicking on the filter icon you can select the type of element you are lookin
 | type:element | Matches all elements with given type. Same as using the type filter |
 | term1; term2 | Combine search terms, for example: #tag; !#other; type:event        |
 
-
+If you have a card selected on the board and press *Ctrl+F (Cmd+F on Mac)* the type of the card will be set as filter and its name as search term.
+This shortcut is useful to quickly find similar cards on the board.
+{: .alert .alert-info}
 
 ## Working with Layers
 
