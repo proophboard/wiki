@@ -32,3 +32,13 @@ You can manually resize a Card to adjust the width. If you press **Ctrl-Key** (C
 ## Connecting Cards
 
 <img src="{{site.baseurl}}/assets/images/connect.gif" alt="Connect Cards" />
+
+## Tagging
+
+You can use tags (words prefixed with #) on cards. They turn into clickable links. A click sets the tag as filter in
+the [Tree View]({{site.baseurl}}/board_workspace/Tree-View.html).
+
+<img src="{{site.baseurl}}/assets/images/tagging.gif" alt="Tagging Cards" />
+
+Using **!#** in the search filters all elements that don't have a specific tag assigned.
+{: .alert .alert-info}
