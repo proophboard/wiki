@@ -4,8 +4,7 @@ title: Basic Concepts
 toc_order: 02
 ---
 
-:dart: The goal of Event Storming in general is to first gain an overview of the entire domain and then of all details associated with this overview needed for
-specific features. Colored sticky notes are used to describe business and information flows, user system interactions and automated processes.
+:dart: The goal of Event Storming is to first gain an overview of the entire domain and then zoom into details to discuss opportunities and find bottlenecks. Colored sticky notes are used to describe business and information flows, user system interactions, and automated processes.
 
 Event Storming defines a limited set of elements. This simplicity is a key reason for its success. The entry barrier is low so that all people can use the method without long explanations.
 
