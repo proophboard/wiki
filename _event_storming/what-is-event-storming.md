@@ -33,7 +33,8 @@ There is no doubt that Event Storming works best with everybody being in the sam
 
 However, we're a remote-first company and this motivated us to experiment with remote Event Storming in 2019. Early sessions on realtimeboard (now called Miro)
 were promising. But we quickly realized that a general purpose online whiteboard has limitations. As long as you only run Event Storming sessions occasionally,
-online tools like Miro and Mural work just fine. But they become limiting the more you want to use Event Storming for detailed collaborative modelling and event-based system engineering.
+online tools like Miro and Mural work just fine. But they become limiting the more you want to use Event Storming for detailed day-to-day team interactions and event-based system engineering.
+We call this advanced usage Continuous Event Storming
 
 This is where [prooph board](https://prooph-board.com/){: .alert-link} comes into play. Our goal is to provide the best possible remote Event Storming experience and give distributed teams
 a powerful tool to understand business problems and design high-quality software solutions.

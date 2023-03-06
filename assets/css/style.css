@@ -373,3 +373,19 @@ h1:hover .paragraph-link, h2:hover .paragraph-link, h3:hover .paragraph-link {
     width: 100%;
     height: 100%;
 }
+
+/* Lists */
+.checked-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.checked-list li {
+    padding-left: 1rem;
+    text-indent: -0.7rem;
+}
+
+.checked-list li::before {
+    content: "✔️      ";
+}

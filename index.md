@@ -15,8 +15,8 @@ in an efficient and sustainable way? How can they keep an overview of a large, d
 We distilled the good parts and combined them to a product. [prooph board](https://prooph-board.com/){: .alert-link} supports cross-functional teams in exploring unknown requirements and turn them into scalable solutions.
 {: .alert .alert-success}
 
-The wiki is structured into three main parts: [Event Storming]({{site.baseurl}}/event_storming/what-is-event-storming.html){: .alert-link} on prooph board,
-[Collaborative Modelling]({{site.baseurl}}/collaborative_modelling/what-is-collaborative-modelling.html){: .alert-link} for system engineering and working with [Cody]({{site.baseurl}}/cody/Cody-Server.html){: .alert-link} - the Coding Bot.
+The wiki is structured into three main parts: [Event Storming Basics]({{site.baseurl}}/event_storming/what-is-event-storming.html){: .alert-link} on prooph board,
+[Continuous Event Storming]({{site.baseurl}}/continuous_event_storming/what-is-continuous_event_storming.html){: .alert-link} for system engineering and working with [Cody]({{site.baseurl}}/cody/Cody-Server.html){: .alert-link} - the Coding Bot.
 The three pillars on which [prooph board](https://prooph-board.com/){: .alert-link} is built.
 {: .alert .alert-info}
 

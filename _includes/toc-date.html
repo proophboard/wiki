@@ -8,7 +8,7 @@
     </div>
     <nav role="navigation">
         <ul class="summary">
-            <li class="chapter"><h4>Event Storming<span id="es-accordion" class="accordion-indicator"></span></h4></li>
+            <li class="chapter"><h4>Event Storming Basics<span id="es-accordion" class="accordion-indicator"></span></h4></li>
             {% assign col_pages = site.event_storming | sort: "toc_order" %}
             {% for col_page in col_pages %}
             {% if page.url == col_page.url %}
@@ -32,8 +32,8 @@
             {% endfor %}
 
             <li class="divider"></li>
-            <li class="chapter"><h4>Collaborative Modelling<span id="cm-accordion" class="accordion-indicator"></span></h4></li>
-            {% assign col_pages = site.collaborative_modelling | sort: "toc_order" %}
+            <li class="chapter"><h4>Continuous Event Storming<span id="cm-accordion" class="accordion-indicator"></span></h4></li>
+            {% assign col_pages = site.continuous_event_storming | sort: "toc_order" %}
             {% for col_page in col_pages %}
             {% if page.url == col_page.url %}
             <li class="chapter active cm-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">

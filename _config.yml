@@ -21,7 +21,7 @@ collections:
   event_storming:
     output: true
     sort_by: toc_order
-  collaborative_modelling:
+  continuous_event_storming:
     output: true
     sort_by: toc_order
   cody:
@@ -37,7 +37,7 @@ gitbook_search:
     pages: true
     collections:
       - event_storming
-      - collaborative_modelling
+      - continuous_event_storming
       - board_workspace
       - access_management
       - cody
