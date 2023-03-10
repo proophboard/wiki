@@ -82,7 +82,7 @@ all participants to contribute by adding cards in parallel.
     <img src="{{site.baseurl}}/assets/images/CES/EventMap/Add_Car_Input.png" />
 </a>
 
-After a collaboration session you might want to clean up the Event Map and move such information into [Card Metadata]({{site.baseUrl}}/board_workspace/Metadata.html){: .alert-link}
+After a collaboration session you might want to clean up the Event Map and move such information into [Card Metadata]({{site.baseUrl}}/board_workspace/Metadata.html)[Card Metadata]({{site.baseUrl}}/board_workspace/Metadata.html){: .alert-link}
 {: .alert .alert-warning}
 
 ## How - Command Handling
