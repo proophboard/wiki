@@ -82,7 +82,7 @@ all participants to contribute by adding cards in parallel.
     <img src="{{site.baseurl}}/assets/images/CES/EventMap/Add_Car_Input.png" />
 </a>
 
-After a collaboration session you might want to clean up the Event Map and move such information into [Card Metadata]({{site.baseUrl}}/board_workspace/Metadata.html)[Card Metadata]({{site.baseUrl}}/board_workspace/Metadata.html){: .alert-link}
+After a collaboration session you might want to clean up the Event Map and move such information into [Card Metadata]({{site.baseUrl}}/board_workspace/Metadata.html){: .alert-link}
 {: .alert .alert-warning}
 
 ## How - Command Handling
@@ -154,10 +154,58 @@ Here is our recommended issue template:
 | Section           | Description                                                                   |
 |-------------------|-------------------------------------------------------------------------------|
 | Title             | Feature Name                                                                  |
-| User Story        | Derive from Actor + Command                                                   |
+| User Story        | Derive from Actor + Command + Event(s)                                        |
 | Image             | Make a screenshot of the feature on proooph board -> paste in issue           |
 | Link to Event Map | Right click on prooph board feature -> choose "Direct Link" -> paste in issue |
 | Sub Tasks         | Split design and development work into small chunks                           |
 
 With some routine you can create issues using this template in less than a minute. Compare this to your normal story writing and task breakdown sessions!
 {: .alert .alert-success}
+
+You can also link the prooph board feature with the issue by choosing "**Link to Task**" from the feature context menu:
+
+<a href="{{site.baseurl}}/assets/images/CES/EventMap/Link_to_Task.gif" data-lightbox="link_to_task" data-title="Link to Task">
+    <span class="lightbox-indicator"></span>
+    <img src="{{site.baseurl}}/assets/images/CES/EventMap/Link_to_Task.gif" />
+</a>
+
+## Feature Slicing
+
+The key for any system to be maintainable over a long period of time is composition. A complex system should be composed
+of simple parts. When designing features around events, you can use a few heuristics to keep them simple.
+
+Let's have a look at the next event on our Event Map: **Car Updated**. Sounds like a simple CRUD operation, right?
+But wait, what exactly do we want to update? A Design-Level Event Storming session should give us some insights.
+
+<a href="{{site.baseurl}}/assets/images/CES/EventMap/Update_Car_information.png" data-lightbox="update_car_information" data-title="Update Car Information">
+    <span class="lightbox-indicator"></span>
+    <img src="{{site.baseurl}}/assets/images/CES/EventMap/Update_Car_information.png" />
+</a>
+
+We quickly realize that a car is going to have a lot of information assigned to it. When adding a car, we only focused on the bare minimum
+information needed. The update command on the other hand should support the full set, even thought it's a lot.
+
+We know that the Fleet Manager will update a car step by step. Not all information is available right from the beginning for example the licence plate
+or the equipment list. So does it make sense to have this huge update command? Wouldn't it be better to split the command into smaller chunks and give 
+the task more structure?
+
+<a href="{{site.baseurl}}/assets/images/CES/EventMap/Update_Car_sliced_actions.png" data-lightbox="update_car_sliced_actions" data-title="Update car sliced actions">
+    <span class="lightbox-indicator"></span>
+    <img src="{{site.baseurl}}/assets/images/CES/EventMap/Update_Car_sliced_actions.png" />
+</a>
+
+So instead of one big update command, we now have 5 distinct commands for updating different parts of a car. Those commands can be represented as 5 tabs in the UI or a 5-step editing process.
+In the backend we gain some benefits from this design:
+
+### 1. Fine-grained events 
+If we want to add more automation later, the events can act as triggers. Let's say we want to run an image optimization process whenever an image is assigned to a car. 
+To add this feature, you don't need to touch existing code at all. Just implement a listener on `Image Assigned` events and call it a day!
+
+### 2. Simple features 
+What if we later discover that car equipment can always be changed no matter if the car is booked or not, but basic and technical information are not allowed to change? 
+You can adjust the business rule for the `Set Equipment` command without any risk of introducing a bug in the other commands!
+
+### 3. Possibility to analyse behavior 
+We want to make our users happy and help them with our software as much as we can. We do have the feeling that fleet managers spent a significant amount of time maintaining
+car information. To validate our assumption we can look at the events and see how often a car is updated until it is ready to be published. We can also see what information is updated last or more often than other information.
+This can give us an idea how to improve the system and provide a metric to measure if our changes improve the situation or make it worse. 
