@@ -172,7 +172,10 @@ You can also link the prooph board feature with the issue by choosing "**Link to
 ## Feature Slicing
 
 The key for any system to be maintainable over a long period of time is composition. A complex system should be composed
-of simple parts. When designing features around events, you can use a few heuristics to keep them simple.
+of simple parts. When designing features around events, you can use a heuristic to keep them simple:
+
+Too much cards in a single feature frame are an alarming signal that the feature is probably too big.
+{: .alert .alert-danger}
 
 Let's have a look at the next event on our Event Map: **Car Updated**. Sounds like a simple CRUD operation, right?
 But wait, what exactly do we want to update? A Design-Level Event Storming session should give us some insights.
