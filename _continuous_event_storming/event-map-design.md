@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Event Map Design
-toc_order: 03
+toc_order: 04
 ---
 
 This page provides a step-by-step guide of how to design an event-driven system using Continuous Event Storming. The resulting artifact is 

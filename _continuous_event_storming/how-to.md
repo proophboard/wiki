@@ -1,7 +1,7 @@
 ---
 layout: default
 title: How To
-toc_order: 02
+toc_order: 03
 ---
 
 Teams that want to integrate Event Storming into their daily work find some useful suggestions here. Please treat them as such! In the beginning, you're of course looking for some guidance, and we are happy to provide it here as well as with our workshops. 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tips and Tricks
-toc_order: 04
+toc_order: 05
 ---
 
 ## Sketch fast, complete later
@@ -33,3 +33,5 @@ Instead of meeting in a video call and screen share a Jira board, you meet on pr
 4. Depending on group/team size either repeat step 3 by forming groups of 4 people and merge results or skip the 4-people phase and directly merge results with the whole team.
 5. As good Event Stormers like you are, you should have collected Hot Spots with open questions along the way and also have a good visual model at the end that will help you slice the story/epic and define acceptance criteria.
 6. Assign open Hot Spots to people for clarification and finish the meeting with a feeling of real productive progress. 
+
+

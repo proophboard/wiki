@@ -15,7 +15,7 @@ This has huge advantages for product teams compared to using Event Storming only
 {: .checked-list}
 
 
-Before we dive into each bullet point, let's have a quick review of how software development evolved and why there is still room for improophment.
+Before we dive into each bullet point, let's have a quick review of how software development evolved and why there is still room for **improophment**.
 
 ## Waterfall
 
@@ -70,7 +70,7 @@ that is easy to understand on the one hand but still powerful enough to be a blu
 *Visualizing problems and solutions, sketching different ideas and playing with examples is much more fun and way more effective than reading through problem briefs and writing stories.*
 
 [prooph board](https://prooph-board.com/){: .alert-link} uses ideas from [Event Storming]({{site.baseurl}}/event_storming/what-is-event-storming.html){: .alert-link} to let a cross-functional team design an abstract model. The cherry on top is our coding bot
-[Cody]({{site.baseurl}}/cody/Cody-Server){: .alert-link} that becomes a hidden team member and provides assistance for translation of an abstract model into working software.
+[Cody]({{site.baseurl}}/cody/introduction){: .alert-link} that becomes a hidden team member and provides assistance for translation of an abstract model into working software.
 {: .alert .alert-info}
 
 In the next chapter, we explain [how to]({{site.baseurl}}/continuous_event_storming/how-to.html) integrate Continuous Event Storming into the development workflow.
