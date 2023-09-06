@@ -124,7 +124,7 @@ a desired Change and an Event. If the Change is not accepted by the system, it i
     <img src="{{site.baseurl}}/assets/images/philosophy/pattern-with-digitized-reaction.png" />
 </a>
 
-To increase efficiency of a process or be able to scale it, manual steps made by a humans are often replaced by some kind of automation.
+To increase efficiency of a process or be able to scale it, manual steps made by humans are often replaced by some kind of automation.
 Having events in place, that's a straight forward task. Process automation can be designed and implemented as a reaction to events.
 
 **If this Event happened, do that Change next.** 
