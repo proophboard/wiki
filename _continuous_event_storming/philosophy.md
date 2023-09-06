@@ -160,7 +160,7 @@ You see the repeating pattern? **Composition is the only solid way to tackle com
 
 ### The Pattern is everywhere
 
-Developing software is a multidisciplinary activity best done by team of experts in their respective fields.
+Developing software is a multidisciplinary activity best done by a team of experts in their respective fields.
 A typical list of disciplines includes (sometimes more, sometimes less):
 
 - research
@@ -178,10 +178,10 @@ A typical list of disciplines includes (sometimes more, sometimes less):
 All this activities have to be coordinated. People with different attitude and aptitude have to work together. 
 Successful collaboration requires very good communication. Everybody needs to be on the same page. Everybody should talk about the same things
 using the same wording. Everybody should understand the work of every other team member to some extent. This does not mean, that everybody needs to be
-an expert in every field, but there should be some kind of common understanding.
+an expert in every field, but there should be some kind of overlapping understanding.
 
 If you've read this page carefully and understand the implications, you might have an "Aha moment" now. When events are at the core of reality, and they are also at the 
-core of the behavior of a system, then they can also be at the core of any activity related to build a system. They cannot only be at the core, they actually are at the core!
+core of the behavior of a system, then they can also be at the core of any activity related to working on a system. They cannot only be at the core, they actually are at the core!
 You just have to make the implicit explicit.
 {: .alert .alert-success}
 
