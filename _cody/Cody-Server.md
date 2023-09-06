@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Server Implementation
-toc_order: 01
+toc_order: 10
 ---
 
 Implementing your own Cody server is as easy as implementing any other web application that handles HTTP requests.

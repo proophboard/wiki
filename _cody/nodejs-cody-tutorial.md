@@ -1,7 +1,7 @@
 ---
 layout: default
 title: NodeJS Cody Tutorial
-toc_order: 05
+toc_order: 15
 ---
 
 [prooph board](https://prooph-board.com/) can connect to a coding bot called **Cody**. With its help you can generate working code from an event model.
