@@ -85,7 +85,7 @@ Without an Event you cannot tell why Information is what it is at a specific poi
 A desired Change is also incomplete without an Event, because you cannot tell if the Change really happened. If you have an older snapshot of the Information, you can try it by comparing
 the old snapshot with the new one, but still you cannot be 100% sure that the desired Change was actually the one that caused the Information to change.
 
-By only looking at an Event you can say:
+Contrary to that, by looking at an Event you can say:
 
 1. There was a desired Change, and it really happened because you can see the Event.
 2. The Event produced a new set of Information.
