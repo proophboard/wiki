@@ -91,7 +91,7 @@ Contrary to that, by looking at an Event you can say:
 2. The Event produced a new set of Information.
 
 So you can purely focus on events and design everything else around them. And that's the reason why a [Big Picture Event Storming]({{site.baseUrl}}/event_storming/big_picture.html#first-event)
-should always start with collecting events only. It is one concept that is easy to grasp. 
+should always start with collecting events. It is one concept that is easy to grasp. 
 It provides you with everything you need to discuss behavior of a system, and it will be the same at any other scale or detail level. 
 
 Now lets look at a few different scales.
