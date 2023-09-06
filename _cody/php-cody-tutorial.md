@@ -104,16 +104,15 @@ use EventEngine\InspectioCody\Board\BaseHook;
 use EventEngine\InspectioCody\Http\Message\CodyResponse;
 use EventEngine\InspectioCody\Http\Message\Response;
 use EventEngine\InspectioGraphCody\Node;
-use stdClass;
 
 final class CommandHook extends BaseHook //BaseHook provides some helper methods like writeFile()
 {
     /**
      * @param  Node     $command Information about Command sticky received from prooph board event map
-     * @param  stdClass $context Context object populated in codyconfig.php
+     * @param  object   $context Context object populated in codyconfig.php
      * @return CodyResponse      Response sent back to prooph board, shown in Cody Console
      */
-    public function __invoke(Node $command, stdClass $context): CodyResponse
+    public function __invoke(Node $command, object $context): CodyResponse
     {
         $commandName = $command->name();
         $commandFile = $commandName . '.php';
@@ -161,7 +160,18 @@ use EventEngine\InspectioCody\CodyConfig;
 // IMPORT COMMAND HOOK
 use EventEngine\InspectioCody\Hook\CommandHook;
 
-$context = new stdClass(); // replace it with your own context class
+$context = new class() implements \EventEngine\InspectioCody\CodyContext {
+    public function isFullSyncRequired(): bool
+    {
+        // TODO: Implement isFullSyncRequired() method.
+        return false;
+    }
+
+    public function clearGraph(): void
+    {
+        // TODO: Implement clearGraph() method.
+    }
+}; // replace it with your own context class
 
 $context->path = '/exercises/src';
 
@@ -243,7 +253,6 @@ use EventEngine\InspectioCody\Board\BaseHook;
 use EventEngine\InspectioCody\Http\Message\CodyResponse;
 use EventEngine\InspectioCody\Http\Message\Response;
 use EventEngine\InspectioGraphCody\Node;
-use stdClass;
 use function is_array;
 use function json_decode;
 
@@ -251,10 +260,10 @@ final class CommandHook extends BaseHook //BaseHook provides some helper methods
 {
     /**
      * @param  Node     $command Information about Command sticky received from prooph board event map
-     * @param  stdClass $context Context object populated in codyconfig.php
+     * @param  object   $context Context object populated in codyconfig.php
      * @return CodyResponse      Response sent back to prooph board, shown in Cody Console
      */
-    public function __invoke(Node $command, stdClass $context): CodyResponse
+    public function __invoke(Node $command, object $context): CodyResponse
     {
         $commandName = $command->name();
         $commandFile = $commandName . '.php';
@@ -460,17 +469,16 @@ use EventEngine\InspectioCody\Http\Message\Response;
 use EventEngine\InspectioGraph\VertexType;
 use EventEngine\InspectioGraphCody\Node;
 use LogicException;
-use stdClass;
 use function lcfirst;
 
 final class AggregateHook extends BaseHook
 {
     /**
      * @param  Node     $aggregate Information about aggregate sticky received from prooph board event map
-     * @param  stdClass $context Context object populated in codyconfig.php
+     * @param  object   $context Context object populated in codyconfig.php
      * @return CodyResponse      Response sent back to prooph board, shown in Cody Console
      */
-    public function __invoke(Node $aggregate, stdClass $context): CodyResponse
+    public function __invoke(Node $aggregate, object $context): CodyResponse
     {
         $aggregateName = $aggregate->name();
         $aggregateFile = $aggregateName . '.php';
