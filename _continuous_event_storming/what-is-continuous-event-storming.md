@@ -75,3 +75,5 @@ that is easy to understand on the one hand but still powerful enough to be a blu
 
 In the next chapter, we explain [how to]({{site.baseurl}}/continuous_event_storming/how-to.html) integrate Continuous Event Storming into the development workflow.
 
+If you first want to know why Continuous Event Storming is such a great technique, you can take a look at our in-depth [philosophy]({{site.baseUrl}}/continuous_event_storming/philosophy.html) behind the approach.
+
