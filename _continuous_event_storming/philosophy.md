@@ -4,13 +4,13 @@ title: Philosophy
 toc_order: 02
 ---
 
-You might ask yourself why should you spend time learning Continuous Event Storming and is it worth the effort to change your development workflow? 
+You might ask yourself why you should learn Continuous Event Storming? Is it really worth the effort to change your development workflow? 
 Maybe even change the system architecture?
 
-This page provides you with some fundamental thoughts that are at the core of this technique. It should help you understand where we are coming from
-and where we are heading to. If you want to join us on that journey is up to you :).
+This page provides you with some fundamental thoughts of the technique. It should help you understand where we are coming from
+and where we are heading to. If you want to join us on the journey is up to you :).
 
-## Change is the root of Time
+## Change is the root of time
 
 > "Nothing happens until something moves."
 
@@ -22,7 +22,7 @@ Time is basically a measurement between two **events**.
 
 Without events time would not exist, because if nothing changes you have nothing to measure.
 
-## Event equals Information changed over Time
+## Event equals Information changed over time
 
 We perceive our environment through events. If we see something, it already happened. The picture in our head is a picture of the past.
 As an example, if you look at a star in the sky at night you cannot really know if the star still exists. The light of the star needs a lot of light years to reach the earth
@@ -42,17 +42,18 @@ That itself is not a bad idea. However, the order is wrong.
 :bulb: **Information is always the result of one or more events.**
 
 If you design an information system without putting events at the core, you're doomed. You're ignoring the fundamental building blocks
-of our reality or at least give them less attention. This results in so-called accidental complexity. At the beginning of a new system everything looks clear and simple.
-But you continue to add more and more information changes and at some point you loose control over it. Without proper events that reflect information change over time,
+of our reality or at least give them not enough attention. This results in so-called accidental complexity. At the beginning of a new system everything looks clear and simple.
+But you continue to add more and more information changes and at some point you loose control over it. Without proper events,
 you cannot tell **why something happened**. Yesterday the system was all good then someone did something, and now it's broken, 
 but you cannot perceive what happened, because you missed the events.
 
-Observability of how information changed over time is super important when the system reached a certain level of complexity.
+Observability is very important as soon as the system reaches a certain level of complexity.
 {: .alert .alert-warning}
 
 Now one could argue: we have logs and logging tables for observability. We also have Mixpanel or Google Analytics in the frontend to track user behavior. So we know what happened.
 
-Well, that's true. But usually logs in whatever way are an afterthought. They are not part of the design process, and they are not at the heart of the system. 
+Well, that's maybe true. But again, the order is wrong. Usually logs in whatever way are an afterthought. They are not part of the design process, 
+and they are not at the heart of the system. 
 It's an additional layer instead of being the foundation. Which basically reduces efficiency, clarity and alignment. 
 
 ## Patterns embrace efficiency
@@ -82,6 +83,7 @@ And since events are at the core you can even simplify the pattern to this:
 
 
 Without an Event you cannot tell why Information is what it is at a specific point in time. It's just a snapshot like one frame of a movie or a thumbnail of YouTube video. 
+
 A desired Change is also incomplete without an Event, because you cannot tell if the Change really happened. If you have an older snapshot of the Information, you can try it by comparing
 the old snapshot with the new one, but still you cannot be 100% sure that the desired Change was actually the one that caused the Information to change.
 
