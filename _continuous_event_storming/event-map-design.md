@@ -212,3 +212,7 @@ You can adjust the business rule for the `Set Equipment` command without any ris
 We want to make our users happy and help them with our software as much as we can. We do have the feeling that fleet managers spent a significant amount of time maintaining
 car information. To validate our assumption we can look at the events and see how often a car is updated until it is ready to be published. We can also see what information is updated last or more often than other information.
 This can give us an idea how to improve the system and provide a metric to measure if our changes improve the situation or make it worse. 
+
+## Prototyping
+
+The Event Map is basically a blueprint of the system. You can use [Cody]({{site.baseUrl}}/cody_wizard/introduction.html) to translate it into a working prototype or even a production-ready application.
