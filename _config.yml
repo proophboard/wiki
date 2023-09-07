@@ -27,6 +27,12 @@ collections:
   cody:
     output: true
     sort_by: toc_order
+  cody_engine:
+    output: true
+    sort_by: toc_order
+  cody_wizard:
+    output: true
+    sort_by: toc_order
   board_workspace:
     output: true
   access_management:
@@ -41,7 +47,8 @@ gitbook_search:
       - board_workspace
       - access_management
       - cody
-      - cody
+      - cody_engine
+      - cody_wizard
 
 
 # markdown render engine.
