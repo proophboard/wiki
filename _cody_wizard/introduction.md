@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Introduction
+title: Cody Wizard Intro
 toc_order: 01
 ---
 
