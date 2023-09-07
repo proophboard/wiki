@@ -16,7 +16,7 @@ We distilled the good parts and combined them to a product. [prooph board](https
 {: .alert .alert-success}
 
 The wiki is structured into three main parts: [Event Storming Basics]({{site.baseurl}}/event_storming/what-is-event-storming.html){: .alert-link} on prooph board,
-[Continuous Event Storming]({{site.baseurl}}/continuous_event_storming/what-is-continuous_event_storming.html){: .alert-link} for system engineering and working with [Cody]({{site.baseurl}}/cody/Cody-Server.html){: .alert-link} - the Coding Bot.
+[Continuous Event Storming]({{site.baseurl}}/continuous_event_storming/what-is-continuous_event_storming.html){: .alert-link} for system engineering and working with [Cody]({{site.baseurl}}/cody/introduction.html){: .alert-link} - the Coding Bot.
 The three pillars on which [prooph board](https://prooph-board.com/){: .alert-link} is built.
 {: .alert .alert-info}
 
@@ -47,7 +47,7 @@ Since the free client has no server connection, cloud storage is disabled and yo
 
 :pushpin: Here is a list of example boards that open directly in the free client. Check them out for some inspiration!
 
-- [Annotated prooph board Example](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2Fprooph board%2520Example.xml?temp=1){: target="_blank"}
+- [Design & Prototyping](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2Fprooph board%2520Example.xml?temp=1){: target="_blank"}
 
 - [Event Storming - The Picture](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2FThe%2520Picture.xml?temp=1){: target="_blank"}
 
