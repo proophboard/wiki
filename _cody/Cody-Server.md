@@ -29,7 +29,7 @@ A Cody Server should be able to handle a fixed set of HTTP requests:
 ## NodeJS Example Server
 
 The NodeJS Express server should give you an idea how to implement your own Cody Server. If you want to see more code,
-check out the [complete implementation on Github](https://github.com/event-engine/nodejs-inspectio-cody/tree/main/src).
+check out the [complete implementation on Github](https://github.com/proophboard/node-cody-server/tree/main/packages).
 
 This part of the documentation needs some more :heart:. We'll provide a more detailed explanation soon!
 {: .alert .alert-warning}
