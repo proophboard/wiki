@@ -44,6 +44,16 @@ If you have a card selected on the board and press *Ctrl+F (Cmd+F on Mac)* the t
 This shortcut is useful to quickly find similar cards on the board.
 {: .alert .alert-info}
 
+## Drag Elements From The Tree
+
+You can drag an element from the tree view and drop it on the board, which is a shortcut for copy & pasting the element. 
+
+<div class="video-container">
+    <video style="width: 100%" controls>
+        <source src="{{site.baseUrl}}/assets/video/board_workspace/draggable_tree_view.mp4">
+    </video>
+</div>
+
 ## Working with Layers
 
 You may know layers from drawing and image editing tools like Photoshop. In prooph board they work quite the same, but have a slightly different purpose. Let's imagine your team did a High Level Event Storming on prooph board and now you would like to sketch out some first model design ideas. You'd like to do that next to the High Level Storming to use it as a reference. Anyway, next time your team wants to continue with the High Level Storming and design-level ideas would distract other team members. With layers you can have both! Sketch ideas on dedicated layers, but hide them when the team works together on the event map.
