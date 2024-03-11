@@ -20,14 +20,11 @@ Ok, you decided to organize your first Event Storming. That's great :clap:. Welc
 Fortunately, there is not much upfront planning needed. However, it's important to set expectations correctly and start small. A few pitfalls
 should be avoided to not risk success.
 
-Big Picture Event Storming isn't complicated. We'll provide you a simple guideline to follow and give you some tips and tricks to keep discussions running and people engaged.
-But everything needs practice. Event Storming is no exception. Don't expect that it will work perfectly at first try.
-
 Goal of the first session should be to a) get familiar with Event Storming itself and b) create a shared understanding of the domain or the area of the business that is of interest for you.
 {: .alert .alert-success}
 
-Do not define goals like: After the session we should be able to derive stories that we can work on next. Such goals often require detail sessions.
-Set as a goal for a Big Picture Storming - maybe to convince a manager to spent time and money - could end up in unmet expectations and unhappy attendees or supporters.
+Avoid goals like: After the session we should be able to derive stories that we can work on next. Such goals often require detail sessions.
+If you set them too early - maybe to convince a manager to spent time and money - you could end up with unmet expectations and unhappy attendees or supporters.
 {: .alert .alert-danger}
 
 :busts_in_silhouette: Make sure to have a facilitator available. You need someone with Event Storming experience and moderator skills. It's possible to run out of time or end up in heated discussions, if you don't have
@@ -173,8 +170,8 @@ Feedback is always very important. It helps to learn and grow and give people a 
 
 ## What's next?
 
-We hope you enjoyed your first Event Storming and it was a success! Big Picture sessions are already very valuable and you can repeat them or continue with specific areas of the value chain, zoom into sub processes and do
+We hope you enjoyed your first Event Storming, and it was a success! Big Picture sessions are already very valuable, and you can repeat them or continue with specific areas of the value chain, zoom into sub processes and do
 detailed sessions. Every Event Storming will sharpen your knowledge of the domain and create a common understanding of the things going on in the company.
 
-But you can even take it one step further and integrate Event Storming techniques into daily work to improve requirements engineering, collaboration, story writing and task breakdowns, documentation and even code assistance.
-How it works is covered in the next chapter: [Continuous Event Storming]({{site.baseurl}}/continuous_event_storming/what-is-continuous-event-storming).
+But you can even take it one step further and integrate Event Storming and Modeling techniques into daily work to improve requirements engineering, collaboration, story writing and task breakdowns, documentation and even code assistance.
+How it works is covered in the next chapter: [Event Modeling]({{site.baseurl}}/event_modeling/why-event-modeling).

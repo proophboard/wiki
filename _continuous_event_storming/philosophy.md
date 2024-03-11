@@ -4,6 +4,9 @@ title: Philosophy
 toc_order: 02
 ---
 
+You're viewing an old version of the wiki. Head over to the new [Event Modeling section]({{site.baseUrl}}/event_modeling/philosophy.html).
+{: .alert .alert-warning}
+
 You might ask yourself why you should learn Continuous Event Storming? Is it really worth the effort to change your development workflow? 
 Maybe even change the system architecture?
 

@@ -18,13 +18,22 @@ toc:
   h_max: 3
 
 collections:
+  getting_started:
+    output: true
+    sort_by: toc_order
   event_storming:
+    output: true
+    sort_by: toc_order
+  event_modeling:
     output: true
     sort_by: toc_order
   continuous_event_storming:
     output: true
     sort_by: toc_order
   cody:
+    output: true
+    sort_by: toc_order
+  cody_play:
     output: true
     sort_by: toc_order
   cody_engine:
@@ -42,11 +51,13 @@ gitbook_search:
   include:
     pages: true
     collections:
+      - getting_started
       - event_storming
-      - continuous_event_storming
+      - event_modeling
       - board_workspace
       - access_management
       - cody
+      - cody_play
       - cody_engine
       - cody_wizard
 

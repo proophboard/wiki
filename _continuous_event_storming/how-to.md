@@ -4,6 +4,9 @@ title: How To
 toc_order: 03
 ---
 
+You're viewing an old version of the wiki. Head over to the new [Event Modeling section]({{site.baseUrl}}/event_modeling/how-to.html).
+{: .alert .alert-warning}
+
 Teams that want to integrate Event Storming into their daily work find some useful suggestions here. Please treat them as such! In the beginning, you're of course looking for some guidance, and we are happy to provide it here as well as with our workshops. 
 But every team is different so should be their processes. Iterate on the format until you feel comfortable.
 

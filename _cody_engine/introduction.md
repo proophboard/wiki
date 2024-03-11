@@ -4,12 +4,9 @@ title: Cody Engine Intro
 toc_order: 01
 ---
 
-Looking for a way to bridge the gap between Event Storming and prototyping or even production-ready solutions?
+Looking for a way to bridge the gap between Event Modeling and prototyping or even production-ready solutions?
 
-[Cody]({{site.baseUrl}}/cody/introduction.html) sounds nice, but developing your own code generator on top of it is too much of a hassle?
-
-We've got you covered!
-{: .alert .alert-success}
+[Cody]({{site.baseUrl}}/cody/introduction.html) is a barbone system. Cody Engine builds on top of it to provide a ready-to-use prototyping and application framework.
 
 <div class="video-container">
     <iframe class="video" src="https://www.youtube-nocookie.com/embed/ycNambVdQks" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

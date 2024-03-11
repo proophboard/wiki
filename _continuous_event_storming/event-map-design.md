@@ -4,6 +4,9 @@ title: Event Map Design
 toc_order: 04
 ---
 
+You're viewing an old version of the wiki. Head over to the new [Event Modeling section]({{site.baseUrl}}/event_modeling/event-modeling-on-prooph-board.html).
+{: .alert .alert-warning}
+
 This page provides a step-by-step guide of how to design an event-driven system using Continuous Event Storming. The resulting artifact is 
 called **Event Map**. 
 

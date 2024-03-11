@@ -59,10 +59,6 @@ and put them between a command and one ore more events.
 
 ![Business Rule Example]({{site.baseurl}}/assets/images/event_storming_business_rule_example.png)
 
-The card type is labeled "Aggregate" on prooph board because the domain concept connected with the term is important for detailed modelling. We'll do a deep dive in the Collaborative Modelling part of the documentation.
-Writing down business rules on Aggregate Cards is a good preparation for detailed modelling sessions.
-{: .alert .alert-info}
-
 ## Information
 
 ![Information Card]({{site.baseurl}}/assets/images/Cards/Information.png){: .card .horizontal} **Green**{: .bg .information} cards represent information needed to make a [decision](#command).

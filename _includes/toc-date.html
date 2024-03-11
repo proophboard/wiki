@@ -8,6 +8,30 @@
     </div>
     <nav role="navigation">
         <ul class="summary">
+            <li class="chapter"><h4>Getting Started<span id="gs-accordion" class="accordion-indicator"></span></h4></li>
+            {% assign col_pages = site.getting_started | sort: "toc_order" %}
+            {% for col_page in col_pages %}
+            {% if page.url == col_page.url %}
+            <li class="chapter active gs-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
+                {% else %}
+            <li class="chapter gs-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
+                {% endif %}
+                <a href="{{site.baseurl}}{{col_page.url}}">
+                    {%- if col_page.sidebar_label -%}
+                    {{col_page.sidebar_label | escape }}
+                    {%- else -%}
+                    {{ col_page.title | escape }}
+                    {%- endif -%}
+                </a>
+                {% if site.toc.enabled %}
+                {% if page.url == col_page.url %}
+                {% include toc.html html=content h_min=site.toc.h_min h_max=site.toc.h_max %}
+                {% endif %}
+                {% endif %}
+            </li>
+            {% endfor %}
+
+            <li class="divider"></li>
             <li class="chapter"><h4>Event Storming Basics<span id="es-accordion" class="accordion-indicator"></span></h4></li>
             {% assign col_pages = site.event_storming | sort: "toc_order" %}
             {% for col_page in col_pages %}
@@ -32,13 +56,13 @@
             {% endfor %}
 
             <li class="divider"></li>
-            <li class="chapter"><h4>Continuous Event Storming<span id="cm-accordion" class="accordion-indicator"></span></h4></li>
-            {% assign col_pages = site.continuous_event_storming | sort: "toc_order" %}
+            <li class="chapter"><h4>Event Modeling<span id="em-accordion" class="accordion-indicator"></span></h4></li>
+            {% assign col_pages = site.event_modeling | sort: "toc_order" %}
             {% for col_page in col_pages %}
             {% if page.url == col_page.url %}
-            <li class="chapter active cm-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
+            <li class="chapter active em-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% else %}
-            <li class="chapter cm-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
+            <li class="chapter em-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% endif %}
                 <a href="{{site.baseurl}}{{col_page.url}}">
                     {%- if col_page.sidebar_label -%}
@@ -80,13 +104,13 @@
             {% endfor %}
 
             <li class="divider"></li>
-            <li class="chapter"><h4>Cody Engine (beta)<span id="ce-accordion" class="accordion-indicator"></span></h4></li>
-            {% assign col_pages = site.cody_engine | sort: "toc_order" %}
+            <li class="chapter"><h4>Cody Play<span id="cp-accordion" class="accordion-indicator"></span></h4></li>
+            {% assign col_pages = site.cody_play | sort: "toc_order" %}
             {% for col_page in col_pages %}
             {% if page.url == col_page.url %}
-            <li class="chapter active ce-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
+            <li class="chapter active cp-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% else %}
-            <li class="chapter ce-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
+            <li class="chapter cp-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% endif %}
                 <a href="{{site.baseurl}}{{col_page.url}}">
                     {%- if col_page.sidebar_label -%}
@@ -104,13 +128,13 @@
             {% endfor %}
 
             <li class="divider"></li>
-            <li class="chapter"><h4>Cody Wizard (beta)<span id="cw-accordion" class="accordion-indicator"></span></h4></li>
-            {% assign col_pages = site.cody_wizard | sort: "toc_order" %}
+            <li class="chapter"><h4>Cody Engine (beta)<span id="ce-accordion" class="accordion-indicator"></span></h4></li>
+            {% assign col_pages = site.cody_engine | sort: "toc_order" %}
             {% for col_page in col_pages %}
             {% if page.url == col_page.url %}
-            <li class="chapter active cw-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
+            <li class="chapter active ce-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% else %}
-            <li class="chapter cw-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
+            <li class="chapter ce-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% endif %}
                 <a href="{{site.baseurl}}{{col_page.url}}">
                     {%- if col_page.sidebar_label -%}
@@ -176,7 +200,7 @@
     </nav>
     <footer>
         <p class="markdown-section">
-            Join the community on <a href="https://gitter.im/proophboard/community" target="_blank" rel="noopener noreferrer">Gitter</a> or <a href="https://www.linkedin.com/groups/9135097/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.<br/>
+            Join the community on <a href="https://www.linkedin.com/groups/9135097/" target="_blank" rel="noopener noreferrer">LinkedIn</a>.<br/>
             <br/>
             <a href="https://github.com/proophboard/issue-tracker/issues">Issues & RFCs</a> | <a href="https://www.youtube.com/channel/UCZTiz3e08bPRqA23vkIoBEQ">Youtube Channel</a><br/>
         </p>

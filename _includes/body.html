@@ -16,8 +16,12 @@
                 <div class="search-noresults">
                     <section class="normal markdown-section">
 
-                        {% if page.title %}
-                            <h1 id="{{ page.id }}" style="text-align: center; padding-bottom: 40px;text-transform: uppercase">{{ page.title | escape }}</h1>
+                        {% if page.headline %}
+                            <!--suppress XmlDuplicatedId -->
+                        <h1 id="{{ page.id }}" style="text-align: center; padding-bottom: 40px;text-transform: uppercase">{{ page.headline | escape }}</h1>
+                        {% elsif page.title %}
+                            <!--suppress XmlDuplicatedId -->
+                        <h1 id="{{ page.id }}" style="text-align: center; padding-bottom: 40px;text-transform: uppercase">{{ page.title | escape }}</h1>
                         {% endif %}
 
                         {{ content }}

@@ -4,6 +4,9 @@ title: What is Continuous Event Storming
 toc_order: 01
 ---
 
+You're viewing an old version of the wiki. Head over to the new [Event Modeling section]({{site.baseUrl}}/event_modeling/why-event-modeling.html).
+{: .alert .alert-warning}
+
 Continuous Event Storming is what the name suggests: Event Storming used on a daily basis, and integrated into the team development workflow.
 This has huge advantages for product teams compared to using Event Storming only occasionally. Here is a quick overview:
 

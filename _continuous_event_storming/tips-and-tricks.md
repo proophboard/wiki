@@ -4,6 +4,9 @@ title: Tips and Tricks
 toc_order: 05
 ---
 
+You're viewing an old version of the wiki. Head over to the new [Event Modeling section]({{site.baseUrl}}/event_modeling/tips-and-tricks.html).
+{: .alert .alert-warning}
+
 ## Sketch fast, complete later
 
 Don't try to make the Event Map look perfectly arranged in a collaboration session. Design/sketch fast and assign a responsible person to clean up or add missing details after the session.

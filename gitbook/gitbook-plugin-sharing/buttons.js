@@ -1,11 +1,11 @@
 require(['gitbook', 'jquery'], function(gitbook, $) {
     var SITES = {
-        'twitter': {
-            'label': 'Twitter',
-            'icon': 'fa fa-twitter',
+        'linkedin': {
+            'label': 'LinkedIn',
+            'icon': 'fa fa-linkedin',
             'onClick': function(e) {
                 e.preventDefault();
-                window.open('https://twitter.com/prooph_software');
+                window.open('https://www.linkedin.com/groups/9135097/');
             }
         },
         'gitter': {
