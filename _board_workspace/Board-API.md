@@ -14,7 +14,7 @@ You need to be a board admin to be able to access the Board Settings.
 
 <div class="video-container">
     <video style="width: 100%" controls>
-        <source src="{{site.baseUrl}}/assets/video/Board_API.webm">
+        <source src="{{site.baseUrl}}/assets/video/board_workspace/Board_API.webm">
     </video>
 </div>
 
