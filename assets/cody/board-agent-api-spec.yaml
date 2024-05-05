@@ -1,0 +1,334 @@
+openapi: 3.0.1
+info:
+  title: prooph board Agent API
+  version: v0.1.0
+servers:
+  - url: https://app.prooph-board.com/board/api/v1/board-agent/{boardId}/tasks
+    variables:
+      boardId:
+        description: UUID of the prooph board
+        default: 00000000-0000-0000-0000-000000000000
+paths:
+  /add-element-next-to-another:
+    post:
+      summary: Add a new element next to another
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddElementNextToAnother"
+      responses:
+        '202':
+          description: Accepted
+  /add-element-at-position:
+    post:
+      summary: Add a new element at a fixed position on the graph or inside a parent element
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AddElementAtPosition"
+      responses:
+        '202':
+          description: Accepted
+  /connect-elements:
+    post:
+      summary: Connect two elements with an arrow
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConnectElements"
+      responses:
+        '202':
+          description: Accepted
+  /rename-element:
+    post:
+      summary: Rename an element
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RenameElement"
+      responses:
+        '202':
+          description: Accepted
+  /remove-element:
+    post:
+      summary: Remove an element
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RemoveElement"
+      responses:
+        '202':
+          description: Accepted
+  /change-element-description:
+    post:
+      summary: Change description of an element
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangeElementDescription"
+      responses:
+        '202':
+          description: Accepted
+  /change-element-metadata:
+    post:
+      summary: Change metadata of an element
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangeElementMetadata"
+      responses:
+        '202':
+          description: Accepted
+  /change-element-label:
+    post:
+      summary: Change label (name + description) of an element
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ChangeElementLabel"
+      responses:
+        '202':
+          description: Accepted
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-Auth-Secret
+  schemas:
+    AddElementNextToAnother:
+      type: object
+      additionalProperties: false
+      required:
+        - elementId
+        - boardId
+        - nextToElementId
+        - type
+        - name
+        - content
+        - position
+        - parent
+      properties:
+        elementId:
+          $ref: "#/components/schemas/ElementId"
+        boardId:
+          $ref: "#/components/schemas/BoardId"
+        nextToElementId:
+          $ref: "#/components/schemas/ElementId"
+        type:
+          $ref: "#/components/schemas/ElementType"
+        name:
+          $ref: "#/components/schemas/ElementName"
+        content:
+          $ref: "#/components/schemas/ElementContent"
+        position:
+          $ref: "#/components/schemas/RelativePosition"
+        parent:
+          $ref: "#/components/schemas/Parent"
+        metadata:
+          $ref: "#/components/schemas/ElementMeta"
+        size:
+          $ref: "#/components/schemas/Size"
+        margin:
+          type: integer
+          description: Distrance between element and nextToElement
+        center:
+          type: boolean
+          description: Center element relative to nextToElement
+          default: true
+    AddElementAtPosition:
+      type: object
+      additionalProperties: false
+      required:
+        - elementId
+        - boardId
+        - type
+        - name
+        - content
+        - position
+        - parent
+      properties:
+        elementId:
+          $ref: "#/components/schemas/ElementId"
+        boardId:
+          $ref: "#/components/schemas/BoardId"
+        type:
+          $ref: "#/components/schemas/ElementType"
+        name:
+          $ref: "#/components/schemas/ElementName"
+        content:
+          $ref: "#/components/schemas/ElementContent"
+        position:
+          $ref: "#/components/schemas/Position"
+        parent:
+          $ref: "#/components/schemas/Parent"
+        metadata:
+          $ref: "#/components/schemas/ElementMeta"
+        size:
+          $ref: "#/components/schemas/Size"
+    ConnectElements:
+      type: object
+      additionalProperties: false
+      required:
+        - source
+        - target
+        - boardId
+      properties:
+        source:
+          $ref: "#/components/schemas/ElementId"
+        target:
+          $ref: "#/components/schemas/ElementId"
+        boardId:
+          $ref: "#/components/schemas/BoardId"
+    RenameElement:
+      type: object
+      additionalProperties: false
+      required:
+        - elementId
+        - name
+        - boardId
+      properties:
+        elementId:
+          $ref: "#/components/schemas/ElementId"
+        boardId:
+          $ref: "#/components/schemas/BoardId"
+        name:
+          $ref: "#/components/schemas/ElementName"
+    RemoveElement:
+      type: object
+      additionalProperties: false
+      required:
+        - elementId
+        - boardId
+      properties:
+        elementId:
+          $ref: "#/components/schemas/ElementId"
+        boardId:
+          $ref: "#/components/schemas/BoardId"
+    ChangeElementDescription:
+      type: object
+      additionalProperties: false
+      required:
+        - elementId
+        - content
+        - boardId
+      properties:
+        elementId:
+          $ref: "#/components/schemas/ElementId"
+        boardId:
+          $ref: "#/components/schemas/BoardId"
+        content:
+          $ref: "#/components/schemas/ElementContent"
+    ChangeElementMetadata:
+      type: object
+      additionalProperties: false
+      required:
+        - elementId
+        - metadata
+        - boardId
+      properties:
+        elementId:
+          $ref: "#/components/schemas/ElementId"
+        boardId:
+          $ref: "#/components/schemas/BoardId"
+        metadata:
+          $ref: "#/components/schemas/ElementMeta"
+    ChangeElementLabel:
+      type: object
+      additionalProperties: false
+      required:
+        - elementId
+        - label
+        - boardId
+      properties:
+        elementId:
+          $ref: "#/components/schemas/ElementId"
+        boardId:
+          $ref: "#/components/schemas/BoardId"
+        label:
+          type: string
+          description: Element name + description
+    BoardId:
+      type: string
+      format: uuid
+    ElementId:
+      type: string
+      description: 'Unique id of the element on prooph board'
+    ElementType:
+      type: string
+      description: Type of the element
+      enum:
+        - event
+        - command
+        - role
+        - aggregate
+        - document
+        - policy
+        - hotSpot
+        - externalSystem
+        - ui
+        - feature
+        - boundedContext
+        - freeText
+        - edge
+        - misc
+        - icon
+        - image
+        - layer
+    ElementName:
+      type: string
+      description: Name of the element
+    ElementContent:
+      type: string
+      description: "Additional text description on element, empty string for no description"
+    Position:
+      type: object
+      additionalProperties: false
+      required:
+        - x
+        - y
+      properties:
+        x:
+          type: integer
+        y:
+          type: integer
+    RelativePosition:
+      type: string
+      description: Position relative to nextToElement
+      enum:
+        - left
+        - right
+        - above
+        - below
+    Parent:
+      type: string
+      description: "Id of the parent element e.g. a context, slice or feature. Null if element should be added directly on the board"
+      nullable: true
+    ElementMeta:
+      type: string
+      nullable: true
+      description: JSON serialized string of element metadata
+    Size:
+      type: object
+      properties:
+        width:
+          type: integer
+          minimum: 1
+        height:
+          type: integer
+          minimum: 1
+      required:
+        - width
+        - height
+      additionalProperties: false
+
+security:
+  - ApiKeyAuth: []

@@ -13,10 +13,9 @@ Throughout the guide we'll use an example from a car rental business.
 
 ## Start from an Idea
 
-Let's assume we are a startup team that wants to develop a new car rental SaaS from scratch. We just finished our 
-[Big Picture Event Storming]({{site.baseurl}}/event_storming/big_picture) and now want to get our hands dirty with some product development.
+Let's assume we are a car rental startup team that finished its first [Big Picture Event Storming]({{site.baseurl}}/event_storming/big_picture).
 
-The first module of our new SaaS should be some kind of **Fleet Management**. We need to be able to **Add a Car** to our fleet
+The first module should be some kind of **Fleet Management**. We need to be able to **Add a Car** to the fleet
 and **Create a Rental Offer** for it so that it can be **booked by customers**.
 
 <a href="{{site.baseurl}}/assets/images/CES/EventMap/FM_First_Features.png" data-lightbox="fm_first_features" data-title="FleetManagement First Features">
@@ -24,13 +23,13 @@ and **Create a Rental Offer** for it so that it can be **booked by customers**.
     <img src="{{site.baseurl}}/assets/images/CES/EventMap/FM_First_Features.png" />
 </a>
 
-Right now, we are in our first [Event Modeling Design session]({{site.baseurl}}/event_modeling/how-to.html#phase-ii-event-modeling-design).
-We should look at each event from above and think of it as a [Slice]({{site.baseUrl}}/board_workspace/Frames.html#event-modeling-slice) of the new system.
+An [Event Modeling Design session]({{site.baseurl}}/event_modeling/how-to.html#phase-ii-event-modeling-design) will help us with the details.
+To get the ball rolling, we look at each event from above and think of it as a [Slice]({{site.baseUrl}}/board_workspace/Frames.html#event-modeling-slice) of the new system.
 
 ## Where - Identify the Entry Point
 
-In the early version of our SaaS, adding a car will be a manual task. Later we want to add batch imports and derive car details 
-from a third-party service, but for now we keep things simple since we want to have a fast feedback loop.
+Adding a car to the fleet will be a manual task done by the fleet manager. In later iterations we can think about batch imports and derive car details 
+from a third-party service, but for now we keep things simple. This ensures a fast feedback loop.
 
 So we start with a [UI Card]({{site.baseUrl}}/event_storming/basic-concepts.html#ui--api) to sketch a rough idea of a UI screen showing a list of cars in the fleet
 and a button to add a new car.
@@ -47,7 +46,6 @@ That's totally fine. The only advice is that those wireframes should not be too 
 ## Who - Identify the Actor
 
 A [Slice]({{site.baseUrl}}/board_workspace/Frames.html#event-modeling-slice) either represents an action that a user can perform in the system or an automated process step. 
-You can associate a story to it and for this you need an Actor (aka. Role or Persona).
 
 ```
 As a Fleet Manager
@@ -55,7 +53,7 @@ I want to add a car to the fleet
 so that it can be booked later.
 ```
 
-Pull a new Slice from the sidebar. Each Slice has one or more user lanes with an [Actor Card]({{site.baseUrl}}/event_storming/basic-concepts.html#actor) as a label. Either change the existing Actor or add another lane, then put the UI card into the corresponding lane.
+Pull a new Slice from the sidebar. Each Slice has one or more user lanes with an [Actor Card]({{site.baseUrl}}/event_storming/basic-concepts.html#actor) as a label. Put the UI card into a fleet manager lane.
 
 <a href="{{site.baseurl}}/assets/images/event-modeling/fleet-overview-actor-lane.png" data-lightbox="fo_actor" data-title="Fleet Overview Actor">
     <span class="lightbox-indicator"></span>
@@ -64,10 +62,10 @@ Pull a new Slice from the sidebar. Each Slice has one or more user lanes with an
 
 ## What - Identify the Intention
 
-The Fleet Manager wants to **add a car** to the fleet. Adding a car is their intention, and they can tell the system about it by triggering a command.
-Let's put a [Command Card]({{site.baseUrl}}/event_storming/basic-concepts.html#command) into the API lane of the Slice. 
-When the system accepts and processes the command an event occurs, so we also move the **Car Added** [Event Card](/event_storming/basic-concepts.html#event) into the slice.
-Events are placed in the module lane of the system module where they occur. In our case, this is the **Fleet Management** module.
+The Fleet Manager wants to **add a car** to the fleet. This intention is represented as a [Command Card]({{site.baseUrl}}/event_storming/basic-concepts.html#command) placed in the API lane of the Slice. 
+
+When the system accepts and processes the command an event occurs, in our case the **Car Added** [Event](/event_storming/basic-concepts.html#event).
+Events are placed in the module lane of the system module where they occur. Here, this is the **Fleet Management** module.
 
 <a href="{{site.baseurl}}/assets/images/event-modeling/fleet-overview-add-car-command.png" data-lightbox="add_car_command" data-title="Add Car Command">
     <span class="lightbox-indicator"></span>
@@ -76,7 +74,7 @@ Events are placed in the module lane of the system module where they occur. In o
 
 ## Input - Which Information
 
-As a next step we should define which information is needed for the command to be accepted by the system. In a collaboration session
+As a next step, we should define which information is needed for the command to be accepted by the system. In a collaboration session
 the best way to do that is by using an [Information Card]({{site.baseUrl}}/event_storming/basic-concepts.html#information) per field or property. This allows 
 all participants to contribute by adding cards in parallel.
 
@@ -119,7 +117,7 @@ As a last step, we should mark the Slice as planned.
 </a>
 
 
-We put Slices along an imaginary timeline from left to right just like we do with events in a Big Picture Event Storming. You might have noticed that the Cards within a Slice are ordered
+Slices are put along an imaginary timeline from left to right just like we do with events in a Big Picture Event Storming. You might have noticed that the Cards within a Slice are ordered
 from top to bottom: **UI > Command > Business Rules > Event**. This illustrates a specific point in time.
 {: .alert .alert-info}
 
@@ -137,7 +135,7 @@ Story Writing is optional. In fact, you already have all the information on the 
 {: .alert .alert-warning}
 
 Now that we have designed a Slice on prooph board, we can easily create a ticket for it.
-We use a Github issue here as an example, but this could also be a User Story in Jira or similar.
+We use a Github issue here as an example, but this could also be a task in Jira or similar.
 
 <a href="{{site.baseurl}}/assets/images/event-modeling/story-writing.png" data-lightbox="add_car_issue" data-title="Add Car Issue">
     <span class="lightbox-indicator"></span>
@@ -154,7 +152,7 @@ Here is our recommended issue template:
 | Link to Event Map | Right click on prooph board Slice -> choose "Direct Link" -> paste in issue |
 | Sub Tasks         | Split design and development work into small chunks                         |
 
-With some routine you can create issues using this template in less than a minute. Compare this to your normal story writing and task breakdown sessions!
+With some routine you can create issues using this template in less than a minute. Compare this to your normal story writing and task breakdown sessions 🤯
 {: .alert .alert-success}
 
 You can also link the prooph board Slice with the issue by choosing "**Link to Task**" from the Slice context menu:
@@ -166,13 +164,13 @@ You can also link the prooph board Slice with the issue by choosing "**Link to T
 
 ## Feature Slicing
 
-The key for any system to be maintainable over a long period of time is composition. A complex system should be composed
+The key for any system to be maintainable over a long period of time is **composition**. A complex system should be composed
 of simple parts. When designing Slices around events, you can use a heuristic to keep them simple:
 
-Too much cards in a single Slice are an alarming signal that the feature is probably too big.
+Too much cards in a single Slice are an alarming signal that the Slice is probably too big.
 {: .alert .alert-danger}
 
-Let's have a look at the next event on our Event Map: **Car Updated**. Sounds like a simple CRUD operation, right?
+Let's have a look at the next event on our Event Map: **Car Updated**. Sounds like a simple operation, right?
 But wait, what exactly do we want to update? A design session should give us some insights.
 
 <a href="{{site.baseurl}}/assets/images/CES/EventMap/Update_Car_information.png" data-lightbox="update_car_information" data-title="Update Car Information">
@@ -180,8 +178,8 @@ But wait, what exactly do we want to update? A design session should give us som
     <img src="{{site.baseurl}}/assets/images/CES/EventMap/Update_Car_information.png" />
 </a>
 
-We quickly realize that a car is going to have a lot of information assigned to it. When adding a car, we only focused on the bare minimum
-information needed. The update command on the other hand should support the full set, even thought it's a lot.
+We quickly realize that a car is going to have a lot of information assigned to it. When adding a car, we only focused on a small portion. 
+The update command should support the full set, even thought it's a lot.
 
 We know that the Fleet Manager will update a car step by step. Not all information is available right from the beginning for example the licence plate
 or the equipment list. So does it make sense to have this huge update command? Wouldn't it be better to split the command into smaller chunks and give 
@@ -193,19 +191,20 @@ the task more structure?
 </a>
 
 So instead of one big update command, we now have 5 distinct commands for updating different parts of a car. Those commands can be represented as 5 tabs in the UI or a 5-step editing process.
-In the backend we gain some benefits from this design:
+In the system we gain some benefits from this design:
 
 ### 1. Fine-grained events 
 If we want to add more automation later, the events can act as triggers. Let's say we want to run an image optimization process whenever an image is assigned to a car. 
-To add this feature, you don't need to touch existing code at all. Just implement a listener on `Image Assigned` events and call it a day!
+To add this feature, you don't need to touch existing functionality. Just react on `Image Assigned` events and call it a day!
 
 ### 2. Simple Slices 
 What if we later discover that car equipment can always be changed no matter if the car is booked or not, but basic and technical information are not allowed to change? 
 You can adjust the business rule for the `Set Equipment` command without any risk of introducing a bug in the other commands!
 
 ### 3. Possibility to analyse behavior 
-We want to make our users happy and help them with our software as much as we can. We do have the feeling that fleet managers spent a significant amount of time maintaining
-car information. To validate our assumption we can look at the events and see how often a car is updated until it is ready to be published. We can also see what information is updated last or more often than other information.
+We do have the feeling that fleet managers spent a significant amount of time maintaining
+car information. To validate our assumption we can look at the events and see how often a car is updated until it is ready to be published. 
+We can also see what information is updated last or more often than other information.
 This can give us an idea how to improve the system and provide a metric to measure if our changes improve the situation or make it worse. 
 
 ## Prototyping
