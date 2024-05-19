@@ -11,26 +11,27 @@ prooph board supports 3 frame types:
 
 Depending on the scope of the board, this frame refers to a team, a DDD Bounded Context, a sub-domain, a business capability, a software module or a (micro)service. It's meant to group information, concepts and design that belong together. And it's the next level in the [tree view]({{site.baseurl}}/board_workspace/Tree-View.html) after layers.
 
-## Event Modeling Slice
-By default, [Event Modeling Mode]({{site.baseUrl}}/board_workspace/Event-Modeling-Mode.html) is turned on, which gives you access to Slices instead of Feature frames (see below).
+## Event Modeling Swimlanes
 
-A Slice is similar to a Feature frame in the way that it groups elements of a specific feature. The main difference is the structure of a Slice. It comes with swim lanes for user roles and system modules.
-
-You can add additional lanes by hovering the topmost or lowest lane label and click the plus icon.
-Doing this on the first Slice of the board also modifies the Slice blueprint. This means, that every new Slice pulled from the sidebar will have the additional lanes, too.
-
-You can also mark a different Slice on the board as **Slice Blueprint** in case you add new lanes later in the design. And you can copy new lanes to all existing Slices by choosing the action in the Slice context menu (see video).
+A Swimlanes Frame behaves similar to a Context, but ships with Event Modeling Swimlanes support. Each Frame contains a timeline, a user role lane and a system module lane. You can add more role and module lanes by clicking on the plus icon that appears when selecting the first or last lane label of the Swimlanes Frame.
 
 <div class="video-container">
     <video style="width: 100%" controls>
-        <source src="{{site.baseUrl}}/assets/video/board_workspace/event-modeling-slice.mp4">
+        <source src="{{site.baseUrl}}/assets/video/board_workspace/swimlanes_frame.webm">
     </video>
 </div>
 
-Slices are the second level below layers and contexts in the [tree view]({{site.baseurl}}/board_workspace/Tree-View.html).
 
-## Feature Frame
-Feature Frames are the alternative to Slices (see above), when Event Modeling Mode is turned off. You can also use them to group elements. Features are the second level below layers and contexts in the [tree view]({{site.baseurl}}/board_workspace/Tree-View.html).
+
+## Event Modeling Slice
+Slice Frames split an Event Model into workflow steps. You can use them to group elements. Slices are the second level below contexts or swimlanes in the [tree view]({{site.baseurl}}/board_workspace/Tree-View.html).
+
+<div class="video-container">
+    <video style="width: 100%" controls>
+        <source src="{{site.baseUrl}}/assets/video/board_workspace/slicing.webm">
+    </video>
+</div>
+
 
 ## Bird View
 

@@ -55,6 +55,10 @@ so that it can be booked later.
 
 Pull a new Slice from the sidebar. Each Slice has one or more user lanes with an [Actor Card]({{site.baseUrl}}/event_storming/basic-concepts.html#actor) as a label. Put the UI card into a fleet manager lane.
 
+Slices have changed. The swimlanes are now handled by a [dedicated Swimlanes Frame]({{site.baseUrl}}/board_workspace/Frames.html#event-modeling-swimlanes) and no longer part of a Slice like shown here on the screenshots.
+We'll update the wiki page soon.
+{: .alert .alert-warning}
+
 <a href="{{site.baseurl}}/assets/images/event-modeling/fleet-overview-actor-lane.png" data-lightbox="fo_actor" data-title="Fleet Overview Actor">
     <span class="lightbox-indicator"></span>
     <img src="{{site.baseurl}}/assets/images/event-modeling/fleet-overview-actor-lane.png" />
