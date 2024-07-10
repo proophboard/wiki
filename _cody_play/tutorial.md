@@ -52,7 +52,7 @@ in the [free version of prooph board](https://free.prooph-board.com) (no registr
     </video>
 </div>
 
-Cody Play is a read-to-use prototyping application. It runs completely in your browser. You don't need to install anything, and all data is only stored in your browser's local storage.
-You can save [Playshots]({{site.baseUrl}}/cod_play/playshots) to back up your work and share it with anybody who has access to the connected prooph board (only possible in the paid version of prooph board).
+Cody Play is a ready-to-use prototyping application. It runs completely in your browser. You don't need to install anything, and all data is stored in your browser's local storage.
+You can save [Playshots]({{site.baseUrl}}/cod_play/playshots) to back up your work and share it with teammates who have access to the connected prooph board (only possible in the paid version of prooph board).
 {: .alert .alert-info}
 
