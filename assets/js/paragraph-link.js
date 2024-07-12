@@ -28,7 +28,7 @@
 
                     window.setTimeout(() => {
                         a.classList.remove('clicked');
-                    }, 300)
+                    }, 500)
                 })
 
                 hl.prepend(a)

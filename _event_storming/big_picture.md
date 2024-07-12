@@ -10,7 +10,7 @@ In this chapter you'll learn how to organize and run your first Big Picture Even
 
 This recorded Big Picture Event Storming session gives you some insights about the format:
 
-<div class="video-container">
+<div class="video-container-yt">
     <iframe class="video" src="https://www.youtube-nocookie.com/embed/vwuSDCRghb8" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 

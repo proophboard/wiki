@@ -79,7 +79,7 @@ We've put together a getting started guide for each possible role of a cross-fun
 
 ## Introduction Video
 
-<div class="video-container">
+<div class="video-container-yt">
     <iframe class="video" src="https://www.youtube-nocookie.com/embed/v96adgiOKts" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
@@ -98,6 +98,11 @@ All Cody features are available :heavy_check_mark:.
 Since the free client has no server connection, cloud storage is disabled and your work is only stored in the browser's local storage. Use import/export functions to backup your work!
 {: .alert .alert-warning}
 
+## Cody Play Tutorial
+
+⏯ Want to turn Event Models into prototypes and more?
+
+- [Cody Play Tutorial]({{site.baseUrl}}/cody_play/tutorial)
 
 
 ## Example Boards
@@ -113,13 +118,6 @@ Since the free client has no server connection, cloud storage is disabled and yo
 - [Event Storming - The Picture](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2FThe%2520Picture.xml?temp=1){: target="_blank"}
 
 - [Event Modeling Example](https://free.prooph-board.com/inspectio/boards/import/https%3A%2F%2Fraw.githubusercontent.com%2Fevent-engine%2Finspectio%2Fmaster%2Fassets%2FExample%2520Boards%2FEvent%2520Modeling.xml?temp=1){: target="_blank"}
-
-## Cody Tutorial
-
-:robot: Want to get started with Cody? These two coding bot introduction tutorials explain the basics.
-
-- [Node.js Code Generation Tutorial]({{site.baseurl}}/cody/nodejs-cody-tutorial)
-- [PHP Code Generation Tutorial]({{site.baseurl}}/cody/php-cody-tutorial)
 
 ## Powered by prooph software
 

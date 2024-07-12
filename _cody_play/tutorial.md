@@ -52,7 +52,19 @@ in the [free version of prooph board](https://free.prooph-board.com) (no registr
     </video>
 </div>
 
-Cody Play is a ready-to-use prototyping application. It runs completely in your browser. You don't need to install anything, and all data is stored in your browser's local storage.
-You can save [Playshots]({{site.baseUrl}}/cod_play/playshots) to back up your work and share it with teammates who have access to the connected prooph board (only possible in the paid version of prooph board).
-{: .alert .alert-info}
+## Step 1 - First UI
+
+Pull a [UI Card]({{site.baseUrl}}/event_storming/basic-concepts.html#ui--api) from the left sidebar and write **"Planning"** on it.
+This becomes our first UI page in Cody Play so let's pass this information to Cody and check the result:
+
+1. Open the [Cody Metadata Sidebar]({{site.baseUrl}}/board_workspace/Metadata.html) 
+2. Press the orange **"Run Cody"** button at the bottom of sidebar.
+3. Switch to the Cody Play tab and find the new entry **Planning** in the app sidebar.
+
+<div class="video-container">
+    <video style="width: 100%" controls>
+        <source src="{{site.baseUrl}}/assets/video/cody-play/tutorial/01-first-ui.webm">
+    </video>
+</div>
+
 

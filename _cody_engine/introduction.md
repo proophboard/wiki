@@ -8,7 +8,7 @@ Looking for a way to bridge the gap between Event Modeling and prototyping or ev
 
 [Cody]({{site.baseUrl}}/cody/introduction.html) is a barbone system. Cody Engine builds on top of it to provide a ready-to-use prototyping and application framework.
 
-<div class="video-container">
+<div class="video-container-yt">
     <iframe class="video" src="https://www.youtube-nocookie.com/embed/ycNambVdQks" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 

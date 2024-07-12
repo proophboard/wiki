@@ -9,7 +9,7 @@ In this guide we're looking at the necessary steps and the API spec.
 
 ## Intro Video
 
-<div class="video-container">
+<div class="video-container-yt">
     <iframe class="video" src="https://www.youtube-nocookie.com/embed/0FAgsPNqUV4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
 
