@@ -58,12 +58,48 @@ Pull a [UI Card]({{site.baseUrl}}/event_storming/basic-concepts.html#ui--api) fr
 This becomes our first UI page in Cody Play so let's pass this information to Cody and check the result:
 
 1. Open the [Cody Metadata Sidebar]({{site.baseUrl}}/board_workspace/Metadata.html) 
-2. Press the orange **"Run Cody"** button at the bottom of sidebar.
+2. Press the orange **"Run Cody"** button at the bottom of the sidebar.
 3. Switch to the Cody Play tab and find the new entry **Planning** in the app sidebar.
 
 <div class="video-container">
     <video style="width: 100%" controls>
         <source src="{{site.baseUrl}}/assets/video/cody-play/tutorial/01-first-ui.webm">
+    </video>
+</div>
+
+## Step 2 - First Command
+
+On the "Planning" screen an open space organizer should be able to plan a new open space. Such user actions
+are represented by blue [Command Cards]({{site.baseUrl}}/event_storming/basic-concepts.html#command).
+
+1. Pull a command from the sidebar, put it below the Planning card and write **"Plan Open Space"** on it.
+2. Connect the ui card with the command card. The arrow should point from UI -> Command.
+3. Make sure that the command is selected and **Run Cody** again.
+
+Now Cody Play knows the command, but not that the user can trigger the action from the Planning UI screen. We can tell
+Cody about the connection in the right Metadata sidebar of the UI card:
+
+1. Select the **"Planning"** UI card.
+2. Find the **Page Content** section in the right Metadata sidebar.
+3. Click the **Cody Suggest** button below the editor.
+
+Cody suggests a config based on the connection we've made between the two cards:
+
+```json
+{
+  "commands": [
+    "OpenSpaceTutorial.PlanOpenSpace"
+  ],
+  "views": []
+}
+```
+
+4. **Run Cody** again while the UI card is selected.
+5. You should now see a button with the label **Plan Open Space** on the **Planning** UI screen.
+
+<div class="video-container">
+    <video style="width: 100%" controls>
+        <source src="{{site.baseUrl}}/assets/video/cody-play/tutorial/02-first-command.webm">
     </video>
 </div>
 
