@@ -180,7 +180,7 @@ components:
           description: 'Element name, see https://wiki.prooph-board.com/board_workspace/Cards.html#horizontal-rulers for details about Card names'
         description:
           type: string
-          description: 'Rest of the text after first horizontal ruler (if one is used), see https://wiki.prooph-board.com/board_workspace/Cards.html#horizontal-rulers'
+          description: 'Rest of the text after first horizontal rule (if one is used), see https://wiki.prooph-board.com/board_workspace/Cards.html#horizontal-rules'
         type:
           type: string
           enum:

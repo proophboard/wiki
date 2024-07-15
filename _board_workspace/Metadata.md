@@ -22,7 +22,7 @@ It's ok to duplicate cards on a board to improve readability. Too many arrows ma
 
 <img src="{{site.baseurl}}/assets/images/meta_copy_metadata.gif" alt="Copy Metadata" />
 
-**Lookup is based on card type and name**. For the latter it is important to note that prooph board treats everything above the first horizontal ruler as [the name of a card]({{site.baseurl}}/board_workspace/Cards#horizontal-rulers). This allows you to add notes, examples and other information that should be visible for all.
+**Lookup is based on card type and name**. For the latter it is important to note that prooph board treats everything above the first horizontal ruler as [the name of a card]({{site.baseurl}}/board_workspace/Cards#horizontal-rules). This allows you to add notes, examples and other information that should be visible for all.
 
 ## Follow Connections
 

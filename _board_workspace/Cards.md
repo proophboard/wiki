@@ -12,14 +12,16 @@ Cards can be dragged from the left sidebar. A legend helps with mapping colors t
 
 When writing on a card a toolbar shows up with text formatting options like changing text size and color, insert links and horizontal rulers.
 
-## Horizontal rulers
-A horizontal ruler on a Card has special meaning.
-It divides the name of the Card from it's details.
-The name of the card is used to reference it in the [tree view]({{site.baseurl}}/board_workspace/Tree-View.html) and for history entries.
-When you select a card and press **Ctrl+F** (Cmd+F on Mac), the Card is looked up in the tree view using it's name.
+## Horizontal rules
+A horizontal rule on a Card has special meaning.
+It divides the name of the Card from its description.
+The name of the card is used to reference it in the [tree view]({{site.baseurl}}/board_workspace/Tree-View.html) and for history entries. 
+When you select a card and press **Ctrl+F** (Cmd+F on Mac), the Card is looked up in the tree view using its name.
 This way you can quickly find Cards with the same name on a large board.
 
-After a horizontal ruler text alignment switches from **centered** to **left aligned** like shown in the example:
+The description on the other hand can be used to document some details about a Card, e.g. what properties a command, event, or information has. 
+
+After a horizontal rule text alignment switches from **centered** to **left aligned** like shown in the example:
 
 <img src="{{site.baseurl}}/assets/images/hr_and_lookup.gif" alt="Horizontal Ruler" />
 
