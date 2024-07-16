@@ -190,6 +190,87 @@ Congratulations :fireworks: You've recorded your first event. That's the foundat
 Having the events in place as unchangeable facts opens up opportunities for process automation and an effective information flow.
 {: .alert .alert-success}
 
+## Step 6 - Project Information
+
+At the moment, organizers can't see their planned open spaces. Let's change that. 
+
+Cody Play is an **"event sourced system"**. This means that information is derived from recorded events. The mechanism used to do that is called a **"projection"**
+and prooph board makes it easy to set it up.
+{: .alert .alert-info}
+
+1. Pull a green [Information Card]({{site.baseUrl}}/event_storming/basic-concepts.html#information) from the left sidebar and place it right to the command.
+2. Write down **"My Open Spaces"** on the information card.
+3. Connect the event with the information card: **Event -> Information**.
+4. Check the **Schema** of the information card in the right metadata sidebar:
+
+Cody automatically suggests a schema based on the schema of the connected event:
+
+```json
+{
+  "$items": {
+    "openSpaceId": "string|format:uuid",
+    "name": "string",
+    "votingLimit": "integer|minimum:1|default:3"
+  }
+}
+```
+
+The schema defines a **list of open space objects**.
+
+5. Select **openSpaceId** as Item Identifier in the metadata sidebar (above the schema editor).
+6. Scroll down to the **Projection** section and turn on the toggle **"Is a projection"**.
+
+You should see a projection configuration like this:
+
+```json
+{
+    "name": "MyOpenSpacesProjection",
+    "live": true,
+    "cases": [
+        {
+            "when": "Open Space Planned",
+            "then": {
+                "upsert": {
+                    "id": "event.openSpaceId",
+                    "set": "event"
+                }
+            }
+        }
+    ]
+}
+```
+
+As you can, the projection gets a **name** assigned and **cases** are defined that tell the projection mechanism how to update information **when** certain events occur.
+In our case, the information from the event **Open Space Planned** is **upsert**ed (a shortcut for insert or update if exists) using the **openSpaceId** from the event to identify 
+the open space within the projection dataset.
+{: .alert .alert-info}
+
+7. Run Cody for the **My Open Spaces** information card.
+8. Switch to Cody Play and open the Cody Play Backend dialog again.
+9. On the **Database** tab, select the projection **"MyOpenSpacesProjection"**
+10. Click the **rerun** button.
+11. Inspect the **Document Store** in the database viewer.
+
+<div class="video-container">
+    <video style="width: 100%" controls>
+        <source src="{{site.baseUrl}}/assets/video/cody-play/tutorial/06-project-information.webm">
+    </video>
+</div>
+
+You have a new collection **my_open_spaces_collection** filled with the open space that we've planned before :tada:
+The projection picked up the **Open Space Planned** event, that was already recorded in the event store and projected its
+information into the document store. New events will be projected automatically so that the projection is always up-to-date.
+{: .alert .alert-success}
+
+
+
+
+
+
+
+
+
+
 
 
 
