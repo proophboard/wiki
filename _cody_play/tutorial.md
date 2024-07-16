@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Tutorial
+title: Tutorial Basics
 headline: Cody Play Tutorial
 toc_order: 02
 ---
@@ -259,9 +259,43 @@ the open space within the projection dataset.
 
 You have a new collection **my_open_spaces_collection** filled with the open space that we've planned before :tada:
 The projection picked up the **Open Space Planned** event, that was already recorded in the event store and projected its
-information into the document store. New events will be projected automatically so that the projection is always up-to-date.
+information into the document store. New events will be processed automatically so that the projection is always up-to-date.
 {: .alert .alert-success}
 
+## Step 7 - View Information
+
+Open spaces are now available in the database and can be displayed in the UI. Can you guess the next steps?
+Here is how to do it:
+
+1. Connect the **My Open Spaces** information card with the **Planning** ui card: **Infomration -> UI**
+2. Select the **Planning** ui card and find the **Page Content** section in the right metadata sidebar.
+3. Press the **Cody Suggest** button to get this config:
+
+```json
+{
+  "commands": [
+    "OpenSpaceTutorial.PlanOpenSpace"
+  ],
+  "views": [
+    "OpenSpaceTutorial.App.MyOpenSpaces"
+  ]
+}
+```
+
+4. **Run Cody** for the **Planning** ui card again.
+5. Switch to Cody Play and navigate to the **Planning** page.
+6. You'll see a new table showing **name and voting limit** of the planned open spaces.
+
+<div class="video-container">
+    <video style="width: 100%" controls>
+        <source src="{{site.baseUrl}}/assets/video/cody-play/tutorial/07-view-information.webm">
+    </video>
+</div>
+
+Yeesss :muscle:! We went full circle from a blank page via command, event, and projection back to displaying a list of planned open spaces.
+Cody helped us along the way with suggestions and sane defaults. For example, we didn't specify the query logic for the list of open spaces.
+The good thing here is, that you can achieve quite a lot with minimal effort, but you also have access to all the details if needed.
+{: .alert .alert-success}
 
 
 
