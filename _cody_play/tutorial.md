@@ -88,7 +88,7 @@ Cody suggests a config based on the connection we've made between the two cards:
 ```json
 {
   "commands": [
-    "OpenSpaceTutorial.PlanOpenSpace"
+    "PlanOpenSpace"
   ],
   "views": []
 }
@@ -102,6 +102,8 @@ Cody suggests a config based on the connection we've made between the two cards:
         <source src="{{site.baseUrl}}/assets/video/cody-play/tutorial/02-first-command.webm">
     </video>
 </div>
+
+_Please Note: the video shows an older version where Cody suggests a command name prefixed with "OpenSpaceTutorial". Namespace handling has been simplified so that the default prefix (or context namespace) can be omitted._
 
 ## Step 3 - Command Schema
 
@@ -274,10 +276,10 @@ Here is how to do it:
 ```json
 {
   "commands": [
-    "OpenSpaceTutorial.PlanOpenSpace"
+    "PlanOpenSpace"
   ],
   "views": [
-    "OpenSpaceTutorial.App.MyOpenSpaces"
+    "MyOpenSpaces"
   ]
 }
 ```
@@ -291,6 +293,8 @@ Here is how to do it:
         <source src="{{site.baseUrl}}/assets/video/cody-play/tutorial/07-view-information.webm">
     </video>
 </div>
+
+_Please Note: the video shows an older version where Cody suggests command and view names prefixed with "OpenSpaceTutorial". Namespace handling has been simplified so that the default prefix (or context namespace) can be omitted._
 
 Yeesss :muscle:! We went full circle from a blank page via command, event, and projection back to displaying a list of planned open spaces.
 Cody helped us along the way with suggestions and sane defaults. For example, we didn't specify the query logic for the list of open spaces.
