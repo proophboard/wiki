@@ -21,7 +21,8 @@ A Swimlanes Frame behaves similar to a Context, but ships with Event Modeling Sw
     </video>
 </div>
 
-
+To help you with large event models, labels are repeated as watermarks after certain distances. So you always know the meaning of a lane.
+{: .alert .alert-info}
 
 ## Event Modeling Slice
 Slice Frames split an Event Model into workflow steps. You can use them to group elements. Slices are the second level below contexts or swimlanes in the [tree view]({{site.baseurl}}/board_workspace/Tree-View.html).
@@ -50,7 +51,7 @@ Disabling the collapse functionality can be useful if you want to use frames as 
 
 ## Move Frames
 
-To be able to navigate on the board even if a frame fills the entire screen, they only have a small drag zone. Otherwise you would always move the frame instead of moving around on the board.
+To be able to navigate on the board even if a frame fills the entire screen, they only have a small drag zone. Otherwise, you would always move the frame instead of moving around on the board.
 
 <img src="{{site.baseurl}}/assets/images/bc_move.gif" alt="Move BC" />
 
