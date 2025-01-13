@@ -197,3 +197,88 @@ Array with object item type:
   "additionalProperties": false
 }
 ```
+
+### Shorthand Array
+
+A top level array schema is defined by the special keyword `$items` with its value being the schema definition of the array items.
+
+#### Shorthand Example
+
+```JSON
+{
+  "$items": "string"
+}
+```
+
+#### JSON Schema Equivalent
+
+```JSON
+{
+  "type": "array",
+  "items": {"type":  "string"}
+}
+```
+### Shorthand Reference
+
+A schema (or a property of a schema) can reference another schema. So let's say we'ved defined an `Address` schema in the default namespace `App`:
+
+```JSON
+{
+  "$title": "Address",
+  "street": "string",
+  "city": "string",
+  "zipCode": "string"
+}
+```
+
+#### JSON Schema Equivalent
+
+```JSON
+{
+  "title": "Address",
+  "type": "object",
+  "properties": {
+    "street": {"type": "string"},
+    "city": {"type": "string"},
+    "zipCode": {"type": "string"}
+  },
+  "required": ["street", "city", "zipCode"],
+  "additionalProperties": false,
+  "$id": "/definitions/app/address"
+}
+```
+
+_Please Note: The `$id` property is automatically added by Cody while translating Shorthand into JSON Schema using the namespace and name of the information card._
+
+
+Now we want to define an `AddressList` schema and reference the already defined `Address` schema:
+
+```JSON
+{
+  "$items": {
+    "$ref": "/App/Address"
+  }
+}
+```
+
+References are indicated by the special keyword `$ref` and point to another schema by using namespace + information name.
+
+#### JSON Schema Equivalent
+
+```JSON
+{
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/app/address"
+  },
+  "$id": "/definitions/app/address-list"
+}
+```
+
+The entire schema registration and definition translation is done by Cody in the background. You don't need to worry about that when working with Cody Play/Engine.
+And prooph board suggests references of known information schema when writing a schema. Suggestions are shown automatically, but you can also trigger them by pressing `Ctrl+Space`.
+{: .alert .alert-info}
+
+
+
+
