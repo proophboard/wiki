@@ -39,7 +39,7 @@ Shorthand JSON Schema covers the most common use cases. If you need advanced JSO
 a normal JSON Schema automatically. If not, you can set `shorthand: false` as an attribute in the metadata of the element.
 {: .alert .alert-warning}
 
-In most cases the schema of a command, event, or information will be either an `object` or a list also known as `array` or a `reference` to another schema.
+In most cases the schema of a command, event, or information will be either an [object]({{site.baseUrl}}/board_workspace/Schema.html#shorthand-object) or a list also known as [array]({{site.baseUrl}}/board_workspace/Schema.html#shorthand-array) or a [reference]({{site.baseUrl}}/board_workspace/Schema.html#shorthand-reference) to another schema.
 
 
 ### Shorthand Object
