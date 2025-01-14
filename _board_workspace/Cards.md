@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Working With Cards
+toc_order: 01
 ---
 
 Modeling on prooph board is mainly done with colored Cards. The color codes are inspired by Event Storming sticky colors. This makes it easier to switch between digital and onsite Event Stormings.

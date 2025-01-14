@@ -153,7 +153,8 @@
 
             <li class="divider"></li>
             <li class="chapter"><h4>Board Workspace<span id="ws-accordion" class="accordion-indicator"></span></h4></li>
-            {% for workspace_page in site.board_workspace %}
+            {% assign col_pages = site.board_workspace | sort: "toc_order" %}
+            {% for workspace_page in col_pages %}
             {% if page.url == workspace_page.url %}
             <li class="chapter active ws-accordion accordion-hidden" data-level="1.2" data-path="{{site.baseurl}}{{workspace_page.url}}">
                 {% else %}

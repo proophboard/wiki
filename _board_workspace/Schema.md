@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Schema
+toc_order: 06
 ---
 
 [Commands]({{site.baseUrl}}/event_storming/basic-concepts.html#command), [Events]({{site.baseUrl}}/event_storming/basic-concepts.html#event) and [Information]({{site.baseUrl}}/event_storming/basic-concepts.html#information)
@@ -11,12 +12,14 @@ and applications with prooph board [Cody]({{site.baseUrl}}/cody/introduction.htm
 
 ## Command Schema
 
-Forms to add or change information are rendered based on a command schema and the server uses command schema to validate incoming data.
+Users create, update, or delete information in a system by entering information in a form and triggering an action.
+Form fields are rendered based on a command schema and the server uses the command schema to validate incoming data.
 
 ## Event Schema
 
 All information is stored as a series of events in an event store. Each event has a name, a unique event id, a created timestamp, and information attached. The information is described by the schema.
-Additionally, events have metadata which are system information in a key-value format.
+
+_Additionally, events have metadata which are system information in a key-value format._
 
 ## Information Schema
 
@@ -27,7 +30,7 @@ Information schema is used to automatically render views for certain information
 Cody Play/Engine uses [JSON Schema Draft-07](https://json-schema.org/draft-07) for schema definition.
 
 You can describe complex data structures along with rich validation rules in JSON Schema. Since Cody Play/Engine is based on JavaScript, JSON Schema is a perfect match.
-Open Source libraries like [React JSON Schema Form](https://rjsf-team.github.io/react-jsonschema-form/){: .alert-link} provide powerful tools on top of JSON Schema.
+Open Source libraries like [React JSON Schema Form](https://rjsf-team.github.io/react-jsonschema-form/docs/){: .alert-link} provide powerful tools on top of JSON Schema.
 {: .alert .alert-info}
 
 ## Shorthand JSON Schema

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Metadata
+toc_order: 05
 ---
 
 prooph board bridges the gap between problem and solution space. Start from a High Level Event Storming and walk all the way down to a detailed solution. Therefore, prooph board offers advanced documentation features like **Metadata** support for most of the elements available on a board.

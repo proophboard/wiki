@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Keymap
+toc_order: 04
 ---
 
 prooph boards comes with some handy keyboard shortcuts to quickly add, modify and arrange elements on a board.

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Tree View
+toc_order: 03
 ---
 The left sidebar contains a tree view. It's purpose is similar to a table of contents. All elements on the board are also listed in the tree view.
 

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Board API
+toc_order: 13
 ---
 
 You can programmatically access and modify a board.

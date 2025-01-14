@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Event Modeling Mode
+toc_order: 12
 ---
 
 By default, every prooph board has [Event Modeling]({{site.baseUrl}}/event_modeling/why-event-modeling.html) support enabled. 

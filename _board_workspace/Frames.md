@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Use Frames For Grouping
+toc_order: 02
 ---
 
 Frames are used to group [cards]({{site.baseurl}}/board_workspace/Cards.html) and other elements.

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Lite Mode
+toc_order: 10
 ---
 If you encounter performance problems on large boards or during video calls, you can turn on the Lite Mode. This will disable zoom effects like hiding elements or scaling the font size of Bounded Context and Feature frames.
 
