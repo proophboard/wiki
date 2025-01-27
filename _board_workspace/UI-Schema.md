@@ -13,7 +13,7 @@ Views of data objects are rendered as read-only forms with a styling defined thr
 React JSON Schema Form takes the [Schema]({{site.baseUrl}}/board_workspace/Schema.html) of a Command or Information and automatically generates a form for it including validation rules.
 Based on the type of the schema and its properties, different form fields are rendered. For example `string|format:date` results in a date input field with a date picker.
 
-You can have a look at the extensive documentation for [React JSON Schema Form](https://rjsf-team.github.io/react-jsonschema-form/docs/){: target="_blank" rel="noopener noreferrer"}{: .alert-link} that includes a [playground](https://rjsf-team.github.io/react-jsonschema-form/){: target="_blank" rel="noopener noreferrer"}{: .alert-link}
+You can have a look at the documentation of [React JSON Schema Form](https://rjsf-team.github.io/react-jsonschema-form/docs/){: target="_blank" rel="noopener noreferrer"}{: .alert-link} and the [playground](https://rjsf-team.github.io/react-jsonschema-form/){: target="_blank" rel="noopener noreferrer"}{: .alert-link}
 to try it out.
 {: .alert .alert-info}
 
