@@ -44,7 +44,7 @@ Jexl Expressions are supported in different JSON configurations:
 - Query Resolver Rules
 - Projections
 - UI Schema
--
+
 ## Supported Functions
 
 Cody Play/Engine ships with a set of preregistered functions and transforms that are available in Jexl Expressions:
