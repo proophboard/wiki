@@ -1,4 +1,3 @@
-
 ---
 layout: default
 title: Expressions
@@ -119,7 +118,71 @@ jexl.evalSync("count(person.country)", ctx);
 // 0
 ```
 
+### merge
 
+The `merge` function combines two values
+
+```typescript
+type merge = <T extends any>(val1: T, val2: any) => T;
+```
+
+The type of the first input argument determines the return type. Different strategies are used to merge the two values:
+
+#### Array with Array
+
+```js
+const val1 = [1,2,3];
+const val2 = [4,5,6];
+const ctx = {val1, val2};
+
+jexl.evalSync("merge(val1, val2)", ctx);
+
+// [1,2,3,4,5,6]
+```
+
+#### Array with any other type
+
+```js
+const val1 = [1,2,3];
+const val2 = 4;
+const ctx = {val1, val2};
+
+jexl.evalSync("merge(val1, val2)", ctx);
+
+// [1,2,3,4]
+```
+
+#### Object with Object
+
+```js
+const val1 = {foo: "bar", subKey: {a: "b"}};
+const val2 = {baz: "bat", subKey: {c: "d"}};
+const ctx = {val1, val2};
+
+jexl.evalSync("merge(val1, val2)", ctx);
+
+// {foo: "bar", baz: "bat", subKey: {c: "d"}}
+```
+
+Only the first level of objects are merged. If two objects have the same key, that key is overridden by the second object key.
+See [deepMerge]({{site.baseUrl}}/board_workspace/Expressions.html#deepmerge){: .alert-link} for an alternative behavior.
+{: .alert .alert-warning}
+
+#### Non object with any other type
+
+If the first input is neither an array nor an object, merge will call the `toString` method on both inputs and concatenate the two strings.
+
+```js
+const ctx = {val1: "Hello ", val2: "World"};
+
+jexl.evalSync("merge(val1, val2)", ctx);
+
+// Hello World
+```
+
+### deepMerge
+
+The `deepMerge` function is a wrapper for [lodash.merge](https://lodash.com/docs#merge), which provides a recursive merge mechanism for objects.
 
 
 ## Supported Transforms
