@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Expressions
-toc_order: 08
+toc_order: 09
 ---
 
 Great software incorporates logic to perform tasks without manual intervention. This can be small tasks like transforming 
