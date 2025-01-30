@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Cody Suggestions
-toc_order: 11
+toc_order: 12
 ---
 
 [Cody]({{site.baseUrl}}/cody/introduction.html) is deeply integrated on prooph board. It does not only translate designs into working code, but also helps you with the design itself.
