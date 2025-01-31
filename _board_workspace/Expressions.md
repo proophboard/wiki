@@ -117,6 +117,25 @@ jexl.evalSync("count(person.country)", ctx);
 
 // 0
 ```
+### deepMerge
+
+The `deepMerge` function is a wrapper for [lodash.merge](https://lodash.com/docs#merge), which provides a recursive merge mechanism for objects.
+
+### isRole
+
+Helper function to check if a user has a specific role. If you provide an array of roles, the function returns true if
+the user has any of the roles.
+
+```typescript
+type isRole = (user: User, role: UserRole | UserRole[], disableActiveRoleCheck?: boolean) => boolean;
+```
+
+If you use the **activeRole** feature, the function will only check the user's activeRole. You can disable active role check to
+check if any of the user roles matches.
+{: .alert .alert-warning}
+
+This function is also provided as a transform. See [role]({{site.baseUrl}}/board_workspace/Expressions.html#role){: .alert-link} for usage example.
+{: .alert .alert-info}
 
 ### merge
 
@@ -180,14 +199,120 @@ jexl.evalSync("merge(val1, val2)", ctx);
 // Hello World
 ```
 
-### deepMerge
+### pageData
 
-The `deepMerge` function is a wrapper for [lodash.merge](https://lodash.com/docs#merge), which provides a recursive merge mechanism for objects.
+PageData is available in many frontend Jexl contexts, especially in [UI Schema]({{site.baseUrl}}/board_workspace/UI-Schema.html) expressions.
+
+Every [Information]({{site.baseUrl}}/event_storming/basic-concepts.html#information) shown on a page, is also available in the **PageData** registry using its namespaced name
+e.g. `/App/MyInformation`.
+
+The `pageData` function takes care of the loading state of information. As long as the information is not loaded on the page, `pageData` returns the `defaultValue` (or `undefined` if you did not provide one).
+
+```typescript
+type pageData = (pageData: PageData | undefined, name: string, defaultValue: any) => any
+```
+
+#### Example
+
+```js
+// pageData is provided by Cody
+const [pageData] = usePageData();
+
+// Cody always registers pageData in the context under the key "page"
+const ctx = {page: pageData};
+
+// Let's say the current page shows details of a person like firstname, lastname, ...
+// The information of the person is fetched from the backend via a query.
+// The namespaced name of the information is /Crm/Person
+// We can savely access firstName and it will be "Unknown" as long as the query is still loading (or returned an error)
+const firstName = jexl.evalSync(`pageData(page, '/Crm/Person', {firstName: ''Unknown}).firstName`, ctx);
+```
+
+`pageData` is also available as a transform function. See [data]({{site.baseUrl}}/board_workspace/Expressions.html#data){: .alert-link} transform for details.
+{: .alert .alert-info}
+
 
 
 ## Supported Transforms
 
-Coming soon
+Transforms let you chain function calls, whereby the first input of the transform is taken from the previous output.
+
+Transforms are chained using the pipe operator `|`.
+{: .alert .alert-info}
+
+### Example
+
+```js
+const person = {
+  firstname: "Jane",
+  laastname: "Doe"
+}
+
+const ctx = {person};
+
+// Here we use two Object transforms: "set" and "pick"
+jexl.evalSync(`person|set('age', 35)|pick(['firstname', 'age'])`, ctx);
+
+// {firstname: "Jane", age: 35}
+```
+
+### data
+
+Same as [pageData]({{site.baseUrl}}/board_workspace/Expressions.html#pagedata), but provided as a transform. Since Cody always registers page data under the key `page` in a Jexl Context
+you can write the person example from the function description like this:
+
+```js
+const [pageData] = usePageData();
+
+const ctx = {page: pageData};
+
+const firstName = jexl.evalSync(`page|data('/Crm/Person', {firstName: ''Unknown}).firstName`, ctx);
+```
+
+### role
+
+Same as [isRole]({{site.baseUrl}}/board_workspace/Expressions.html#isrole), but provided as a transform. 
+
+In the frontend, Cody registers the current user in each context under the key `user`.
+{: .alert .alert-info}
+
+#### FE Example
+
+```js
+// Current user, let's assume we're logged in with an "Admin" role
+const user = useUser();
+
+// Always available in frontend context (ensured by Cody)
+const ctx = {user};
+
+// Check if the user has the "Admin" role
+jexl.evalSync(`user|role('Admin')`, ctx);
+
+// true
+```
+
+In backend contexts like business rules, you have access to the user who triggered the action. You can access it via the `meta` object.
+{: .alert .alert-info}
+
+#### BE Example
+
+```typescript
+async function handleChangeProductPrice(command: Command<ChangeProductPrice>): Promsie {
+  // Command metadata includes the user who triggered the command
+  const meta = command.meta;
+  const payload = command.payload;
+  
+  const ctx = {command: payload, meta};
+  
+  if(!await jexl.eval(`meta.user|role('Admin')`, ctx)) {
+    throw new Error(`Operation not allowed!`)
+  }
+  
+  // ...
+}
+
+```
+
 
 ## Add your own
 
