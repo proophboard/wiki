@@ -19,6 +19,6 @@ Switching between Normal and Lite Mode can be done in the workspace top menu. It
 |   |  Mode  | Show/Hide Details on Zoom | Font Scaling | Performance |
 |---|:------:|:-------------------------:|:------------:|:-------------:|
 | <img src="{{site.baseurl}}/assets/images/normal_mode.png" />  | Normal |             ✅             |       ✅      |      ❌      |
-| <img src="{{site.baseurl}}/assets/images/lite_mode.png" />  |  Lite  |             ❌             |       ✅      |      ✅      |
+| <img src="{{site.baseurl}}/assets/images/lite_mode.png" />  |  Lite  |             ❌             |       ❌      |      ✅      |
 
 _The chosen mode is persisted across sessions. If you prefer to always work in Lite Mode, you can set it once._
