@@ -583,7 +583,7 @@ type map = (arr: Array, expression: string, filterContext?: object) => Array;
 The `expression` has access to the `item` (alias `_`) and the `index` of the item. If you need to access variables from the
 parent context, you have to pass them explicitly to the optional `filterContext`.
 
-### Example
+#### Example
 
 ```js
 const colors = ['red', 'blue', 'orange', 'green', 'grey'];
@@ -595,8 +595,6 @@ jexl.evalSync(`colors|map('emc|contains(item) ? item|upper() : item', {emc: even
 
 // ['red', 'BLUE', 'ORANGE', 'GREEN', 'grey']
 ```
-
-
 
 ### orderBy
 
@@ -770,7 +768,7 @@ type unset = <T extends object>(obj: T, path: string) => T;
 #### Example
 
 ```js
-cosnt user = {username: 'John', locked: true};
+const user = {username: 'John', locked: true};
 const ctx = {user};
 
 // or transform
