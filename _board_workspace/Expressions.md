@@ -126,7 +126,7 @@ jexl.evalSync("count(person.country)", ctx);
 ```
 ### deepMerge
 
-The `deepMerge` function is a wrapper for [lodash.merge](https://lodash.com/docs#merge), which provides a recursive merge mechanism for objects.
+The `deepMerge` function is a wrapper for lodash [_.merge](https://lodash.com/docs#merge), which provides a recursive merge mechanism for objects.
 
 ### isRole
 
@@ -287,8 +287,7 @@ const firstName = jexl.evalSync(`pageData(page, '/Crm/Person', {firstName: ''Unk
 Users can have roles for role-based access control and additional attributes for fine-grained access control to specific information. Attributes can also be used to assign custom 
 properties to users that are not part of the standard user interface used in the Cody Engine.
 
-The `userAttr` function is convenient helper function to access specific attributes of a user. You can pass a default value to function that is returned in case the attribute is not for 
-the given user.
+The `userAttr` function is convenient helper function to access specific attributes of a user. You can pass a default value that is returned in case the attribute is not set.
 
 ```typescript
 type userAttr = <T>(user: User, attributeName: string, notSetValue?: T) => T | undefined;
@@ -300,7 +299,7 @@ type userAttr = <T>(user: User, attributeName: string, notSetValue?: T) => T | u
 const user = useUser();
 const ctx = {user};
 
-const age = jexl.evalSync(`userAttr(user, 'age', 14)`, ctx);
+const age = jexl.evalSync(`userAttr(user, 'age', 40)`, ctx);
 ```
 
 Same example without helper function:
@@ -309,7 +308,7 @@ Same example without helper function:
 const user = useUser();
 const ctx = {user};
 
-const age = jexl.evalSync(`user.attributes.age ? user.attributes.age : 14`, ctx);
+const age = jexl.evalSync(`user.attributes.age ? user.attributes.age : 40`, ctx);
 ```
 
 Same example using the [attr transform]({{site.baseUrl}}/board_workspace/Expressions.html#attr) instead:
@@ -318,7 +317,7 @@ Same example using the [attr transform]({{site.baseUrl}}/board_workspace/Express
 const user = useUser();
 const ctx = {user};
 
-const age = jexl.evalSync(`user|attr('age', 14)`, ctx);
+const age = jexl.evalSync(`user|attr('age', 40)`, ctx);
 ```
 
 #### Multi-Value Attributes
@@ -475,10 +474,165 @@ const filteredColors = jexl.evalSync(`colors|filter('emc|contains(item)', {emc: 
 // ['blue', 'organge', 'green']
 ```
 
+### first
+
+Get the first item of an array. If array is empty `undefined` is returned or the optional `notSetValue` if passed to `first`.
+
+**available as: transform**
+
+```typescript
+type first = <T extends unknown>(arr: Array<T>, notSetValue?: T) => T | undefined;
+```
+
+#### Example
+
+```js
+const colors = ['red', 'blue', 'orange', 'green', 'grey'];
+const emptyList = [];
+const ctx = {colors, emptyList};
+
+jexl.evalSync(`colors|first()`, ctx);
+
+// 'red'
+
+jexl.evalSync(`emptyList|first('Default')`, ctx);
+
+// 'Default'
+```
+
+
+
+### join
+
+Concatenate all array items to a string using an optional separator.
+
+**available as: function, transform**
+
+```typescript
+type join = (arr: Array, separator?: string) => string;
+```
+
+#### Example
+
+```js
+const colors = ['red', 'blue', 'orange', 'green', 'grey'];
+const ctx = {colors};
+
+jexl.evalSync(`colors|join('-')`, ctx);
+
+// "red-blue-orange-green-grey"
+```
+
+### list
+
+Cast any type to an array. If input type is already an array, it is returned as-is.
+
+**available as: transform**
+
+```typescript
+type list = <T extends unknown>(v: T) => T[];
+```
+
+#### Example
+
+```js
+const hobbies = "running";
+
+jexl.evalSync(`hobbies|list()|push('traveling')`, {hobbies});
+
+// ["running", "traveling"]
+```
+
+
+### last
+
+Get the last item of an array. If array is empty `undefined` is returned or the optional `notSetValue` if passed to `last`.
+
+**available as: transform**
+
+```typescript
+type last = <T extends unknown>(arr: Array<T>, notSetValue?: T) => T | undefined;
+```
+
+#### Example
+
+```js
+const colors = ['red', 'blue', 'orange', 'green', 'grey'];
+const emptyList = [];
+const ctx = {colors, emptyList};
+
+jexl.evalSync(`colors|last()`, ctx);
+
+// 'grey'
+
+jexl.evalSync(`emptyList|last('Default')`, ctx);
+
+// 'Default'
+```
+
+### map
+
+Invokes a mapping expression for each item and returns a new array containing all mapped items.
+
+**available as: function, transform**
+
+```typescript
+type map = (arr: Array, expression: string, filterContext?: object) => Array;
+```
+
+The `expression` has access to the `item` (alias `_`) and the `index` of the item. If you need to access variables from the
+parent context, you have to pass them explicitly to the optional `filterContext`.
+
+### Example
+
+```js
+const colors = ['red', 'blue', 'orange', 'green', 'grey'];
+const eventModelingColors = ['blue', 'organge', 'green'];
+const ctx = {colors, eventModelingColors};
+
+// Call the "upper" string trasform for each item of the colors array, if it is an event modeling color
+jexl.evalSync(`colors|map('emc|contains(item) ? item|upper() : item', {emc: eventModelingColors})`, ctx);
+
+// ['red', 'BLUE', 'ORANGE', 'GREEN', 'grey']
+```
+
+
+
+### orderBy
+
+Wrapper for lodash [_.orderBy](https://lodash.com/docs#orderBy).
+
+**available as: transform**
+
+#### Example
+
+```js
+const users = [
+  { 'user': 'fred',   'age': 48 },
+  { 'user': 'barney', 'age': 34 },
+  { 'user': 'fred',   'age': 40 },
+  { 'user': 'barney', 'age': 36 }
+];
+ 
+// Sort by `user` in ascending order and by `age` in descending order.
+jexl.evalSync(`users|orderBy(['user', 'age'], ['asc', 'desc'])`, {users});
+/*
+ * [
+ *   { 'user': 'barney', 'age': 36 }
+ *   { 'user': 'barney', 'age': 34 },
+ *   { 'user': 'fred',   'age': 48 },
+ *   { 'user': 'fred',   'age': 40 },
+ * ]
+ */
+```
+
+
 
 ### push
 
 Returns a new array with the value added at the end. The input array is not modified.
+
+**available as: function, transform**
 
 ```typescript
 type push = <T>(arr: Array<T> | unknown | undefined, val: T) => Array<T>;
@@ -488,7 +642,7 @@ If the input array is undefined, val is added to an empty array.
 
 If the `arr` is not of type array, a new array is returned containing both: `[arr, val]`. 
 
-**available as: function, transform**
+
 
 ```js
 const numbers = [1,2,3];
@@ -501,11 +655,154 @@ const extendedNumbers = jexl.evalSync(`numbers|push(4)|push(5)`, ctx);
 
 
 
-## Object-specific functions and transforms
+## Object-specific transforms
+
+### get
+
+Get a value from an object or array. Use `.` to access subkeys. 
+
+**available as: transform**
+
+```typescript
+type get = <T>(obj: object | Array<unknown>, path: string, notSetValue?: T | undefined) => T | undefined;
+```
+
+#### Example
+
+```js
+const person = {
+  name: 'Jane',
+  address: {
+    street: 'Mainstreet'
+  }
+}
+
+const ctx = {person}
+
+jexl.evalSync(`person|get('address.street')`, ctx);
+
+// Mainsteet
+
+// Pass a default value in case path is not set
+jexl.evalSync(`person|get('address.city', 'Unknown City')`, ctx);
+
+// Unknown City
+
+```
+
+### keys
+
+Get a list of the keys of an object.
+
+**available as: transform**
+
+```typescript
+type keys = <T extends object, K extends keyof T>(obj: T) => K[];
+```
+
+#### Example
+
+```js
+const pet = { name: "Lessy", animal: "dog", breed: "Colie" };
+const ctx = {pet};
+
+jexl.evalSync(`pet|keys()`, ctx);
+
+// ["name", "animal", "breed"]
+```
+
+### pick
+
+Extract a subset from an object into a new object. Use `.` to extract subkeys.
+
+**available as: transform**
+
+```ts
+type pick = <T extends object>(obj: T, paths: string[]) => Partial<T>;
+```
+
+#### Example
+
+```js
+const pet = { name: "Lessy", animal: "dog", breed: "Colie" };
+const ctx = {pet};
+
+jexl.evalSync(`pet|pick(['name', 'breed'])`, ctx);
+
+// { name: "Lessy", breed: "Colie" }
+```
 
 
 
+### set
 
+Set a value of an object or array path. Use `.` to set subkeys. If path does not exist, subkeys are created.
+
+**available as: transform**
+
+```typescript
+type set = <T extends object>(obj: T, path: string, value: any) => T;
+```
+
+#### Example
+
+```js
+const person = {name: "Jane"}
+
+const ctx = {person}
+
+jexl.evalSync(`person|set('address.street', 'Mainstreet')`, ctx);
+
+console.log(ctx.person);
+
+// { name: 'Jane', address: { street: 'Mainstreet' } }
+```
+
+### unset
+
+Delete a key of an object or array path. Use `.` to unset subkeys. If path does not exist, nothing happens.
+
+**available as: transform**
+
+```typescript
+type unset = <T extends object>(obj: T, path: string) => T;
+```
+#### Example
+
+```js
+cosnt user = {username: 'John', locked: true};
+const ctx = {user};
+
+// or transform
+jexl.evalSync(`user|unset('locked')`, ctx);
+
+console.log(ctx.user);
+
+// { username: 'John' }
+```
+
+
+
+### values
+
+Get a list of the values of an object.
+
+**available as: transform**
+
+```typescript
+type values = <T extends object, V extends T[keyof T]>(obj: T) => V[];
+```
+
+#### Example
+
+```js
+const pet = { name: "Lessy", animal: "dog", breed: "Colie" };
+const ctx = {pet};
+
+jexl.evalSync(`pet|values()`, ctx);
+
+// ["Lessy", "dog", "Colie"]
+```
 
 ## Add your own
 
