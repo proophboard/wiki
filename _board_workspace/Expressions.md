@@ -802,6 +802,877 @@ jexl.evalSync(`pet|values()`, ctx);
 // ["Lessy", "dog", "Colie"]
 ```
 
+## String transforms
+
+### lower
+
+Converts all characters of the string to lower case.
+
+**available as: transform**
+
+#### Example
+
+```js
+const msg = 'HELLO';
+
+jexl.evalSync(`msg|lower()`, {msg});
+
+// hello
+```
+
+### split
+
+Splits a string into parts using a separator. The default separator is " ".
+
+**available as: transform**
+
+#### Example
+
+```js
+const path = "first.second.third";
+
+jexl.evalSync(`path|split('.')`, {path});
+
+// ["first", "second", "third"]
+```
+
+### trim
+
+Removes whitespace from both ends of the string.
+
+**available as: transform**
+
+#### Example
+
+```js
+const msg = "   Hello    ";
+
+jexl.evalSync(`msg|trim()`, {msg});
+
+// "Hello"
+```
+
+### trimStart
+
+Removes whitespace from the start of the string.
+
+**available as: transform**
+
+#### Example
+
+```js
+const msg = "   Hello    ";
+
+jexl.evalSync(`msg|trimStart()`, {msg});
+
+// "Hello    "
+```
+
+### trimEnd
+
+Removes whitespace from the end of the string.
+
+**available as: transform**
+
+#### Example
+
+```js
+const msg = "   Hello    ";
+
+jexl.evalSync(`msg|trimEnd()`, {msg});
+
+// "   Hello"
+```
+
+### upper
+
+Converts all characters of the string to upper case.
+
+**available as: transform**
+
+#### Example
+
+```js
+const msg = 'hello';
+
+jexl.evalSync(`msg|upper()`, {msg});
+
+// HELLO
+```
+
+## Type Cast Transforms
+
+### toInt
+
+Cast a string to an integer.
+
+**available as: transform**
+
+#### Example
+
+```js
+const age = "42";
+
+jexl.evalSync(`age|toInt()`, {age});
+
+// 42
+```
+
+### toFloat
+
+Cast a string to a floating point number.
+
+**available as: transform**
+
+#### Example
+
+```js
+const price = "10.99";
+
+jexl.evalSync(`price|toFloat()`, {price});
+
+// 10.99
+```
+
+### toStr
+
+Cast any type to string.
+
+**available as: transform**
+
+#### Example
+
+```js
+const price = 10.99;
+
+jexl.evalSync(`price|toStr()`, {price});
+
+// "10.99"
+```
+
+### toJSON
+
+Calls [JSON.stringify](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify){: target="_blank" rel="noopener noreferrer"} on a value.
+
+**available as: transform**
+
+```typescript
+type toJSON = (val: unknown, space?: number) => string;
+```
+
+If `space` is passed as an argument, the JSON string gets formatted using the number of spaces for indentation.
+
+#### Example
+
+```js
+const person = {name: "Jane", age: 35};
+
+jexl.evalsync(`person|toJSON(2)`, {person});
+
+// '{
+//   "name": "Jane",
+//   "age": 35
+// }'
+```
+
+### fromJSON
+
+Calls [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse){: target="_blank" rel="noopener noreferrer"} on a JSON string.
+
+**available as: transform**
+
+#### Example
+
+```js
+const person = '{"name": "Jane", "age": 35}'
+
+jexl.evalSync(`person|fromJSON()`, {person});
+
+// {name: "Jane", age: 35}
+```
+
+### toArray
+
+Alias for [list]({{site.baseUrl}}/board_workspace/Expressions.html#list).
+
+
+## Math Transforms
+
+### round
+
+Calls Lodash [_.round](https://lodash.com/docs/5#round){: target="_blank" rel="noopener noreferrer"} to compute number rounded to precision.
+
+**available as: transform**
+
+```typescript
+type round = (val: number, precision?: number) => number;
+```
+
+If precision is not set, val is rounded to the nearest integer.
+
+#### Example
+
+```js
+const price = 10.93;
+
+jexl.evalSync(`price|round()`, {price});
+
+// 11
+
+jexl.evalSync(`price|round(1)`, {price});
+
+// 10.9
+```
+
+### ceil
+
+Calls Lodash [_.ceil](https://lodash.com/docs/5#ceil){: target="_blank" rel="noopener noreferrer"} to compute number rounded up to precision.
+
+**available as: transform**
+
+```typescript
+type ceil = (val: number, precision?: number) => number;
+```
+
+If precision is not set, val is rounded up to next integer.
+
+#### Example
+
+```js
+const price = 10.83;
+
+jexl.evalSync(`price|ceil()`, {price});
+
+// 11
+
+jexl.evalSync(`price|ceil(1)`, {price});
+
+// 10.9
+```
+
+### floor
+
+Calls Lodash [_.floor](https://lodash.com/docs/5#floor){: target="_blank" rel="noopener noreferrer"} to compute number rounded down to precision.
+
+**available as: transform**
+
+```typescript
+type floor = (val: number, precision?: number) => number;
+```
+
+If precision is not set, val is rounded down to integer.
+
+#### Example
+
+```js
+const price = 10.83;
+
+jexl.evalSync(`price|floor()`, {price});
+
+// 10
+
+jexl.evalSync(`price|floor(1)`, {price});
+
+// 10.8
+```
+
+## Datetime functions and transforms
+
+### now
+
+Constructs a new `Date` from current date and time.
+
+**available as: function**
+
+#### Example
+
+```js
+console.log("This docu part was written at: " + jexl.evalSync(`now()|isoDateTime()`));
+
+// This docu part was written at: 2025-02-14T20:41:02.032Z
+```
+
+### date
+
+Constructs a new `Date` from given `number | string | Date`.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032Z";
+
+jexl.evalSync(`docuTime|date()|year()`, {docuTime});
+
+// 2025
+```
+
+### utc
+
+Returns a string representing this date in the [RFC 7231](https://datatracker.ietf.org/doc/html/rfc7231#section-7.1.1.1){: target="_blank" rel="noopener noreferrer"} format, with negative years allowed.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032Z";
+
+jexl.evalSync(`docuTime|utc()`, {docuTime});
+
+// 'Fri, 14 Feb 2025 20:51:44 GMT'
+```
+
+### isoDate
+
+Returns a string representing this date in the [date time string format](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#date_time_string_format){: target="_blank" rel="noopener noreferrer"} using only the date part.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032Z";
+
+jexl.evalSync(`docuTime|isoDate()`, {docuTime});
+
+// '2025-02-14'
+```
+
+### isoTime
+
+Returns a string representing this date in the [date time string format](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#date_time_string_format){: target="_blank" rel="noopener noreferrer"} using only the time part.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032Z";
+
+jexl.evalSync(`docuTime|isoTime()`, {docuTime});
+
+// 20:41:02.032Z
+```
+
+### isoDateTime
+
+Returns a string representing this date in the [date time string format](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#date_time_string_format){: target="_blank" rel="noopener noreferrer"}.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032Z";
+
+jexl.evalSync(`docuTime|isoDateTime()`, {docuTime});
+
+// 2025-02-14T20:41:02.032Z
+```
+
+### localDate
+
+Returns a string representing the date portion of the given date according to language-specific conventions.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:0.032+01:00";
+
+jexl.evalSync(`docuTime|localDate()`, {docuTime});
+
+// e.g. German date format:  '14.2.2025' 
+```
+
+### localTime
+
+Returns a string representing the time portion of the given date according to language-specific conventions.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|localTime()`, {docuTime});
+
+// e.g. German time format:  '20:41:02' 
+```
+
+### localDateTime
+
+Returns a string representing the given date according to language-specific conventions.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|localDateTime()`, {docuTime});
+
+// e.g. German time format:  '14.2.2025 20:41:02' 
+```
+
+### year
+
+Returns the year for the given date according to local time.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|year()`, {docuTime});
+
+// 2025
+```
+
+### utcYear
+
+Returns the year for the given date according to universal time.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|utcYear()`, {docuTime});
+
+// 2025
+```
+
+### month
+
+Returns the month for the given date according to local time, as a zero-based value (where zero indicates the first month of the year).
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|month()`, {docuTime});
+
+// 1
+```
+
+### utcMonth
+
+Returns the month for the given date according to universal time, as a zero-based value (where zero indicates the first month of the year).
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|utcMonth()`, {docuTime});
+
+// 1
+```
+
+### day
+
+Returns the day of the month for the given date according to local time.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|day()`, {docuTime});
+
+// 14
+```
+
+### utcDay
+
+Returns the day of the month for the given date according to universal time.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|utcDay()`, {docuTime});
+
+// 14
+```
+
+### weekDay
+
+Returns the day of the week for the given date according to local time, where 0 represents Sunday.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|weekDay()`, {docuTime});
+
+// 5
+```
+
+### utcWeekDay
+
+Returns the day of the week for the given date according to universal time, where 0 represents Sunday.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|utcWeekDay()`, {docuTime});
+
+// 5
+```
+
+### hours
+
+Returns the hours for the given date according to local time.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|hours()`, {docuTime});
+
+// 20
+```
+
+### utcHours
+
+Returns the hours for the given date according to universal time.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|utcHours()`, {docuTime});
+
+// 19
+```
+
+### minutes
+
+Returns the minutes for the given date according to local time.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|minutes()`, {docuTime});
+
+// 41
+```
+
+### utcMinutes
+
+Returns the minutes for the given date according to universal time.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|utcMinutes()`, {docuTime});
+
+// 41
+```
+
+### seconds
+
+Returns the seconds for the given date according to local time.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|seconds()`, {docuTime});
+
+// 2
+```
+
+### utcSeconds
+
+Returns the seconds for the given date according to universal time.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|utcSeconds()`, {docuTime});
+
+// 2
+```
+
+### milliseconds
+
+Returns the milliseconds for the given date according to local time.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|milliseconds()`, {docuTime});
+
+// 32
+```
+
+### utcMilliseconds
+
+Returns the milliseconds for the given date according to universal time.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|utMilliseconds()`, {docuTime});
+
+// 32
+```
+
+### timezoneOffset
+
+Returns the difference, in minutes, between the given date as evaluated in the UTC time zone, and the same date as evaluated in the local time zone.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|timezoneOffset()`, {docuTime});
+
+// Local timezone Europe/Paris: -60
+```
+
+### timestamp
+
+Returns the number of milliseconds for the given date since the [epoch](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#the_epoch_timestamps_and_invalid_date){: target="_blank" rel="noopener noreferrer"}, which is defined as the midnight at the beginning of January 1, 1970, UTC.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|timestamp()`, {docuTime});
+
+// 1739562062032
+```
+
+### addMilliseconds
+
+Adds the number of milliseconds to the given date and returns the resulting timestamp.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|addMilliseconds(10)`, {docuTime});
+
+// 1739562062042
+```
+
+### subMilliseconds
+
+Subtracts the number of milliseconds from the given date and returns the resulting timestamp.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|subMilliseconds(10)`, {docuTime});
+
+// 1739562062022
+```
+
+### addSeconds
+
+Adds the number of seconds to the given date and returns the resulting timestamp.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|addSeconds(5)`, {docuTime});
+
+// 1739562067032
+```
+
+### subSeconds
+
+Subtracts the number of seconds from the given date and returns the resulting timestamp.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|subSeconds(5)`, {docuTime});
+
+// 1739562057032
+```
+
+### addMinutes
+
+Adds the number of minutes to the given date and returns the resulting timestamp.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|addMinutes(2)`, {docuTime});
+
+// 1739562182032
+```
+
+### subMinutes
+
+Subtracts the number of minutes from the given date and returns the resulting timestamp.
+
+**available as: transform**
+
+#### Example
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|subMinutes(2)`, {docuTime});
+
+// 1739561942032
+```
+
+### addHours
+
+Adds the number of hours to the given date and returns the resulting timestamp.
+
+**available as: transform**
+
+### subHours
+
+Subtracts the number of hours from the given date and returns the resulting timestamp.
+
+**available as: transform**
+
+### addDays
+
+Adds the number of days to the given date and returns the resulting timestamp.
+
+**available as: transform**
+
+### subDays
+
+Subtracts the number of days from the given date and returns the resulting timestamp.
+
+**available as: transform**
+
+### addWeeks
+
+Adds the number of weeks to the given date and returns the resulting timestamp.
+
+**available as: transform**
+
+### subWeeks
+
+Subtracts the number of weeks from the given date and returns the resulting timestamp.
+
+**available as: transform**
+
+
 ## Add your own
 
 Coming soon
