@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Lite Mode
-toc_order: 11
+toc_order: 12
 ---
 If you encounter performance problems on large boards or during video calls, you can turn on the Lite Mode. This will disable zoom effects like hiding/showing elements.
 
