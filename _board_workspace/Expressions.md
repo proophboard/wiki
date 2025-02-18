@@ -25,7 +25,7 @@ This makes it a more secure alternative to evaluating Javascript directly.
 
 ### Basic Example
 
-```JS
+```js
 const context = {say: "Hello World"}
 
 console.log(jexl.evalSync("say", context));
@@ -134,7 +134,11 @@ Helper function to check if a user has a specific role. If you provide an array 
 the user has any of the roles.
 
 ```typescript
-type isRole = (user: User, role: UserRole | UserRole[], disableActiveRoleCheck?: boolean) => boolean;
+type isRole = (
+  user: User, 
+  role: UserRole | UserRole[], 
+  disableActiveRoleCheck?: boolean
+) => boolean;
 ```
 
 If you use the **activeRole** feature, the function will only check the user's activeRole. You can disable active role check to
@@ -229,11 +233,13 @@ to show in the UI and use it as an alternative filter in queries.
 
 ```js
 // The Cody production-stack requires sequences to be created upfront
-// In prototype mode, sequences are created automatically on first nextval('your_sequence_name') call
+// In prototype mode, sequences are created automatically 
+// on first nextval('your_sequence_name') call
 documentStore.addSequence('invoice_number_seq');
 
-// Example of business rule that records an Invoice Created event from command data
-// and assigns an additional invoice number as a natural identfier using current data + auto incremented number
+// Example of business rule that records an Invoice Created event from a command
+// and assigns an additional invoice number as a natural identfier 
+// using current data + auto incremented number
 const rules = [
   {
     rule: "always",
@@ -272,11 +278,15 @@ const [pageData] = usePageData();
 // Cody always registers pageData in the context under the key "page"
 const ctx = {page: pageData};
 
-// Let's say the current page shows details of a person like firstname, lastname, ...
+// The current page shows details of a person like firstname, lastname, ...
 // The information of the person is fetched from the backend via a query.
 // The namespaced name of the information is /Crm/Person
-// We can savely access firstName and it will be "Unknown" as long as the query is still loading (or returned an error)
-const firstName = jexl.evalSync(`pageData(page, '/Crm/Person', {firstName: ''Unknown}).firstName`, ctx);
+// We can savely access firstName and it will be "Unknown" as long as 
+// the query is still loading (or returned an error)
+const firstName = jexl.evalSync(
+    `pageData(page, '/Crm/Person', {firstName: ''Unknown}).firstName`, 
+    ctx
+);
 ```
 
 `pageData` is also available as a transform function. See [data]({{site.baseUrl}}/board_workspace/Expressions.html#data){: .alert-link} transform for details.
@@ -284,13 +294,16 @@ const firstName = jexl.evalSync(`pageData(page, '/Crm/Person', {firstName: ''Unk
 
 ### userAttr
 
-Users can have roles for role-based access control and additional attributes for fine-grained access control to specific information. Attributes can also be used to assign custom 
-properties to users that are not part of the standard user interface used in the Cody Engine.
+Users can have additional attributes for fine-grained access control or custom information that is not part of the standard user interface.
 
-The `userAttr` function is convenient helper function to access specific attributes of a user. You can pass a default value that is returned in case the attribute is not set.
+The `userAttr` function is a convenient helper function to access specific attributes of a user. You can pass a default value that is returned in case the attribute is not set.
 
 ```typescript
-type userAttr = <T>(user: User, attributeName: string, notSetValue?: T) => T | undefined;
+type userAttr = <T>(
+    user: User, 
+    attributeName: string, 
+    notSetValue?: T
+) => T | undefined;
 ```
 
 #### Example
@@ -337,6 +350,19 @@ const ctx = {user};
 const hobbies = jexl.evalSync(`user|attr('hobby')|list()`, ctx);
 ```
 
+### uuid
+
+Generate a random [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)){: target="_blank" rel="noopener noreferrer"}.
+
+#### Example
+
+```js
+jexl.evalSync(`uuid()`)
+
+// 972a00c6-0160-4ddf-aae9-ea067ce0efe3
+```
+
+
 ## Supported Transforms
 
 Transforms let you chain function calls, whereby the first input of the transform is taken from the previous output.
@@ -374,7 +400,10 @@ const [pageData] = usePageData();
 
 const ctx = {page: pageData};
 
-const firstName = jexl.evalSync(`page|data('/Crm/Person', {firstName: ''Unknown}).firstName`, ctx);
+const firstName = jexl.evalSync(
+    `page|data('/Crm/Person', {firstName: ''Unknown}).firstName`, 
+    ctx
+);
 ```
 
 ### role
@@ -405,7 +434,8 @@ In backend contexts like business rules, you have access to the user who trigger
 #### BE Example
 
 ```typescript
-async function handleChangeProductPrice(command: Command<ChangeProductPrice>): Promsie {
+async function handleChangeProductPrice(command: Command<ChangeProductPrice>)
+    : Promsie {
   // Command metadata includes the user who triggered the command
   const meta = command.meta;
   const payload = command.payload;
@@ -469,19 +499,25 @@ const colors = ['red', 'blue', 'orange', 'green', 'grey'];
 const eventModelingColors = ['blue', 'organge', 'green'];
 const ctx = {colors, eventModelingColors};
 
-const filteredColors = jexl.evalSync(`colors|filter('emc|contains(item)', {emc: eventModelingColors})`, ctx);
+const filteredColors = jexl.evalSync(
+    `colors|filter('emc|contains(item)', {emc: eventModelingColors})`, 
+    ctx
+);
 
 // ['blue', 'organge', 'green']
 ```
 
 ### first
 
-Get the first item of an array. If array is empty `undefined` is returned or the optional `notSetValue` if passed to `first`.
+Get the first item of an array. If array is empty `undefined` is returned or the optional `notSetValue`.
 
 **available as: transform**
 
 ```typescript
-type first = <T extends unknown>(arr: Array<T>, notSetValue?: T) => T | undefined;
+type first = <T extends unknown>(
+    arr: Array<T>, 
+    notSetValue?: T
+) => T | undefined;
 ```
 
 #### Example
@@ -590,8 +626,12 @@ const colors = ['red', 'blue', 'orange', 'green', 'grey'];
 const eventModelingColors = ['blue', 'organge', 'green'];
 const ctx = {colors, eventModelingColors};
 
-// Call the "upper" string trasform for each item of the colors array, if it is an event modeling color
-jexl.evalSync(`colors|map('emc|contains(item) ? item|upper() : item', {emc: eventModelingColors})`, ctx);
+// Call the "upper" string trasform for each item of the colors array, 
+// if it is an event modeling color
+jexl.evalSync(
+    `colors|map('emc|contains(item) ? item|upper() : item', {emc: eventModelingColors})`, 
+    ctx
+);
 
 // ['red', 'BLUE', 'ORANGE', 'GREEN', 'grey']
 ```
