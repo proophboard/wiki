@@ -99,7 +99,7 @@ Allowed in most backend scopes.
 - [find one information]({{site.baseUrl}}/board_workspace/rule-engine.html#find-one-information)
 - [find partial information]({{site.baseUrl}}/board_workspace/rule-engine.html#find-partial-information)
 - [find one partial information]({{site.baseUrl}}/board_workspace/rule-engine.html#find-one-partial-information)
-- [find one partial information by id]({{site.baseUrl}}/board_workspace/rule-engine.html#find-one-partial-information-by-id)
+- [find partial information by id]({{site.baseUrl}}/board_workspace/rule-engine.html#find-partial-information-by-id)
 - [lookup user]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup-user)
 - [lookup users]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup-users)
 
@@ -810,7 +810,7 @@ const employeeWithTeamRules = [
  */
 ```
 
-### Find One Partial Information By Id
+### Find Partial Information By Id
 
 Find one information by id and [Select]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) a subset of the information.
 Partial queries also support [Lookup](({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of additional information aka. joining related information.
