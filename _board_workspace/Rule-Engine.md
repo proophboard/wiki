@@ -93,15 +93,15 @@ The rule engine is used in different parts of the system. A scope defines which 
 
 Allowed in most backend scopes.
 
-- count information
-- find information
-- find information by id
-- find partial information
-- find one information
-- find one partial information
-- find one partial information by id
-- lookup user
-- lookup users
+- [count information]({{site.baseUrl}}/board_workspace/rule-engine.html#count-information)
+- [find information]({{site.baseUrl}}/board_workspace/rule-engine.html#find-information)
+- [find information by id]({{site.baseUrl}}/board_workspace/rule-engine.html#find-information-by-id)
+- [find one information]({{site.baseUrl}}/board_workspace/rule-engine.html#find-one-information)
+- [find partial information]({{site.baseUrl}}/board_workspace/rule-engine.html#find-partial-information)
+- [find one partial information]({{site.baseUrl}}/board_workspace/rule-engine.html#find-one-partial-information)
+- [find one partial information by id]({{site.baseUrl}}/board_workspace/rule-engine.html#find-one-partial-information-by-id)
+- [lookup user]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup-user)
+- [lookup users]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup-users)
 
 ### Business Rules
 
@@ -456,6 +456,537 @@ const rules = [
 
 ### Count Information
 
+Find stored information using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) and count the result set.
+
+```typescript
+interface ThenCountInformation {
+  count: {
+    information: string;
+    filter: Filter;
+    variable?: string;
+  }
+}
+```
+
+- `information` specifies the namespaced information 
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
+- `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
+
+#### Example
+
+```js
+// Count all persons who are 18 or older
+// and store the result in the context variable "adultsCount"
+const rules = [
+  {
+    "rule": "always",
+    "then": {
+      "count": {
+        "information": "/Crm/Person",
+        "filter": {
+          "gte": {
+            "prop": "age",
+            "value": "18"
+          }
+        },
+        "variable": "adultsCount"
+      }
+    }
+  }
+]
+```
+
+### Find Information
+
+Find a list of stored information using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter).
+
+```typescript
+interface ThenFindInformation {
+  find: {
+    information: string;
+    filter: Filter;
+    skip?: number;
+    limit?: number;
+    orderBy?: SortOrder;
+    variable?: string;
+  }
+}
+```
+
+- `information` specifies the namespaced information
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
+- `skip` is optional and can be used to select a subset of the result set skipping the given number of results
+- `limit` is optional and can be used to select a subset of the result set limited by the given number
+- `orderBy` is optional to [sort]({{site.baseUrl}}/board_workspace/rule-engine.html#sort-order) the result set
+- `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
+
+#### Example
+
+```js
+const rules = [
+  {
+    "rule": "always",
+    "then": {
+      "find": {
+        "information": "/Crm/Person",
+        "filter": {
+          "eq": {
+            "prop": "address.city",
+            "value": "'Hometown'"
+          }
+        },
+        "skip": 0,
+        "limit": 50,
+        "orderBy": [
+          {
+            "prop": "name",
+            "sort": "asc"
+          }
+        ],
+        "variable": "hometownPeople"
+      }
+    }
+  }
+]
+```
+
+### Find Information By Id
+
+Find one information by its id.
+
+```typescript
+interface ThenFindInformationById {
+  findById: {
+    information: string;
+    id: JexlExpression;
+    variable?: string;
+  }
+}
+```
+
+- `information` specifies the namespaced information
+- `id` to be used for matching
+- `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
+
+#### Example
+
+```js
+const rules = [
+  {
+    "rule": "always",
+    "then": {
+      "findById": {
+        "information": "/Crm/Person",
+        "id": "'e34a13c9-aa9e-4bad-8dae-1d0c81ddcd9f'",
+        "variable": "person"
+      }
+    }
+  }
+]
+```
+
+### Find One Information
+
+Find one information by using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter).
+If filter matches more than one information, the first match is used.
+
+```typescript
+interface ThenFindOneInformation {
+  findOne: {
+    information: string;
+    filter: Filter;
+    variable?: string;
+  }
+}
+```
+
+- `find.information` specifies the namespaced information
+- `find.filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
+- `find.variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
+
+#### Example
+
+```js
+const rules = [
+  {
+    "rule": "always",
+    "then": {
+      "findOne": {
+        "information": "/Crm/Person",
+        "filter": {
+          "eq": {
+            "prop": "name",
+            "value": "'Jane'"
+          }
+        }
+      },
+      "variable": "person"
+    }
+  }
+]
+```
+
+### Find Partial Information
+
+Find a list of information by using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) and [Select]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) a subset of the information.
+Partial queries also support [Lookup](({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of additional information aka. joining related information.
+
+```typescript
+interface ThenFindPartialInformation {
+  findPartial: {
+    information: string;
+    select: PartialSelect;
+    filter: Filter;
+    skip?: number;
+    limit?: number;
+    orderBy?: SortOrder;
+    variable?: string;
+  }
+}
+```
+
+- `information` specifies the namespaced information
+- `select` specifies the properties to be [selected]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) for the result and optional [Lookups]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup)
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
+- `skip` is optional and can be used to select a subset of the result set skipping the given number of results
+- `limit` is optional and can be used to select a subset of the result set limited by the given number
+- `orderBy` is optional to [sort]({{site.baseUrl}}/board_workspace/rule-engine.html#sort-order) the result set
+- `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
+
+#### Example
+
+```typescript
+// Schema of information stored in the document store
+interface Employee {
+  employeeId: Uuid;
+  name: string;
+  team: Uuid;
+}
+
+interface Team {
+  teamId: Uuid;
+  name: string;
+  company: Uuid;
+}
+
+interface Company {
+  companyId: Uuid;
+  name: string;
+}
+
+// Lookup Employees and their teams
+const employeesWithTeamRules = [
+  {
+    "rule": "always",
+    "then": {
+      "findPartial": {
+        "information": "/App/Employee",
+        "filter": {
+          "any": true
+        },
+        "select": [
+          "employeeId",
+          {
+            "field": "name",
+            "alias": "employeeName"
+          },
+          {
+            "lookup": "/App/Team",
+            "on": {
+              "localKey": "team"
+            },
+            "select": [
+              {
+                "field": "name",
+                "alias": "teamName"
+              }
+            ]
+          }
+        ]
+      },      
+      "variable": "employees"
+    }
+  }
+]
+
+/**
+ * Result would look like this:
+ *
+ * [
+ *  {
+ *    employeeId: "2f0cc76b-60ca-4c95-8a92-15d0663241c9",
+ *    employeeName: "Max",
+ *    teamName: "Jupiter"
+ *  }
+ * ]
+ */
+```
+
+### Find One Partial Information
+
+Find one information by using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) and [Select]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) a subset of the information.
+Partial queries also support [Lookup](({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of additional information aka. joining related information.
+
+```typescript
+interface ThenFindOnePartialInformation {
+  findOnePartial: {
+    information: string;
+    select: PartialSelect;
+    filter: Filter;
+    variable?: string;
+  }
+}
+```
+
+- `information` specifies the namespaced information
+- `select` specifies the properties to be [selected]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) for the result and optional [Lookups]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup)
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
+- `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
+
+#### Example
+
+```typescript
+// Schema of information stored in the document store
+interface Employee {
+  employeeId: Uuid;
+  name: string;
+  team: Uuid;
+}
+
+interface Team {
+  teamId: Uuid;
+  name: string;
+  company: Uuid;
+}
+
+interface Company {
+  companyId: Uuid;
+  name: string;
+}
+
+// Lookup Employee and their team
+const employeeWithTeamRules = [
+  {
+    "rule": "always",
+    "then": {
+      "findOnePartial": {
+        "information": "/App/Employee",
+        "filter": {
+          "docId": "'25a1eeb1-928e-4772-9943-3f304ee37f64'"
+        },
+        "select": [
+          "employeeId",
+          {
+            "field": "name",
+            "alias": "employeeName"
+          },
+          {
+            "lookup": "/App/Team",
+            "on": {
+              "localKey": "team"
+            },
+            "select": [
+              {
+                "field": "name",
+                "alias": "teamName"
+              }
+            ]
+          }
+        ]
+      },      
+      "variable": "employee"
+    }
+  }
+]
+
+/**
+ * Result would look like this:
+ *
+ * {
+ *   employeeId: "2f0cc76b-60ca-4c95-8a92-15d0663241c9",
+ *   employeeName: "Max",
+ *   teamName: "Jupiter"
+ * }
+ */
+```
+
+### Find One Partial Information By Id
+
+Find one information by id and [Select]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) a subset of the information.
+Partial queries also support [Lookup](({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of additional information aka. joining related information.
+
+```typescript
+interface ThenFindPartialInformationById {
+  findPartialById: {
+    information: string;
+    id: string;
+    select: PartialSelect;
+    variable?: string;
+  }
+}
+```
+
+- `information` specifies the namespaced information
+- `id` to be used for matching
+- `select` specifies the properties to be [selected]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) for the result and optional [Lookups]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup)
+- `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
+
+#### Example
+
+```typescript
+// Schema of information stored in the document store
+interface Employee {
+  employeeId: Uuid;
+  name: string;
+  team: Uuid;
+}
+
+interface Team {
+  teamId: Uuid;
+  name: string;
+  company: Uuid;
+}
+
+interface Company {
+  companyId: Uuid;
+  name: string;
+}
+
+// Lookup Employee and their team
+const employeeWithTeamRules = [
+  {
+    "rule": "always",
+    "then": {
+      "findPartialById": {
+        "information": "/App/Employee",
+        "id": "'25a1eeb1-928e-4772-9943-3f304ee37f64'",
+        "select": [
+          "employeeId",
+          {
+            "field": "name",
+            "alias": "employeeName"
+          },
+          {
+            "lookup": "/App/Team",
+            "on": {
+              "localKey": "team"
+            },
+            "select": [
+              {
+                "field": "name",
+                "alias": "teamName"
+              }
+            ]
+          }
+        ]
+      },      
+      "variable": "employee"
+    }
+  }
+]
+
+/**
+ * Result would look like this:
+ *
+ * {
+ *   employeeId: "2f0cc76b-60ca-4c95-8a92-15d0663241c9",
+ *   employeeName: "Max",
+ *   teamName: "Jupiter"
+ * }
+ */
+```
+
+### Lookup User
+
+Lookup a user by their userId.
+
+```typescript
+interface ThenLookupUser {
+  lookup: {
+    user: JexlExpression,
+    variable?: string,
+  }
+}
+```
+- `user` specifies the userId to be used for the lookup
+- `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `user`
+
+#### Example
+
+```js
+const rules = [
+  {
+    "rule": "always",
+    "then": {
+      "lookup": {
+        "user": "'cce0e57f-5703-4ad4-9137-ab2cf1af80ab'"
+      }
+    } 
+  }
+]
+```
+
+### Lookup Users
+
+Lookup a list of users using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter).
+
+```typescript
+interface ThenLookupUsers {
+  lookup: {
+    users: {
+      filter: Filter,
+      skip?: number;
+      limit?: number;
+      variable?: string;
+    }
+  }
+}
+```
+
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against users
+- `skip` is optional and can be used to select a subset of the result set skipping the given number of results
+- `limit` is optional and can be used to select a subset of the result set limited by the given number
+- `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `users`
+
+Keycloak Auth Service only supports roles and attributes filters combined with a logical AND.
+{: .alert .alert-warning}
+
+#### Example
+
+```js
+const rules = [
+  {
+    "rule": "always",
+    "then": {
+      "lookup": {
+        "users": {
+          "filter": {
+            // Only logical AND filter is supported by Keycloak Auth Service
+            "and": [
+              {
+                // Use inArray filter to lookup users of a specific role
+                "inArray": {
+                  "prop": "roles",
+                  "value": "'Admin'"
+                }
+              },
+              {
+                // Use equal filter to lookup users by attribute
+                "eq": {
+                  "prop": "attributes.company",
+                  "value": "'Acme AG'"
+                }
+              }
+            ]
+          }
+        }
+      }
+    }
+  }
+]
+```
+
+
 
 
 ### Property Mapping
@@ -595,10 +1126,546 @@ const rules = [
 ]
 ```
 
+### Filter
 
+Filters are used to find stored information. Most filters check a specific information property against a value.
+If information is a nested structure, and you want to filter on nested properties you can use dots to define the path.
 
+Values are provided via [Jexl Expressions]({{site.baseUrl}}/board_workspace/Expressions.html){: .alert-link}
+{: .alert .alert-info}
 
+```js
+// An example person with a nested address schema
+const person = {
+  name: "Jane",
+  age: 35,
+  address: {
+    "street": "Mainstreet",
+    "city": "Hometown"
+  },
+  hobbies: [
+    "running",
+    "hiking",
+    "reading"
+  ]
+}
 
+// If you want to find all persons living in Hometown, 
+// you would use an equal filter like this:
+const filter = {
+  "eq": {
+    "prop": "address.city",
+    // Note the single qoutes insight double qoutes due to 
+    // value being interpreted as a Jexl Expression
+    "value": "'Hometown'"
+  }
+}
+```
+
+#### Any Filter
+
+Find information without a specific filter.
+
+```typescript
+interface AnyFilter {
+  any: boolean
+}
+
+const filter: AnyFilter = {
+  "any": true
+}
+```
+
+#### Any Of DocId Filter
+
+Filter information by a list of document ids.
+
+```typescript
+interface AnyOfDocIdFilter {
+  anyOfDocId: JexlExpression;
+}
+
+const filter: AnyOfDocIdFilter = {
+  "anyOfDocId": "['b8474c07-22b2-43f0-b274-36c3dff83335', /* ... */]"
+}
+```
+
+#### Any Of Filter
+
+Find information by comparing the value of a property against a list of possible values. 
+
+```typescript
+interface AnyOfFilter {
+  anyOf: {
+    prop: string,
+    valueList: JexlExpression,
+  }
+}
+
+const filter: AnyOfFilter = {
+  "anyOf": {
+    "prop": "address.city",
+    "valueList": "['Hometown', 'Big City']"   
+  }
+}
+```
+
+#### DocId Filter
+
+Find information by its document id.
+
+```typescript
+interface DocIdFilter {
+  docId: JexlExpression;
+}
+
+const filter: DocIdFilter = {
+  "docId": "'b8474c07-22b2-43f0-b274-36c3dff83335'"
+}
+```
+
+#### Equal Filter
+
+Check that a property equals a specific value. 
+
+```typescript
+interface EqFilter {
+  eq: {
+    prop: string,
+    value: JexlExpression,
+  }
+}
+
+const filter: EqFilter = {
+  "eq": {
+    "prop": "address.city",
+    "value": "'Hometown'"
+  }
+}
+```
+
+#### Exists Filter
+
+Check that a specific property exists.
+
+```typescript
+interface ExistsFilter {
+  exists: {
+    prop: string;
+  }
+}
+
+// Find all persons who have the age property set
+const filter: ExistsFilter = {
+  "exists": {
+    "prop": "age"
+  }
+}
+```
+
+#### Greater Than or Equal Filter
+
+Check that a property is greater than or equal to value.
+
+```typescript
+interface GteFilter {
+  gte: {
+    prop: string,
+    value: JexlExpression,
+  }
+}
+
+// Find all persons who are 35 or older
+const filter: GteFilter = {
+  "gte": {
+    "prop": "age",
+    "value": "35"
+  }
+}
+```
+
+#### Greater Than Filter
+
+Check that a property is greater than value.
+
+```typescript
+interface GtFilter {
+  gt: {
+    prop: string,
+    value: JexlExpression,
+  }
+}
+
+// Find all persons who are older than 35
+const filter: GtFilter = {
+  "gt": {
+    "prop": "age",
+    "value": "35"
+  }
+}
+```
+
+#### InArray Filter
+
+If property is of type array, check that given value is one of the items.
+
+```typescript
+interface InArrayFilter {
+  inArray: {
+    prop: string,
+    value: JexlExpression,
+  }
+}
+
+// Find all persons who have hiking as a hobby
+const filter: InArrayFilter = {
+  "inArray": {
+    "prop": "hobbies",
+    "value": "'hiking'"
+  }
+}
+```
+
+#### Like Filter
+
+Match a string property against a value string that contains a wildcard: `%`
+at the start and/or end.
+
+```typescript
+interface LikeFilter {
+  like: {
+    prop: string,
+    value: JexlExpression,
+  }
+}
+
+// Find all persons who live in a city that starts with "Home"
+const filter: LikeFilter = {
+  "like": {
+    "prop": "address.city",
+    "value": "'Home%'"
+  }
+}
+```
+
+#### Lower Than or Equal Filter
+
+Check that a property is lower than or equal to a value.
+
+```typescript
+interface LteFilter {
+  lte: {
+    prop: string,
+    value: JexlExpression,
+  }
+}
+
+// Find all persons who are 35 or younger
+const filter: LteFilter = {
+  "lte": {
+    "prop": "age",
+    "value": "35"
+  }
+}
+```
+
+#### Lower Than Filter
+
+Check that a property is lower than a value.
+
+```typescript
+interface LtFilter {
+  lt: {
+    prop: string,
+    value: string,
+  }
+}
+
+// Find all persons who are younger than 35
+const filter: LtFilter = {
+  "lt": {
+    "prop": "age",
+    "value": "35"
+  }
+}
+```
+
+#### And Filter
+
+Find information where two or more filters match.
+
+```typescript
+interface AndFilter {
+  and: Filter[]
+}
+
+// Find all persons who are older than 35 and live in Hometown
+const filter: AndFilter = {
+  "and": [
+    {
+      "gt": {
+        "prop": "age",
+        "value": "35"
+      }
+    },
+    {
+      "eq": {
+        "prop": "address.city",
+        "value": "'Hometown'"
+      }
+    }
+  ]
+}
+```
+
+#### Or Filter
+
+Find information where any of the given filters match.
+
+```typescript
+interface OrFilter {
+  or: Filter[]
+}
+
+// Find all persons who either live in Hometown or have no address set.
+const filter: OrFilter = {
+  "or": [
+    {
+      "eq": {
+        "prop": "address.city",
+        "value": "'Hometown'"
+      }
+    },
+    {
+      "not": {
+        "exists": {
+          "prop": "address"
+        }
+      }
+    }
+  ]
+}
+```
+
+#### Not Filter
+
+Find information where a given filter does not match.
+
+```typescript
+interface NotFilter {
+  not: Filter
+}
+
+// Find all persons who don't live in Hometown
+const filter: NotFilter = {
+  "not": {
+    "eq": {
+      "prop": "address.city",
+      "value": "'Hometown'"
+    }
+  }
+}
+```
+
+### Sort Order
+
+Defines a list of sorting instructions. Each instruction defines sorting for one property.
+The result set is first sorted by the first instruction then by the next instruction and so on.
+
+```typescript
+type SortOrder = Array<{
+  prop: string;
+  sort: 'asc' | 'desc';
+}>
+```
+
+- `SortOrder.prop` defines the property to be sorted. Can be a nested path.
+- `SortOrder.sort` defines if sorting should be in ascending (smallest to largest) or descending (largest to smallest) order.
+
+### Partial Select
+
+Define the list of properties to be included in the result.
+
+```typescript
+type FieldName = string;
+type AliasFieldNameMapping = {field: string; alias: string;};
+type PartialSelect = Array<FieldName|AliasFieldNameMapping|Lookup>;
+```
+
+`PartialSelect` is of type array and supports 3 different formats:
+
+1. A simple string specifies a property name to be included as-is.
+2. An object of `{field: string; alias: string;}` mapping, allows you to select a property under a different name in the result. `field` can also be a dot separated path to a nested property.
+3. A [Lookup]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of a one-to-one relation.
+
+### Lookup
+
+Lookup additional information and include it in the main [Select]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select).
+
+Cody Play/Engine only supports one-to-one relations, but not one-to-many or many-to-many. You should be careful with lookups as they 
+introduce coupling. You trade less complicated projections with more coupling in the data layer. Choose wisely.
+{: .alert .alert-warning}
+
+```typescript
+interface Lookup {
+  lookup: string;
+  alias?: string;
+  using?: string;
+  optional?: boolean; 
+  on: {
+    localKey: string;
+    foreignKey?: string;
+    and?: Filter;
+  },
+  /* 
+   * If lookup is optional and foreignDoc cannot be found, 
+   * non-optional select fields are returned as NULL 
+   */
+  select?: Array<FieldName|AliasFieldNameMapping>;
+}
+```
+
+- `lookup` specifies the namespaced information to look up
+- `alias` gives the lookup a name, that can be referenced in further lookups (optional)
+- `using` defines the lookup to be used as the local basis. By default, the local basis is the main information specified in the find * rule, but you can also use another lookup as the local basis. 
+- `optional` defines if the lookup is optional. If false (default) and referenced information cannot be found, also the main select is not included in the result set.
+- `on` defines the matching condition for the lookup. `localKey` needs to be equal to `foreignKey` (defaults to foreign document id). You can define additional matching conditions using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter)
+- `select` defines which properties of the looked up information should be included in the result 
+
+#### Lookup Examples
+
+```typescript
+// Schema of information stored in the document store
+interface Employee {
+  employeeId: Uuid;
+  name: string;
+  team: Uuid;
+}
+
+interface Team {
+  teamId: Uuid;
+  name: string;
+  company: Uuid;
+}
+
+interface Company {
+  companyId: Uuid;
+  name: string;
+}
+
+// Lookup Employees and their teams
+const employeesWithTeamRules = [
+  {
+    "rule": "always",
+    "then": {
+      "findPartial": {
+        "information": "/App/Employee",
+        "filter": {
+          "any": true
+        },
+        "select": [
+          "employeeId",
+          {
+            "field": "name",
+            "alias": "employeeName"
+          },
+          {
+            "lookup": "/App/Team",
+            "on": {
+              "localKey": "team"
+            },
+            "select": [
+              {
+                "field": "name",
+                "alias": "teamName"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+]
+
+/**
+ * Result would look like this:
+ * 
+ * [
+ *  {
+ *    employeeId: "2f0cc76b-60ca-4c95-8a92-15d0663241c9",
+ *    employeeName: "Max",
+ *    teamName: "Jupiter"
+ *  }
+ * ]
+ */
+
+// Lookup Employees, their teams and the organization
+// This example shows the lookup via reference defined in another lookup
+const employeesWithTeamAndCompanyRules = [
+  {
+    "rule": "always",
+    "then": {
+      "findPartial": {
+        "information": "/App/Employee",
+        "filter": {
+          "any": true
+        },
+        "select": [
+          "employeeId",
+          {
+            "field": "name",
+            "alias": "employeeName"
+          },
+          {
+            "lookup": "/App/Team",
+            // This alias is referenced in the next lookup using section
+            "alias": "team",
+            "on": {
+              "localKey": "team"
+            },
+            "select": [
+              {
+                "field": "name",
+                "alias": "teamName"
+              }
+            ]
+          },
+          {
+            "lookup": "/App/Company",
+            // Use the team lookup as the local basis
+            "using": "team",
+            "on": {
+              // In fact, this becomes team.company = company.companyId
+              "localKey": "company",
+              // Not strickly needed, as the default would by company documentId
+              "foreignKey": "companyId"
+            },
+            "select": [
+              {
+                "field": "name",
+                "alias": "companyName"
+              }
+            ]
+          }
+        ]
+      }
+    }
+  }
+]
+
+/**
+ * Result would look like this:
+ *
+ * [
+ *  {
+ *    employeeId: "2f0cc76b-60ca-4c95-8a92-15d0663241c9",
+ *    employeeName: "Max",
+ *    teamName: "Jupiter",
+ *    companyName: "Acme AG"
+ *  }
+ * ]
+ */
+```
 
 
 
