@@ -140,7 +140,7 @@ commands, events and information. Hence, prooph board can deal with both variant
 - `command`: data of the command
 - `meta`: metadata of the command (incl. current `user`)
 - `information`: current state of the aggregate, only set in aggregate business rules
-- Command Dependencies (@TODO: add link)
+- [Command Dependencies]({{site.baseUrl}}/board_workspace/rule-engine.html#dependencies)
 
 #### Examples
 
@@ -267,7 +267,7 @@ This can either be a [Service Call]({{site.baseUrl}}/board_workspace/Rule-Engine
 
 - `event`: data of the event that the processor is reacting to
 - `meta`: metadata of the event (incl. `user` who originally triggered the causing command)
-- Processor Dependencies (@TODO: add link)
+- [Processor Dependencies]({{site.baseUrl}}/board_workspace/rule-engine.html#dependencies)
 
 #### Example
 
@@ -492,7 +492,7 @@ Following rules are available in the `rules` section of a resolver config:
 
 - `query`: data of the query that the resolver should handle
 - `meta`: metadata of the query (incl. `user` who wants to view the information)
-- Resolver Dependencies (@TODO: add link)
+- [Resolver Dependencies]({{site.baseUrl}}/board_workspace/rule-engine.html#dependencies)
 
 ### Projector Rules
 
