@@ -237,7 +237,7 @@ const rules = [
         // if we want to set a fixed string value
         // we have to use single qoutes insight double qoutes
         // to let the expression return a string
-        "value": "'Have nice day!'"
+        "value": "'Have a nice day!'"
       }
     }
   },
@@ -249,7 +249,7 @@ const rules = [
       "assign": {
         // Override variable "msg", if it's Sunday
         "variable": "msg",
-        "value": "'Have nice Sunday!'"
+        "value": "'Have a nice Sunday!'"
       }
     }
   }
@@ -629,7 +629,7 @@ const rules = [
 ### Find Partial Information
 
 Find a list of information by using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) and [Select]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) a subset of the information.
-Partial queries also support [Lookup](({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of additional information aka. joining related information.
+Partial queries also support [Lookup]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of additional information aka. joining related information.
 
 ```typescript
 interface ThenFindPartialInformation {
@@ -725,7 +725,7 @@ const employeesWithTeamRules = [
 ### Find One Partial Information
 
 Find one information by using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) and [Select]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) a subset of the information.
-Partial queries also support [Lookup](({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of additional information aka. joining related information.
+Partial queries also support [Lookup]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of additional information aka. joining related information.
 
 ```typescript
 interface ThenFindOnePartialInformation {
@@ -813,7 +813,7 @@ const employeeWithTeamRules = [
 ### Find Partial Information By Id
 
 Find one information by id and [Select]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) a subset of the information.
-Partial queries also support [Lookup](({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of additional information aka. joining related information.
+Partial queries also support [Lookup]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of additional information aka. joining related information.
 
 ```typescript
 interface ThenFindPartialInformationById {

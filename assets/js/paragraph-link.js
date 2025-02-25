@@ -100,6 +100,7 @@
 
             if(a && newActiveAnchor && a.getAttribute('href') === '#' + newActiveAnchor.getAttribute('id')) {
                 item.classList.add('active');
+                item.scrollIntoView();
             }
         });
     }
