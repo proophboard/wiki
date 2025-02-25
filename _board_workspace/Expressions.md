@@ -229,8 +229,6 @@ need a sequence to ensure that no two information get the same identifier assign
 The `nextval` function makes it easy to use a sequence to assign human-friendly identifiers to information. While the primary identifier is still a UUID, you can use the human-friendly version
 to show in the UI and use it as an alternative filter in queries.
 
-#### Example
-
 ```js
 // The Cody production-stack requires sequences to be created upfront
 // In prototype mode, sequences are created automatically 
@@ -269,8 +267,6 @@ The `pageData` function takes care of the loading state of information. As long 
 type pageData = (pageData: PageData | undefined, name: string, defaultValue: any) => any
 ```
 
-#### Example
-
 ```js
 // pageData is provided by Cody
 const [pageData] = usePageData();
@@ -305,8 +301,6 @@ type userAttr = <T>(
     notSetValue?: T
 ) => T | undefined;
 ```
-
-#### Example
 
 ```js
 const user = useUser();
@@ -354,8 +348,6 @@ const hobbies = jexl.evalSync(`user|attr('hobby')|list()`, ctx);
 
 Generate a random [version 4 UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Version_4_(random)){: target="_blank" rel="noopener noreferrer"}.
 
-#### Example
-
 ```js
 jexl.evalSync(`uuid()`)
 
@@ -369,8 +361,6 @@ Transforms let you chain function calls, whereby the first input of the transfor
 
 Transforms are chained using the pipe operator `|`.
 {: .alert .alert-info}
-
-### Example
 
 ```js
 const person = {
@@ -520,8 +510,6 @@ type first = <T extends unknown>(
 ) => T | undefined;
 ```
 
-#### Example
-
 ```js
 const colors = ['red', 'blue', 'orange', 'green', 'grey'];
 const emptyList = [];
@@ -548,8 +536,6 @@ Concatenate all array items to a string using an optional separator.
 type join = (arr: Array, separator?: string) => string;
 ```
 
-#### Example
-
 ```js
 const colors = ['red', 'blue', 'orange', 'green', 'grey'];
 const ctx = {colors};
@@ -569,8 +555,6 @@ Cast any type to an array. If input type is already an array, it is returned as-
 type list = <T extends unknown>(v: T) => T[];
 ```
 
-#### Example
-
 ```js
 const hobbies = "running";
 
@@ -589,8 +573,6 @@ Get the last item of an array. If array is empty `undefined` is returned or the 
 ```typescript
 type last = <T extends unknown>(arr: Array<T>, notSetValue?: T) => T | undefined;
 ```
-
-#### Example
 
 ```js
 const colors = ['red', 'blue', 'orange', 'green', 'grey'];
@@ -619,8 +601,6 @@ type map = (arr: Array, expression: string, filterContext?: object) => Array;
 The `expression` has access to the `item` (alias `_`) and the `index` of the item. If you need to access variables from the
 parent context, you have to pass them explicitly to the optional `filterContext`.
 
-#### Example
-
 ```js
 const colors = ['red', 'blue', 'orange', 'green', 'grey'];
 const eventModelingColors = ['blue', 'organge', 'green'];
@@ -641,8 +621,6 @@ jexl.evalSync(
 Wrapper for lodash [_.orderBy](https://lodash.com/docs#orderBy).
 
 **available as: transform**
-
-#### Example
 
 ```js
 const users = [
@@ -705,8 +683,6 @@ Get a value from an object or array. Use `.` to access subkeys.
 type get = <T>(obj: object | Array<unknown>, path: string, notSetValue?: T | undefined) => T | undefined;
 ```
 
-#### Example
-
 ```js
 const person = {
   name: 'Jane',
@@ -738,8 +714,6 @@ Get a list of the keys of an object.
 type keys = <T extends object, K extends keyof T>(obj: T) => K[];
 ```
 
-#### Example
-
 ```js
 const pet = { name: "Lessy", animal: "dog", breed: "Colie" };
 const ctx = {pet};
@@ -758,8 +732,6 @@ Extract a subset from an object into a new object. Use `.` to extract subkeys.
 ```ts
 type pick = <T extends object>(obj: T, paths: string[]) => Partial<T>;
 ```
-
-#### Example
 
 ```js
 const pet = { name: "Lessy", animal: "dog", breed: "Colie" };
@@ -782,8 +754,6 @@ Set a value of an object or array path. Use `.` to set subkeys. If path does not
 type set = <T extends object>(obj: T, path: string, value: any) => T;
 ```
 
-#### Example
-
 ```js
 const person = {name: "Jane"}
 
@@ -805,7 +775,6 @@ Delete a key of an object or array path. Use `.` to unset subkeys. If path does 
 ```typescript
 type unset = <T extends object>(obj: T, path: string) => T;
 ```
-#### Example
 
 ```js
 const user = {username: 'John', locked: true};
@@ -831,8 +800,6 @@ Get a list of the values of an object.
 type values = <T extends object, V extends T[keyof T]>(obj: T) => V[];
 ```
 
-#### Example
-
 ```js
 const pet = { name: "Lessy", animal: "dog", breed: "Colie" };
 const ctx = {pet};
@@ -850,8 +817,6 @@ Converts all characters of the string to lower case.
 
 **available as: transform**
 
-#### Example
-
 ```js
 const msg = 'HELLO';
 
@@ -865,8 +830,6 @@ jexl.evalSync(`msg|lower()`, {msg});
 Splits a string into parts using a separator. The default separator is " ".
 
 **available as: transform**
-
-#### Example
 
 ```js
 const path = "first.second.third";
@@ -882,8 +845,6 @@ Removes whitespace from both ends of the string.
 
 **available as: transform**
 
-#### Example
-
 ```js
 const msg = "   Hello    ";
 
@@ -897,8 +858,6 @@ jexl.evalSync(`msg|trim()`, {msg});
 Removes whitespace from the start of the string.
 
 **available as: transform**
-
-#### Example
 
 ```js
 const msg = "   Hello    ";
@@ -914,8 +873,6 @@ Removes whitespace from the end of the string.
 
 **available as: transform**
 
-#### Example
-
 ```js
 const msg = "   Hello    ";
 
@@ -929,8 +886,6 @@ jexl.evalSync(`msg|trimEnd()`, {msg});
 Converts all characters of the string to upper case.
 
 **available as: transform**
-
-#### Example
 
 ```js
 const msg = 'hello';
@@ -948,8 +903,6 @@ Cast a string to an integer.
 
 **available as: transform**
 
-#### Example
-
 ```js
 const age = "42";
 
@@ -964,8 +917,6 @@ Cast a string to a floating point number.
 
 **available as: transform**
 
-#### Example
-
 ```js
 const price = "10.99";
 
@@ -979,8 +930,6 @@ jexl.evalSync(`price|toFloat()`, {price});
 Cast any type to string.
 
 **available as: transform**
-
-#### Example
 
 ```js
 const price = 10.99;
@@ -1002,8 +951,6 @@ type toJSON = (val: unknown, space?: number) => string;
 
 If `space` is passed as an argument, the JSON string gets formatted using the number of spaces for indentation.
 
-#### Example
-
 ```js
 const person = {name: "Jane", age: 35};
 
@@ -1020,8 +967,6 @@ jexl.evalsync(`person|toJSON(2)`, {person});
 Calls [JSON.parse](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse){: target="_blank" rel="noopener noreferrer"} on a JSON string.
 
 **available as: transform**
-
-#### Example
 
 ```js
 const person = '{"name": "Jane", "age": 35}'
@@ -1050,8 +995,6 @@ type round = (val: number, precision?: number) => number;
 
 If precision is not set, val is rounded to the nearest integer.
 
-#### Example
-
 ```js
 const price = 10.93;
 
@@ -1075,8 +1018,6 @@ type ceil = (val: number, precision?: number) => number;
 ```
 
 If precision is not set, val is rounded up to next integer.
-
-#### Example
 
 ```js
 const price = 10.83;
@@ -1102,8 +1043,6 @@ type floor = (val: number, precision?: number) => number;
 
 If precision is not set, val is rounded down to integer.
 
-#### Example
-
 ```js
 const price = 10.83;
 
@@ -1124,8 +1063,6 @@ Constructs a new `Date` from current date and time.
 
 **available as: function**
 
-#### Example
-
 ```js
 console.log("This docu part was written at: " + jexl.evalSync(`now()|isoDateTime()`));
 
@@ -1137,8 +1074,6 @@ console.log("This docu part was written at: " + jexl.evalSync(`now()|isoDateTime
 Constructs a new `Date` from given `number | string | Date`.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1155,8 +1090,6 @@ Returns a string representing this date in the [RFC 7231](https://datatracker.ie
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032Z";
@@ -1171,8 +1104,6 @@ jexl.evalSync(`docuTime|utc()`, {docuTime});
 Returns a string representing this date in the [date time string format](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#date_time_string_format){: target="_blank" rel="noopener noreferrer"} using only the date part.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1189,8 +1120,6 @@ Returns a string representing this date in the [date time string format](https:/
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032Z";
@@ -1205,8 +1134,6 @@ jexl.evalSync(`docuTime|isoTime()`, {docuTime});
 Returns a string representing this date in the [date time string format](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#date_time_string_format){: target="_blank" rel="noopener noreferrer"}.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1223,8 +1150,6 @@ Returns a string representing the date portion of the given date according to la
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:0.032+01:00";
@@ -1239,8 +1164,6 @@ jexl.evalSync(`docuTime|localDate()`, {docuTime});
 Returns a string representing the time portion of the given date according to language-specific conventions.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1257,8 +1180,6 @@ Returns a string representing the given date according to language-specific conv
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032+01:00";
@@ -1273,8 +1194,6 @@ jexl.evalSync(`docuTime|localDateTime()`, {docuTime});
 Returns the year for the given date according to local time.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1291,8 +1210,6 @@ Returns the year for the given date according to universal time.
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032+01:00";
@@ -1307,8 +1224,6 @@ jexl.evalSync(`docuTime|utcYear()`, {docuTime});
 Returns the month for the given date according to local time, as a zero-based value (where zero indicates the first month of the year).
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1325,8 +1240,6 @@ Returns the month for the given date according to universal time, as a zero-base
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032+01:00";
@@ -1341,8 +1254,6 @@ jexl.evalSync(`docuTime|utcMonth()`, {docuTime});
 Returns the day of the month for the given date according to local time.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1359,8 +1270,6 @@ Returns the day of the month for the given date according to universal time.
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032+01:00";
@@ -1375,8 +1284,6 @@ jexl.evalSync(`docuTime|utcDay()`, {docuTime});
 Returns the day of the week for the given date according to local time, where 0 represents Sunday.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1393,8 +1300,6 @@ Returns the day of the week for the given date according to universal time, wher
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032+01:00";
@@ -1409,8 +1314,6 @@ jexl.evalSync(`docuTime|utcWeekDay()`, {docuTime});
 Returns the hours for the given date according to local time.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1427,8 +1330,6 @@ Returns the hours for the given date according to universal time.
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032+01:00";
@@ -1443,8 +1344,6 @@ jexl.evalSync(`docuTime|utcHours()`, {docuTime});
 Returns the minutes for the given date according to local time.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1461,8 +1360,6 @@ Returns the minutes for the given date according to universal time.
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032+01:00";
@@ -1477,8 +1374,6 @@ jexl.evalSync(`docuTime|utcMinutes()`, {docuTime});
 Returns the seconds for the given date according to local time.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1495,8 +1390,6 @@ Returns the seconds for the given date according to universal time.
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032+01:00";
@@ -1511,8 +1404,6 @@ jexl.evalSync(`docuTime|utcSeconds()`, {docuTime});
 Returns the milliseconds for the given date according to local time.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1529,8 +1420,6 @@ Returns the milliseconds for the given date according to universal time.
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032+01:00";
@@ -1545,8 +1434,6 @@ jexl.evalSync(`docuTime|utMilliseconds()`, {docuTime});
 Returns the difference, in minutes, between the given date as evaluated in the UTC time zone, and the same date as evaluated in the local time zone.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1563,8 +1450,6 @@ Returns the number of milliseconds for the given date since the [epoch](https://
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032+01:00";
@@ -1579,8 +1464,6 @@ jexl.evalSync(`docuTime|timestamp()`, {docuTime});
 Adds the number of milliseconds to the given date and returns the resulting timestamp.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1597,8 +1480,6 @@ Subtracts the number of milliseconds from the given date and returns the resulti
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032+01:00";
@@ -1613,8 +1494,6 @@ jexl.evalSync(`docuTime|subMilliseconds(10)`, {docuTime});
 Adds the number of seconds to the given date and returns the resulting timestamp.
 
 **available as: transform**
-
-#### Example
 
 ```js
 
@@ -1631,8 +1510,6 @@ Subtracts the number of seconds from the given date and returns the resulting ti
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032+01:00";
@@ -1648,8 +1525,6 @@ Adds the number of minutes to the given date and returns the resulting timestamp
 
 **available as: transform**
 
-#### Example
-
 ```js
 
 const docuTime = "2025-02-14T20:41:02.032+01:00";
@@ -1664,8 +1539,6 @@ jexl.evalSync(`docuTime|addMinutes(2)`, {docuTime});
 Subtracts the number of minutes from the given date and returns the resulting timestamp.
 
 **available as: transform**
-
-#### Example
 
 ```js
 

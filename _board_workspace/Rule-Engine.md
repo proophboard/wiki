@@ -58,8 +58,6 @@ const rules = [
 
 The `then` part of a rule contains the actual processing logic. An `else` part of a conditional rule is similar to `then` and describes an alternative processing logic if the condition is not met.
 
-#### Example
-
 Here is an example of a log msg rule that is always executed:
 
 ```js
