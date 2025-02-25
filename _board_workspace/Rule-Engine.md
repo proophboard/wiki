@@ -101,6 +101,22 @@ Allowed in most backend scopes.
 - [lookup user]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup-user)
 - [lookup users]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup-users)
 
+### CUD Information Rules
+
+Allowed in [business rules](({{site.baseUrl}}/board_workspace/rule-engine.html#business-rules)), [processor](({{site.baseUrl}}/board_workspace/rule-engine.html#processor-rules)) and [projector](({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules)) scopes.
+
+- [insert information]({{site.baseUrl}}/board_workspace/rule-engine.html#insert-information)
+- [upsert information]({{site.baseUrl}}/board_workspace/rule-engine.html#upsert-information)
+- [update information]({{site.baseUrl}}/board_workspace/rule-engine.html#update-information)
+- [replace information]({{site.baseUrl}}/board_workspace/rule-engine.html#replace-information)
+- [delete information]({{site.baseUrl}}/board_workspace/rule-engine.html#delete-information)
+
+Create, update, and delete information is supported in business rules and processors, but you should use it with caution.
+In an event sourced system, all state changes should be captured by events. If you change information outside a projector,
+you're going to change it without recording an event. Do this only if the design explicitly requires it, e.g. in case a processor maintains its own state.
+{: .alert .alert-warning}
+
+
 ### Business Rules
 
 [Commands]({{site.baseUrl}}/event_storming/basic-concepts.html#command) trigger business rules. The outcome of a processed command
@@ -114,9 +130,10 @@ commands, events and information. Hence, prooph board can deal with both variant
 
 #### Available Rules
 
-- record event
-- call service
+- [record event]({{site.baseUrl}}/board_workspace/Rule-Engine.html#record-event)
+- [call service]({{site.baseUrl}}/board_workspace/Rule-Engine.html#call-service)
 - [information lookup rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#information-lookup-rules)
+- [CUD information rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#cud-information-rules)
 
 #### Jexl Context
 
@@ -177,28 +194,490 @@ const rules = [
 
 When working with event sourced [aggregates]({{site.baseUrl}}/event_storming/basic-concepts.html#aggregate), each aggregate event is applied to the aggregate state.
 
+#### Available Rules
+
+- [assign variable]({{site.baseUrl}}/board_workspace/Rule-Engine.html#assign-variable)
+
+Only assign variable rules are allowed in the event apply scope. Once an event is recorded, applying it to the aggregate state should never fail due to side effects like calling a service or fetching information.
+Event apply rules are similar to pure functions in functional programming.
+{: .alert .alert-warning}
+
+#### Jexl Context
+
+- `event`: data of the event
+- `meta`: metadata of the event (incl. `user` who originally triggered the causing command)
+- `information`: current state of the aggregate
+
+#### Example
+
+Let's continue the "Room Booked" example from the [Business Rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#business-rules).
+After the event is recorded, it gets applied to the aggregate state of the `room`:
+
+```js
+// Apply "Room Booked" context, automatically provided by Cody
+const ctx = {
+  event: roomBooked.payload,
+  meta: roomBooked.meta,
+  // Current aggregate state is registered as "information" in the appy context
+  information: room
+}
+
+const applyEventConfig = {
+  rules: [
+    {
+      "rule": "always",
+      "then": {
+        "assign": {
+          // We want to apply the event to the aggregate state
+          // so we (re)assign the variable "information"
+          "variable": "information",
+          "mapping": {
+            // First, take all current information
+            "$merge": "information",
+            // Second, apply the event
+            // in this case add a new day booking
+            "bookedAt": "information.bookedAt|push(event.day)"
+          }
+        }
+      }
+    }
+  ]
+}
+
+RuleEngine.execSync(applyEventConfig.rules, ctx);
+
+const newAggregateState = ctx.information;
+```
+
 ### Processor Rules
 
-- trigger command
-- call service
+[Processors/Policies]({{site.baseUrl}}/event_storming/basic-concepts.html#policy) perform automated workflow steps as reactions to events.
+This can either be a [Service Call]({{site.baseUrl}}/board_workspace/Rule-Engine.html#call-service) or a [Command Trigger]({{site.baseUrl}}/board_workspace/Rule-Engine.html#trigger-command).
+
+@TODO: add explanation how event todo lists work in Cody Engine/Play.
+
+#### Available Rules
+
+- [trigger command]({{site.baseUrl}}/board_workspace/Rule-Engine.html#trigger-command)
+- [call service]({{site.baseUrl}}/board_workspace/Rule-Engine.html#call-service)
 - [information lookup rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#information-lookup-rules)
+- [CUD information rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#cud-information-rules)
+
+#### Jexl Context
+
+- `event`: data of the event that the processor is reacting to
+- `meta`: metadata of the event (incl. `user` who originally triggered the causing command)
+- Processor Dependencies (@TODO: add link)
+
+#### Example
+
+Let's continue the "Room Booked" example from the [Business Rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#business-rules).
+Once an event is recorded, we can automatically trigger reactions like sending an email. In our example, an email confirmation could be sent to the user who has booked the room.
+
+Please note: An EmailService like it is used in the example is not yet available by default. You have to provide a custom email service to Cody Engine. We've planned to provide a standard email service,
+and a way to simulate emails in Cody Play. Stay tuned!
+{: .alert .alert-warning}
+
+```js
+// Processor execution context automatically provided by Cody
+const ctx = {
+  event: roomBooked.payload,
+  meta: roomBooked.meta,
+  // Email Service and room information are configured as dependencies
+  // so Cody injects them into the processor execution context
+  EmailService: dependencies.emailService,
+  room: dependencies.room
+}
+
+const processorConfig = {
+  rules: [
+    {
+      "rule": "always",
+      "then": {
+        "call": {
+          // Service dependency name as registered in the context
+          "service": "EmailService",
+          // the EmailSerivce provides a way to use email templates
+          "method": "sendFromTemplate",
+          "arguments": [
+            // Template name
+            "'RoomBookedConfirmation'",
+            // Template data
+            {
+              // The user who booked the room is available in the event metadata
+              "username": "meta.user.displayName",
+              "roomId": "event.roomId",
+              "roomName": "room.name"
+            },
+            // To address
+            "meta.user.email"
+          ],
+          "async": true,
+          "result": {
+            "variable": "emailSentReport"
+          }
+        }
+      }
+    },
+    {
+      "rule": "condition",
+      "if_not": "emailSentReport.success",
+      "then": {
+        // A thrown error will trigger a retry
+        "throw": {
+          "error": "'Failed to send email: ' + emailSentReport.error"
+        }
+      }
+    }
+  ]
+}
+await RuleEngine.exec(processorConfig.rules, ctx);
+```
 
 ### Resolver Rules
 
-TODO: Describe `where` shortcut and default variable `information`
+Resolver rules are executed for queries. They should provide `information` for the frontend or another service.
 
-- call service
+The information can be loaded from the document store (@TODO: add link) via [Find * Infomration rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#find-information)
+or from a [service]({{site.baseUrl}}/board_workspace/Rule-Engine.html#call-service).
+
+The information schema is defined by the schema of the [information card]({{site.baseUrl}}/event_storming/basic-concepts.html#information){: .alert-link}.
+Cody Engine validates the information data against that schema to avoid silly bugs caused by typos or invalid states.
+{: .alert .alert-warning}
+
+#### Where Shortcut
+
+In the advanced settings of [information cards]({{site.baseUrl}}/event_storming/basic-concepts.html#information) you can define if an information
+is stored in the database or aggregated on-the-fly by the resolver. If it is stored in the database, you can use a `where` rule, which is basically a shortcut
+for a [Find Information rule]({{site.baseUrl}}/board_workspace/Rule-Engine.html#find-information) (if information schema is of type array) or a [Find One Information rule]({{site.baseUrl}}/board_workspace/Rule-Engine.html#find-one-information)
+(if information schema is of type object).
+
+```js
+// Let's assume a collection of persons where each person structure looks like:
+const persons = [{
+  name: "Jane",
+  age: 35,
+  address: {
+    "street": "Mainstreet",
+    "city": "Hometown"
+  },
+  hobbies: [
+    "running",
+    "hiking",
+    "reading"
+  ]
+}, /* ... */]
+
+// A resolver config for an "Adults" information could look like this
+const resolverConfig = {
+  // rules are optional and can be executed
+  // before the document store query is made
+  // rules and where share the same execution context
+  // so you can use rules, to prepare the query
+  "rules": [/* ... */],
+  "where": {
+    "rule": "always",
+    "then": {
+      // You can only use "filter" in where rules, the rest is handled by Cody
+      "filter": {
+        "gte": {
+          "prop": "age",
+          "value": "18"
+        }
+      }
+    }
+  },
+  // Order by is optional
+  "orderBy": [
+    {"prop": "name", "sort": "asc"}
+  ]
+}
+
+// Or if we have a more generic "Persons" information
+// with a flag in the "GetPersons" query to only fetch adults
+// the resolver config could look like this:
+const conditionalResolverConfig = {
+  "where": {
+    "rule": "condition",
+    "if": "query.onlyAdults",
+    "then": {
+      "filter": {
+        "gte": {
+          "prop": "age",
+          "value": "18"
+        }
+      }
+    },
+    "else": {
+      "filter": {
+        "any": true
+      }
+    }
+  }
+}
+```
+
+#### Not Stored Information Resolver
+
+The where shortcut documented above works for "stored in the database" information.
+If the resolver should return a not stored information, for example a subset of stored information fetched via a
+[Find * Partial Information rule]({{site.baseUrl}}/board_workspace/Rule-Engine.html#find-partial-information), 
+you have to use `rules` exclusively and [assign]({{site.baseUrl}}/board_workspace/Rule-Engine.html#assign-variable) data to the `information` variable in the execution context.
+
+```typescript
+// Let's take the collection of persons again:
+const persons = [{
+  name: "Jane",
+  age: 35,
+  address: {
+    "street": "Mainstreet",
+    "city": "Hometown"
+  },
+  hobbies: [
+    "running",
+    "hiking",
+    "reading"
+  ]
+}, /* ... */];
+
+
+// The information schema that we want to query
+type AdultsList = Array<{
+  name: string,
+  age: number,
+}>;
+
+// A resolver config for an "AdultsList" partial information could look like this
+const resolverConfig = {
+  // We need to define a find partail information rule 
+  // "where" and "orderBy" are not working in this context 
+  "rules": [
+    {
+      "rule": "always",
+      "then": {
+        "findPartial": {
+          "information": "/Crm/Person",
+          "filter": {
+            "gte": {
+              "prop": "age",
+              "value": "18"
+            }
+          },
+          "select": [
+            "name",
+            "age"
+          ],
+          "orderBy":  [
+            {"prop": "name", "sort": "asc"}
+          ],
+          // "information" variable is the default, so the config is optional
+          // but for documentation reasons it's added here
+          // to stress the point that this becomes the resolver response
+          "variable": "information"
+        }
+      }
+    }
+  ]
+}
+```
+
+#### Available Rules
+
+Following rules are available in the `rules` section of a resolver config:
+
+- [call service]({{site.baseUrl}}/board_workspace/Rule-Engine.html#call-service)
 - [information lookup rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#information-lookup-rules)
+
+#### Jexl Context
+
+- `query`: data of the query that the resolver should handle
+- `meta`: metadata of the query (incl. `user` who wants to view the information)
+- Resolver Dependencies (@TODO: add link)
 
 ### Projector Rules
 
-TODO: Describe structure of projector rules and difference between `given, when, then`.
+An event projector is responsible for a specific set of information stored as a read model in a document store collection (@TODO: add link).
+
+The event projector subscribes to one or more events that effect the information maintained by the projector.
+{: .alert .alert-info}
+
+```typescript
+interface ProjectionConfig {
+  name: string,
+  live: boolean,
+  cases: ProjectionConfigCase[]
+}
+```
+
+- `name` should be a unique projection name
+- `live` flag specifies if the projection should run in the same transaction as the event recording. This ensures consistency between the write model (events) and read model (information), but hurts write throughput. If you need to scale the write model, set this flag to `false` and run the projection in a background process.
+- `cases` for each event a `case` is defined in the projector config
+
+#### Event Projection Case
+
+```typescript
+interface ProjectionConfigCase {
+  given?: Rule[],
+  when: string,
+  then: CudInformationRule,
+}
+```
+
+- `given` [optional] set of rules that are run before the CUD Information rule is executed
+- `when` specifies the event name for which this case should be executed
+- `then` should be one of the available [CUD Information rules]({{site.baseUrl}}/board_workspace/rule-engine.html#cud-information-rules), whereby the `information` setting of the rules is omitted, because it is set automatically to the information maintained by the projector. 
+
+
+#### Available Rules
+
+In the optional `given` ruleset, you have access to:
+
+- [call service]({{site.baseUrl}}/board_workspace/Rule-Engine.html#call-service)
+- [information lookup rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#information-lookup-rules)
+
+In the `then` configuration, you only have access to:
+
+- [CUD information rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#cud-information-rules)
+
+#### Jexl Context
+
+- `event`: data of the event that the projector case is handling
+- `meta`: metadata of the event 
+
+Please Note: Unlike other scopes, projectors only have access to the `userId` in the event metadata by accessing `meta.user.userId`.
+This is a GDPR safety net. It's recommended to keep user data in one place (the Auth Service) and fetch it on-the-fly when needed in a read model.
+If you really want to include sensitive user data in a read model, you can [look up the user]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup-user){: .alert-link} in the `given` part of the projection case like illustrated in the example.
+{: .alert .alert-danger}
+
+#### Example
+
+Let's look at the room booking example from the [Business Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#business-rules) again.
+The projector maintains a "Room Booking" read model that serves a calendar view and answers queries like which room is booked for which day by whom.
+
+```js
+const projectorConfig = {
+  "name": "RoomBookingView",
+  "live": true,
+  "cases": [
+    {
+      "when": "Room Booked",
+      // Lookup the user who has booked the room, to include their email
+      // in the read model. Please consider the warning above
+      // when doing something similar
+      "given": [
+        {
+          "rule": "always",
+          "then": {
+            "lookup": {
+              "user": "meta.user.userId",
+              "variable": "bookedBy"
+            }
+          }
+        }
+      ],
+      "then": {
+        // Please note: "information" property is set automatically
+        // so it is not included in the insert rule configuration here
+        "insert": {
+          // Use the uuid function to generate an id for the room booking
+          "id": "uuid()",
+          // Provide the data for the room booking
+          "set": {
+            "room": "event.roomId",
+            "day": "event.day",
+            // Here we have access to the "bookedBy" variable
+            // set in the "given" part when the user was looked up
+            "bookedBy": "bookedBy.email"
+          }
+        }
+      }
+    }
+  ]
+}
+```
 
 ### Initialize Information Rules
 
-TODO: Describe purpose
+Over the time information stored in the database might change its structure due to new requirements.
+Initialize rules allow you to "upcast" information on-the-fly, before it is validated against the current schema version.
 
-Only assign variable rules are allowed.
+Initialize rules are invoked each time an information is loaded from the database.
+{: .alert .alert-info}
+
+#### Available Rules
+
+Only [assign variable rules]({{site.baseUrl}}/board_workspace/rule-engine.html#assign-variable) are allowed.
+
+#### Jexl Context
+
+- `data` contains the raw data loaded from the database. Reassign/override `data` to "upcast" it.
+
+#### Example
+
+Let's look at the room booking example from the [Projector Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules) again.
+A new requirement asks us to add a possibility to book a room for one or more hours instead of the whole day.
+
+All existing room bookings are full day bookings as this was the only option so far. 
+Now we need to add a new flag `fullDay` and an array `timeslots` to the room booking read model.
+
+One option would be to reset the projection and feed all recorded "Room Booked" events into it again, of course after 
+implementing the new projection logic.
+
+The alternative to a projection reset is on-the-fly upcasting with an initialize rule:
+
+```js
+// Old example booking loaded from the database
+const roomBooking = {
+  room: "e15a06db-31e5-4b30-b373-ec122f8efe53",
+  day: "2025-02-25",
+  bookedBy: "jane@acme.local",
+};
+
+// Execution context is set by Cody
+const ctx = {
+  data: roomBooking,
+}
+
+
+const initializeInformationConfig = {
+  rules: [
+    {
+      "rule": "condition",
+      // Check if this room booking needs upcasting
+      // timeslots is set for new bookings, but undefined for older bookings
+      "if": "data|get('timeslots')|typeof('undefined')",
+      "then": {
+        "assign": {
+          "variable": "data",
+          "value": {
+            // First, merge old data
+            "$merge": "data",
+            // Second, set new required properties to default values
+            "fullDay": "true",
+            "timeslots": "[]"
+          }
+        }
+      }
+    }
+  ]
+}
+
+RuleEngine.execSync(initializeInformationConfig.rules, ctx);
+
+console.log(ctx.data);
+
+// Room Booking now inlcudes the new properties
+/*
+{
+  room: "e15a06db-31e5-4b30-b373-ec122f8efe53",
+  day: "2025-02-25",
+  bookedBy: "jane@acme.local",
+  fullDay: true,
+  timeslots: []
+}
+ */
+```
+
 
 ## Rules
 
@@ -471,7 +950,257 @@ This rule is only available in [Business Rules]({{site.baseUrl}}/board_workspace
 
 - `event` specifies the event name to be recorded. The causing command and the recorded event need to be part of the same service. Therefor, you simply specify the event name as written on the event card.
 - `mapping` specifies the data of the event using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
+- `meta` [optional] specifies the metadata of the event using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping). By default, all metadata from the command is copied. If you specify metadata, it gets merged with the command metadata.
 
+Do not store sensitive user data in events unless you have a GDPR strategy in place. By default, Cody Engine only stores the `userId` in event metadata and fetches the user from the Auth Service (@TODO: add link) again, when loading an event from the event store (@TODO: add link).
+If a user makes use of the right to be forgotten, you can simply delete the user from the Auth Service and their details will be replaced with anonymous data.
+{: .alert .alert-danger}
+
+#### Example
+
+```js
+const ctx = {
+  command: command.payload,
+  meta: command.meta
+};
+
+const rules = [
+  {
+    "rule": "always",
+    "then": {
+      "record": {
+        "event": "Wiki Page Published",
+        "mapping": {
+          "pageId": "uuid()",
+          "title": "command.title",
+          "content": "command.content",
+          "author": "meta.user.userId"
+        },
+        "meta": {
+          "tags": [
+            "'wiki'",
+            "'prooph board'"
+          ]
+        }
+      }
+    }
+  }
+]
+```
+
+### Call Service
+
+You can extend the functionality of [Cody Engine]({{site.baseUrl}}/cody_engine/introduction.html) by writing your own services and calling them with this rule.
+
+```typescript
+interface ThenCallService {
+  call: {
+    service: string;
+    arguments?: PropMapping[];
+    method?: string;
+    async?: boolean;
+    result?: {
+      variable: string;
+      mapping?: PropMapping;
+    }
+  }
+}
+```
+
+- `service` specifies the name of the service as injected in the context (via Dependency @TODO: add link)
+- `arguments` [optional] specifies the list of arguments passed to the function call. Arguments are provided via [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
+- `method` [optional] Services can be plain functions or classes with methods. For the latter, you need to configure the method to be called.
+- `async` [optional] specifies if the service should be called async. Defaults to `false`.
+- `result.variable` [optional] defines the context variable name where the result of the service call should be stored in. If not set, the result is ignored.
+- `result.mapping` [optional] Use [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping) to translate the service call result into the desired format. The result is available as variable `data` in the mapping context.
+
+#### Example
+
+By default, the Auth Service (@TODO: add link) is available in the service registry, and you can use it to register new or update existing users. 
+This example shows how to use the call service rule to register a new user.
+
+```js
+const ctx = {
+  // Assume a "Register User" command here
+  command: command.payload,
+  meta: command.meta,
+  // Assume that AuthService is registered as command dependency
+  // so it gets injected into the Business Rules execution context (by cody)
+  AuthService: dependencies.AuthService
+}
+
+const rules = [
+  {
+    "rule": "always",
+    "then": {
+      "call": {
+        // Depencency name of the service:
+        "service": "AuthSerivce",
+        // Call the register method of the AuthService
+        "method": "register",
+        // Pass user info as argument to AuthService.register
+        "arguments": [{
+          "displayName": "command.name",
+          "email": "command.email",
+          "roles": ["command.role"]
+        }],
+        // It's an async method
+        "async": true,
+        // Store new userId in the context variable "userId"
+        "result": {
+          "variable": "userId"
+        }
+      }
+    }
+  }
+]
+
+await RuleEngine.exec(rules, ctx);
+
+console.log('New UserId: ', ctx.userId);
+
+// New UserId: 7abece12-4a6e-4135-b7f3-5da8c3a6c5ea
+```
+
+### Trigger Command
+
+This rule is only available in the [Processor scope](({{site.baseUrl}}/board_workspace/rule-engine.html#processor-rules). It can be used to automatically trigger a new command
+without user intervention.
+
+```typescript
+interface ThenTriggerCommand {
+  trigger: {
+    command: string;
+    mapping: PropMapping;
+    meta?: PropMapping;
+  }
+}
+```
+
+- `command` specifies the command name to be triggered. For same service commands, it's enough to specify the command name as written on the command card.
+- `mapping` specifies the data of the command using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
+- `meta` [optional] specifies the metadata of the command using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping). By default, all metadata from the event is copied. If you specify metadata, it gets merged with the event metadata.
+
+#### Example
+
+```js
+// Processor execution context automatically provided by Cody
+const ctx = {
+  event: roomBooked.payload,
+  meta: roomBooked.meta
+}
+
+const rules = [
+  {
+    "rule": "condition",
+    "if": "event.roomServiceRequested",
+    "then": {
+      "trigger": {
+        "command": "Schedule Room Service",
+        "mapping": {
+          "roomId": "event.roomId",
+          "day": "event.day"
+        }
+      }
+    }
+  }
+]
+```
+
+### Insert Information
+
+Add new information.
+
+```typescript
+interface ThenInsertInformation {
+  insert: {
+    information: string;
+    id: JexlExpression;
+    set: PropMapping;
+  }
+}
+```
+- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules))
+- `id` to be used as document id
+- `set` specifies the data using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
+
+### Upsert Information
+
+Add new or replace existing information.
+
+```typescript
+interface ThenUpsertInformation {
+  upsert: {
+    information: string;
+    id: JexlExpression;
+    set: PropMapping;
+  }
+}
+```
+- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules))
+- `id` to be used as document id
+- `set` specifies the data using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
+
+### Update Information
+
+Update existing information with the given `set`. If properties already exist, they are overridden otherwise added to the information.
+
+This rule can effect multiple information stored in the same collection depending on the `filter` condition.
+{: .alert .alert-warning}
+
+```typescript
+interface ThenUpdateInformation {
+  update: {
+    information: string;
+    filter: Filter;
+    set: PropMapping;
+    loadDocIntoVariable?: string;
+  }
+}
+```
+
+- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules))
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
+- `set` specifies the data using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
+- `loadDocIntoVariable` [optional] helper for single information updates. Defines the name of the variable where the current information document should be loaded into. This is useful, if you want to perform an update based on the current information, and you need to load that information first (e.g. in a projector that processes an event). The variable becomes available in the update rule. If `filter` matches more than one information, the first match is stored in the specified variable. 
+
+### Replace Information
+
+Replace existing information. Similar to [Update Information]({{site.baseUrl}}/board_workspace/rule-engine.html#update-information), but existing information is completely replaced instead of `set` being merged.
+
+```typescript
+interface ThenReplaceInformation {
+  replace: {
+    information: string;
+    filter: Filter;
+    set: PropMapping;
+    loadDocIntoVariable?: string;
+  }
+}
+```
+- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules))
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
+- `set` specifies the data using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
+- `loadDocIntoVariable` [optional] helper for single information updates. Defines the name of the variable where the current information document should be loaded into. This is useful, if you want to perform an update based on the current information, and you need to load that information first (e.g. in a projector that processes an event). The variable becomes available in the update rule. If `filter` matches more than one information, the first match is stored in the specified variable.
+
+### Delete Information
+
+Delete information that matches the `filter`. 
+
+This rule can effect multiple information stored in the same collection depending on the `filter` condition.
+{: .alert .alert-warning}
+
+```typescript
+interface ThenDeleteInformation {
+  delete: {
+    information: string;
+    filter: Filter;
+  }
+}
+```
+
+- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules))
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
 
 ### Count Information
 
@@ -1682,3 +2411,50 @@ const rules = [
   }
 ]
 ```
+
+## Dependencies
+
+Dependencies are added to rule execution contexts by Cody Engine/Play before rules are executed, so that you have access to them in the rules.
+
+Dependencies can be configured for: 
+
+- [Businness Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#business-rules)
+- [Processor Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#processor-rules)
+- [Resolver Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#resolver-rules)
+
+```typescript
+interface Dependency {
+  type: "query" | "service" | "events",
+  options?: Record<string, any>,
+  alias?: string,
+  if?: JexlExpression,
+}
+```
+
+- `type` specifies the type of the dependency. The type is important for Cody to be able to provide the dependency correctly.
+- `options` [optional] depending on the `type` different options are available
+- `alias` [optional] by default, the dependency name is used as variable name in the rules execution context. `alias` allows you to use a different variable name, e.g. to avoid naming conflicts.
+- `if` [optional] [Expression]({{site.baseUrl}}/board_workspace/Expressions.html) to let Cody provide the dependency only if the expression returns `true`. This is especially useful for query dependencies where the query might fail when query parameters cannot always be provided. A failed query dependency would prevent rules to be executed, whereas a conditional dependency just results in an `undefined` variable in the execution context, so you can deal with that situation yourself in a conditional rule.
+
+Dependencies are configured in a registry-like config:
+
+```typescript
+type DependencyRegistryConfig = {
+  [dependencyName: string]: Dependency | Dependency[]
+}
+```
+
+- `dependencyName` becomes the variable name in the rules execution context unless an `alias` is configured for the dependency
+- you can configure a list of dependencies for a single `dependencyName`. In that case, each `Dependency` should have an `alias` defined to avoid naming conflicts. A list might be needed for query dependencies, where you want to execute the same query multiple times with different query parameters to make different results of the same query available in the rules execution context.
+
+### Query Dependency
+
+@TODO: describe config
+
+### Service Dependency
+
+@TODO: describe config
+
+### Events Dependency
+
+@TODO: describe config
