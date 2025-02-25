@@ -454,6 +454,27 @@ const rules = [
 ]
 ```
 
+### Record Event
+
+Record an event in the event store (@TODO: add link). 
+
+This rule is only available in [Business Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#business-rules){: .alert-link}
+{: .alert .alert-warning}
+
+```typescript
+ interface ThenRecordEvent {
+  record: {
+    event: string;
+    mapping: PropMapping;
+    meta?: PropMapping;
+  }
+}
+```
+
+- `event` specifies the event name to be recorded. The causing command and the recorded event need to be part of the same service. Therefor, you simply specify the event name as written on the event card.
+- `mapping` specifies the data of the event using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
+
+
 ### Count Information
 
 Find stored information using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) and count the result set.
@@ -986,147 +1007,7 @@ const rules = [
 ]
 ```
 
-
-
-
-### Property Mapping
-
-Set complex data structures using Jexl-flavoured JSON.
-
-Most examples across this section demonstrate the functionality of Property Mapping (PropMapping) using [Record Event]({{site.baseUrl}}/board_workspace/Rule-Engine.html#record-event){: .alert-link}
-rules, but it works in other rules as well. Check the specific rule sections for details.
-{: .alert .alert-info}
-
-#### Map an entire object
-
-In a message-based system like [Cody Engine]({{site.baseUrl}}/cody_engine/introduction.html) you often need to copy data from one message to another to continue the data flow.
-Best example is when recording an event to capture the outcome of handling a command. In many cases, command data is passed 1:1 to the event.
-Hence, Property Mapping can be a single [expression]({{site.baseUrl}}/board_workspace/Expressions.html) that provides the value to be set.
-
-
-
-```js
-// Example context set up by Cody in the Business Rules scope
-const ctx = {
-  command: command.payload,
-  meta: command.meta
-}
-
-const rules = [
-  {
-    "rule": "always",
-    "then": {
-      "record": {
-        "event": "Post Published",
-        // Here is the PropMapping defined for the event.
-        // The expression simply provides the data set in the variable "command"
-        // The rule logic takes the data and passes it to the event constructor.
-        "mapping": "command"
-      }
-    }
-  }
-]
-
-await ruleEngine.exec(rules, ctx);
-```
-
-#### Merge
-
-Another common scenario is to take all data from one object and extend it with additional information.
-You can use the special keyword `$merge` to do so. The value of `$merge` is of type `PropMapping` again.
-
-```js
-const rules = [
-  {
-    "rule": "always",
-    "then": {
-      "record": {
-        "event": "Post Published",
-        "mapping": {
-          // Merge all data into the object
-          "$merge": "command",
-          // + set an additional property
-          "publishedAt": "now()"
-        }
-      }
-    }
-  }
-]
-```
-
-If the value of `$merge` is of type `array`, all array items are treated as Property Mappings and merged into the target object.
-
-
-If two or more items provide objects with same property names, property values of later items override earlier ones.
-{: .alert .alert-warning}
-
-```js
-const rules = [
-  {
-    "rule": "always",
-    "then": {
-      "record": {
-        "event": "Post Published",
-        "mapping": {
-          "$merge": [
-            // First, merge all data from the command
-            "command",
-            // Second, merge all user data
-            "meta.user"
-          ]          
-        }
-      }
-    }
-  }
-]
-```
-
-#### JSON Structure with Expressions
-
-All value strings within Property Mapping JSON are treated as [expressions]({{site.baseUrl}}/board_workspace/Expressions.html).
-This allows you to write complex structures in JSON and keep the expressions itself short and simple.
-
-```js
-const rules = [
-  {
-    "rule": "always",
-    "then": {
-      "record": {
-        "event": "Post Published",
-        "mapping": {
-          "postId": "uuid()",
-          "title": "command.title",
-          "content": "command.content",
-          // Nested structure is possible, too
-          "authorInfo": {
-            "name": "meta.user.displayName",
-            "email": "meta.user.email"
-          },
-          // as well as arrays, 
-          // whereby string items are treated as expressions again
-          "tags": [
-            "command.mainCategory",
-            "command.subCategory"
-          ],
-          // and finally array of objects
-          "links": [
-            {
-              "href": "command.previousPost.link",
-              "title": "command.previousPost.title"
-            },
-            {
-              "href": "command.nextPost.link",
-              "title": "command.nextPost.title"
-            }
-          ]
-        }
-      }
-    }
-  }
-]
-```
-
-### Filter
+## Filter
 
 Filters are used to find stored information. Most filters check a specific information property against a value.
 If information is a nested structure, and you want to filter on nested properties you can use dots to define the path.
@@ -1162,7 +1043,7 @@ const filter = {
 }
 ```
 
-#### Any Filter
+### Any Filter
 
 Find information without a specific filter.
 
@@ -1176,7 +1057,7 @@ const filter: AnyFilter = {
 }
 ```
 
-#### Any Of DocId Filter
+### Any Of DocId Filter
 
 Filter information by a list of document ids.
 
@@ -1190,7 +1071,7 @@ const filter: AnyOfDocIdFilter = {
 }
 ```
 
-#### Any Of Filter
+### Any Of Filter
 
 Find information by comparing the value of a property against a list of possible values. 
 
@@ -1210,7 +1091,7 @@ const filter: AnyOfFilter = {
 }
 ```
 
-#### DocId Filter
+### DocId Filter
 
 Find information by its document id.
 
@@ -1224,7 +1105,7 @@ const filter: DocIdFilter = {
 }
 ```
 
-#### Equal Filter
+### Equal Filter
 
 Check that a property equals a specific value. 
 
@@ -1244,7 +1125,7 @@ const filter: EqFilter = {
 }
 ```
 
-#### Exists Filter
+### Exists Filter
 
 Check that a specific property exists.
 
@@ -1263,7 +1144,7 @@ const filter: ExistsFilter = {
 }
 ```
 
-#### Greater Than or Equal Filter
+### Greater Than or Equal Filter
 
 Check that a property is greater than or equal to value.
 
@@ -1284,7 +1165,7 @@ const filter: GteFilter = {
 }
 ```
 
-#### Greater Than Filter
+### Greater Than Filter
 
 Check that a property is greater than value.
 
@@ -1305,7 +1186,7 @@ const filter: GtFilter = {
 }
 ```
 
-#### InArray Filter
+### InArray Filter
 
 If property is of type array, check that given value is one of the items.
 
@@ -1326,7 +1207,7 @@ const filter: InArrayFilter = {
 }
 ```
 
-#### Like Filter
+### Like Filter
 
 Match a string property against a value string that contains a wildcard: `%`
 at the start and/or end.
@@ -1348,7 +1229,7 @@ const filter: LikeFilter = {
 }
 ```
 
-#### Lower Than or Equal Filter
+### Lower Than or Equal Filter
 
 Check that a property is lower than or equal to a value.
 
@@ -1369,7 +1250,7 @@ const filter: LteFilter = {
 }
 ```
 
-#### Lower Than Filter
+### Lower Than Filter
 
 Check that a property is lower than a value.
 
@@ -1390,7 +1271,7 @@ const filter: LtFilter = {
 }
 ```
 
-#### And Filter
+### And Filter
 
 Find information where two or more filters match.
 
@@ -1418,7 +1299,7 @@ const filter: AndFilter = {
 }
 ```
 
-#### Or Filter
+### Or Filter
 
 Find information where any of the given filters match.
 
@@ -1447,7 +1328,7 @@ const filter: OrFilter = {
 }
 ```
 
-#### Not Filter
+### Not Filter
 
 Find information where a given filter does not match.
 
@@ -1467,7 +1348,7 @@ const filter: NotFilter = {
 }
 ```
 
-### Sort Order
+## Sort Order
 
 Defines a list of sorting instructions. Each instruction defines sorting for one property.
 The result set is first sorted by the first instruction then by the next instruction and so on.
@@ -1482,7 +1363,7 @@ type SortOrder = Array<{
 - `SortOrder.prop` defines the property to be sorted. Can be a nested path.
 - `SortOrder.sort` defines if sorting should be in ascending (smallest to largest) or descending (largest to smallest) order.
 
-### Partial Select
+## Partial Select
 
 Define the list of properties to be included in the result.
 
@@ -1498,7 +1379,7 @@ type PartialSelect = Array<FieldName|AliasFieldNameMapping|Lookup>;
 2. An object of `{field: string; alias: string;}` mapping, allows you to select a property under a different name in the result. `field` can also be a dot separated path to a nested property.
 3. A [Lookup]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of a one-to-one relation.
 
-### Lookup
+## Lookup
 
 Lookup additional information and include it in the main [Select]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select).
 
@@ -1532,7 +1413,7 @@ interface Lookup {
 - `on` defines the matching condition for the lookup. `localKey` needs to be equal to `foreignKey` (defaults to foreign document id). You can define additional matching conditions using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter)
 - `select` defines which properties of the looked up information should be included in the result 
 
-#### Lookup Examples
+### Lookup Examples
 
 ```typescript
 // Schema of information stored in the document store
@@ -1667,9 +1548,139 @@ const employeesWithTeamAndCompanyRules = [
  */
 ```
 
+## Property Mapping
+
+Set complex data structures using Jexl-flavoured JSON.
+
+Most examples across this section demonstrate the functionality of Property Mapping (PropMapping) using [Record Event]({{site.baseUrl}}/board_workspace/Rule-Engine.html#record-event){: .alert-link}
+rules, but it works in other rules as well. Check the specific rule sections for details.
+{: .alert .alert-info}
+
+### Map an entire object
+
+In a message-based system like [Cody Engine]({{site.baseUrl}}/cody_engine/introduction.html) you often need to copy data from one message to another to continue the data flow.
+Best example is when recording an event to capture the outcome of handling a command. In many cases, command data is passed 1:1 to the event.
+Hence, Property Mapping can be a single [expression]({{site.baseUrl}}/board_workspace/Expressions.html) that provides the value to be set.
 
 
 
+```js
+// Example context set up by Cody in the Business Rules scope
+const ctx = {
+  command: command.payload,
+  meta: command.meta
+}
+
+const rules = [
+  {
+    "rule": "always",
+    "then": {
+      "record": {
+        "event": "Post Published",
+        // Here is the PropMapping defined for the event.
+        // The expression simply provides the data set in the variable "command"
+        // The rule logic takes the data and passes it to the event constructor.
+        "mapping": "command"
+      }
+    }
+  }
+]
+
+await ruleEngine.exec(rules, ctx);
+```
+
+### Merge
+
+Another common scenario is to take all data from one object and extend it with additional information.
+You can use the special keyword `$merge` to do so. The value of `$merge` is of type `PropMapping` again.
+
+```js
+const rules = [
+  {
+    "rule": "always",
+    "then": {
+      "record": {
+        "event": "Post Published",
+        "mapping": {
+          // Merge all data into the object
+          "$merge": "command",
+          // + set an additional property
+          "publishedAt": "now()"
+        }
+      }
+    }
+  }
+]
+```
+
+If the value of `$merge` is of type `array`, all array items are treated as Property Mappings and merged into the target object.
 
 
+If two or more items provide objects with same property names, property values of later items override earlier ones.
+{: .alert .alert-warning}
 
+```js
+const rules = [
+  {
+    "rule": "always",
+    "then": {
+      "record": {
+        "event": "Post Published",
+        "mapping": {
+          "$merge": [
+            // First, merge all data from the command
+            "command",
+            // Second, merge all user data
+            "meta.user"
+          ]          
+        }
+      }
+    }
+  }
+]
+```
+
+### JSON Structure with Expressions
+
+All value strings within Property Mapping JSON are treated as [expressions]({{site.baseUrl}}/board_workspace/Expressions.html).
+This allows you to write complex structures in JSON and keep the expressions itself short and simple.
+
+```js
+const rules = [
+  {
+    "rule": "always",
+    "then": {
+      "record": {
+        "event": "Post Published",
+        "mapping": {
+          "postId": "uuid()",
+          "title": "command.title",
+          "content": "command.content",
+          // Nested structure is possible, too
+          "authorInfo": {
+            "name": "meta.user.displayName",
+            "email": "meta.user.email"
+          },
+          // as well as arrays, 
+          // whereby string items are treated as expressions again
+          "tags": [
+            "command.mainCategory",
+            "command.subCategory"
+          ],
+          // and finally array of objects
+          "links": [
+            {
+              "href": "command.previousPost.link",
+              "title": "command.previousPost.title"
+            },
+            {
+              "href": "command.nextPost.link",
+              "title": "command.nextPost.title"
+            }
+          ]
+        }
+      }
+    }
+  }
+]
+```
