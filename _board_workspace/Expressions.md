@@ -40,10 +40,10 @@ and the [playground](https://czosel.github.io/jexl-playground/){: target="_blank
 ## Usage
 
 Jexl Expressions are supported in different JSON configurations:
-- [Business Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#business-rules)
-- [Processor Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#processor-rules)
-- [Query Resolver Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#resolver-rules)
-- [Read Model Projector Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules)
+- [Business Rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#business-rules)
+- [Processor Rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#processor-rules)
+- [Query Resolver Rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#resolver-rules)
+- [Read Model Projector Rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#projector-rules)
 - [UI Schema]({{site.baseUrl}}/board_workspace/UI-Schema.html)
 
 ## Supported Functions

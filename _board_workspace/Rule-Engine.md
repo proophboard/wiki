@@ -91,25 +91,25 @@ The rule engine is used in different parts of the system. A scope defines which 
 
 Allowed in most backend scopes.
 
-- [count information]({{site.baseUrl}}/board_workspace/rule-engine.html#count-information)
-- [find information]({{site.baseUrl}}/board_workspace/rule-engine.html#find-information)
-- [find information by id]({{site.baseUrl}}/board_workspace/rule-engine.html#find-information-by-id)
-- [find one information]({{site.baseUrl}}/board_workspace/rule-engine.html#find-one-information)
-- [find partial information]({{site.baseUrl}}/board_workspace/rule-engine.html#find-partial-information)
-- [find one partial information]({{site.baseUrl}}/board_workspace/rule-engine.html#find-one-partial-information)
-- [find partial information by id]({{site.baseUrl}}/board_workspace/rule-engine.html#find-partial-information-by-id)
-- [lookup user]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup-user)
-- [lookup users]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup-users)
+- [count information]({{site.baseUrl}}/board_workspace/Rule-Engine.html#count-information)
+- [find information]({{site.baseUrl}}/board_workspace/Rule-Engine.html#find-information)
+- [find information by id]({{site.baseUrl}}/board_workspace/Rule-Engine.html#find-information-by-id)
+- [find one information]({{site.baseUrl}}/board_workspace/Rule-Engine.html#find-one-information)
+- [find partial information]({{site.baseUrl}}/board_workspace/Rule-Engine.html#find-partial-information)
+- [find one partial information]({{site.baseUrl}}/board_workspace/Rule-Engine.html#find-one-partial-information)
+- [find partial information by id]({{site.baseUrl}}/board_workspace/Rule-Engine.html#find-partial-information-by-id)
+- [lookup user]({{site.baseUrl}}/board_workspace/Rule-Engine.html#lookup-user)
+- [lookup users]({{site.baseUrl}}/board_workspace/Rule-Engine.html#lookup-users)
 
 ### CUD Information Rules
 
-Allowed in [business rules](({{site.baseUrl}}/board_workspace/rule-engine.html#business-rules)), [processor](({{site.baseUrl}}/board_workspace/rule-engine.html#processor-rules)) and [projector](({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules)) scopes.
+Allowed in [business rules](({{site.baseUrl}}/board_workspace/Rule-Engine.html#business-rules)), [processor](({{site.baseUrl}}/board_workspace/Rule-Engine.html#processor-rules)) and [projector](({{site.baseUrl}}/board_workspace/Rule-Engine.html#projector-rules)) scopes.
 
-- [insert information]({{site.baseUrl}}/board_workspace/rule-engine.html#insert-information)
-- [upsert information]({{site.baseUrl}}/board_workspace/rule-engine.html#upsert-information)
-- [update information]({{site.baseUrl}}/board_workspace/rule-engine.html#update-information)
-- [replace information]({{site.baseUrl}}/board_workspace/rule-engine.html#replace-information)
-- [delete information]({{site.baseUrl}}/board_workspace/rule-engine.html#delete-information)
+- [insert information]({{site.baseUrl}}/board_workspace/Rule-Engine.html#insert-information)
+- [upsert information]({{site.baseUrl}}/board_workspace/Rule-Engine.html#upsert-information)
+- [update information]({{site.baseUrl}}/board_workspace/Rule-Engine.html#update-information)
+- [replace information]({{site.baseUrl}}/board_workspace/Rule-Engine.html#replace-information)
+- [delete information]({{site.baseUrl}}/board_workspace/Rule-Engine.html#delete-information)
 
 Create, update, and delete information is supported in business rules and processors, but you should use it with caution.
 In an event sourced system, all state changes should be captured by events. If you change information outside a projector,
@@ -140,7 +140,7 @@ commands, events and information. Hence, prooph board can deal with both variant
 - `command`: data of the command
 - `meta`: metadata of the command (incl. current `user`)
 - `information`: current state of the aggregate, only set in aggregate business rules
-- [Command Dependencies]({{site.baseUrl}}/board_workspace/rule-engine.html#dependencies)
+- [Command Dependencies]({{site.baseUrl}}/board_workspace/Rule-Engine.html#dependencies)
 
 #### Examples
 
@@ -267,7 +267,7 @@ This can either be a [Service Call]({{site.baseUrl}}/board_workspace/Rule-Engine
 
 - `event`: data of the event that the processor is reacting to
 - `meta`: metadata of the event (incl. `user` who originally triggered the causing command)
-- [Processor Dependencies]({{site.baseUrl}}/board_workspace/rule-engine.html#dependencies)
+- [Processor Dependencies]({{site.baseUrl}}/board_workspace/Rule-Engine.html#dependencies)
 
 #### Example
 
@@ -492,7 +492,7 @@ Following rules are available in the `rules` section of a resolver config:
 
 - `query`: data of the query that the resolver should handle
 - `meta`: metadata of the query (incl. `user` who wants to view the information)
-- [Resolver Dependencies]({{site.baseUrl}}/board_workspace/rule-engine.html#dependencies)
+- [Resolver Dependencies]({{site.baseUrl}}/board_workspace/Rule-Engine.html#dependencies)
 
 ### Projector Rules
 
@@ -525,7 +525,7 @@ interface ProjectionConfigCase {
 
 - `given` [optional] set of rules that are run before the CUD Information rule is executed
 - `when` specifies the event name for which this case should be executed
-- `then` should be one of the available [CUD Information rules]({{site.baseUrl}}/board_workspace/rule-engine.html#cud-information-rules), whereby the `information` setting of the rules is omitted, because it is set automatically to the information maintained by the projector. 
+- `then` should be one of the available [CUD Information rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#cud-information-rules), whereby the `information` setting of the rules is omitted, because it is set automatically to the information maintained by the projector. 
 
 
 #### Available Rules
@@ -546,12 +546,12 @@ In the `then` configuration, you only have access to:
 
 Please Note: Unlike other scopes, projectors only have access to the `userId` in the event metadata by accessing `meta.user.userId`.
 This is a GDPR safety net. It's recommended to keep user data in one place (the Auth Service) and fetch it on-the-fly when needed in a read model.
-If you really want to include sensitive user data in a read model, you can [look up the user]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup-user){: .alert-link} in the `given` part of the projection case like illustrated in the example.
+If you really want to include sensitive user data in a read model, you can [look up the user]({{site.baseUrl}}/board_workspace/Rule-Engine.html#lookup-user){: .alert-link} in the `given` part of the projection case like illustrated in the example.
 {: .alert .alert-danger}
 
 #### Example
 
-Let's look at the room booking example from the [Business Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#business-rules) again.
+Let's look at the room booking example from the [Business Rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#business-rules) again.
 The projector maintains a "Room Booking" read model that serves a calendar view and answers queries like which room is booked for which day by whom.
 
 ```js
@@ -606,7 +606,7 @@ Initialize rules are invoked each time an information is loaded from the databas
 
 #### Available Rules
 
-Only [assign variable rules]({{site.baseUrl}}/board_workspace/rule-engine.html#assign-variable) are allowed.
+Only [assign variable rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#assign-variable) are allowed.
 
 #### Jexl Context
 
@@ -614,7 +614,7 @@ Only [assign variable rules]({{site.baseUrl}}/board_workspace/rule-engine.html#a
 
 #### Example
 
-Let's look at the room booking example from the [Projector Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules) again.
+Let's look at the room booking example from the [Projector Rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#projector-rules) again.
 A new requirement asks us to add a possibility to book a room for one or more hours instead of the whole day.
 
 All existing room bookings are full day bookings as this was the only option so far. 
@@ -935,7 +935,7 @@ const rules = [
 
 Record an event in the event store (@TODO: add link). 
 
-This rule is only available in [Business Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#business-rules){: .alert-link}
+This rule is only available in [Business Rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#business-rules){: .alert-link}
 {: .alert .alert-warning}
 
 ```typescript
@@ -949,8 +949,8 @@ This rule is only available in [Business Rules]({{site.baseUrl}}/board_workspace
 ```
 
 - `event` specifies the event name to be recorded. The causing command and the recorded event need to be part of the same service. Therefor, you simply specify the event name as written on the event card.
-- `mapping` specifies the data of the event using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
-- `meta` [optional] specifies the metadata of the event using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping). By default, all metadata from the command is copied. If you specify metadata, it gets merged with the command metadata.
+- `mapping` specifies the data of the event using [Property Mapping]({{site.baseUrl}}/board_workspace/Rule-Engine.html#property-mapping)
+- `meta` [optional] specifies the metadata of the event using [Property Mapping]({{site.baseUrl}}/board_workspace/Rule-Engine.html#property-mapping). By default, all metadata from the command is copied. If you specify metadata, it gets merged with the command metadata.
 
 Do not store sensitive user data in events unless you have a GDPR strategy in place. By default, Cody Engine only stores the `userId` in event metadata and fetches the user from the Auth Service (@TODO: add link) again, when loading an event from the event store (@TODO: add link).
 If a user makes use of the right to be forgotten, you can simply delete the user from the Auth Service and their details will be replaced with anonymous data.
@@ -1008,11 +1008,11 @@ interface ThenCallService {
 ```
 
 - `service` specifies the name of the service as injected in the context (via Dependency @TODO: add link)
-- `arguments` [optional] specifies the list of arguments passed to the function call. Arguments are provided via [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
+- `arguments` [optional] specifies the list of arguments passed to the function call. Arguments are provided via [Property Mapping]({{site.baseUrl}}/board_workspace/Rule-Engine.html#property-mapping)
 - `method` [optional] Services can be plain functions or classes with methods. For the latter, you need to configure the method to be called.
 - `async` [optional] specifies if the service should be called async. Defaults to `false`.
 - `result.variable` [optional] defines the context variable name where the result of the service call should be stored in. If not set, the result is ignored.
-- `result.mapping` [optional] Use [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping) to translate the service call result into the desired format. The result is available as variable `data` in the mapping context.
+- `result.mapping` [optional] Use [Property Mapping]({{site.baseUrl}}/board_workspace/Rule-Engine.html#property-mapping) to translate the service call result into the desired format. The result is available as variable `data` in the mapping context.
 
 #### Example
 
@@ -1064,7 +1064,7 @@ console.log('New UserId: ', ctx.userId);
 
 ### Trigger Command
 
-This rule is only available in the [Processor scope](({{site.baseUrl}}/board_workspace/rule-engine.html#processor-rules). It can be used to automatically trigger a new command
+This rule is only available in the [Processor scope](({{site.baseUrl}}/board_workspace/Rule-Engine.html#processor-rules). It can be used to automatically trigger a new command
 without user intervention.
 
 ```typescript
@@ -1078,8 +1078,8 @@ interface ThenTriggerCommand {
 ```
 
 - `command` specifies the command name to be triggered. For same service commands, it's enough to specify the command name as written on the command card.
-- `mapping` specifies the data of the command using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
-- `meta` [optional] specifies the metadata of the command using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping). By default, all metadata from the event is copied. If you specify metadata, it gets merged with the event metadata.
+- `mapping` specifies the data of the command using [Property Mapping]({{site.baseUrl}}/board_workspace/Rule-Engine.html#property-mapping)
+- `meta` [optional] specifies the metadata of the command using [Property Mapping]({{site.baseUrl}}/board_workspace/Rule-Engine.html#property-mapping). By default, all metadata from the event is copied. If you specify metadata, it gets merged with the event metadata.
 
 #### Example
 
@@ -1120,9 +1120,9 @@ interface ThenInsertInformation {
   }
 }
 ```
-- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules))
+- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/Rule-Engine.html#projector-rules))
 - `id` to be used as document id
-- `set` specifies the data using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
+- `set` specifies the data using [Property Mapping]({{site.baseUrl}}/board_workspace/Rule-Engine.html#property-mapping)
 
 ### Upsert Information
 
@@ -1137,9 +1137,9 @@ interface ThenUpsertInformation {
   }
 }
 ```
-- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules))
+- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/Rule-Engine.html#projector-rules))
 - `id` to be used as document id
-- `set` specifies the data using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
+- `set` specifies the data using [Property Mapping]({{site.baseUrl}}/board_workspace/Rule-Engine.html#property-mapping)
 
 ### Update Information
 
@@ -1159,14 +1159,14 @@ interface ThenUpdateInformation {
 }
 ```
 
-- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules))
-- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
-- `set` specifies the data using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
+- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/Rule-Engine.html#projector-rules))
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) to be matched against information
+- `set` specifies the data using [Property Mapping]({{site.baseUrl}}/board_workspace/Rule-Engine.html#property-mapping)
 - `loadDocIntoVariable` [optional] helper for single information updates. Defines the name of the variable where the current information document should be loaded into. This is useful, if you want to perform an update based on the current information, and you need to load that information first (e.g. in a projector that processes an event). The variable becomes available in the update rule. If `filter` matches more than one information, the first match is stored in the specified variable. 
 
 ### Replace Information
 
-Replace existing information. Similar to [Update Information]({{site.baseUrl}}/board_workspace/rule-engine.html#update-information), but existing information is completely replaced instead of `set` being merged.
+Replace existing information. Similar to [Update Information]({{site.baseUrl}}/board_workspace/Rule-Engine.html#update-information), but existing information is completely replaced instead of `set` being merged.
 
 ```typescript
 interface ThenReplaceInformation {
@@ -1178,9 +1178,9 @@ interface ThenReplaceInformation {
   }
 }
 ```
-- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules))
-- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
-- `set` specifies the data using [Property Mapping]({{site.baseUrl}}/board_workspace/rule-engine.html#property-mapping)
+- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/Rule-Engine.html#projector-rules))
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) to be matched against information
+- `set` specifies the data using [Property Mapping]({{site.baseUrl}}/board_workspace/Rule-Engine.html#property-mapping)
 - `loadDocIntoVariable` [optional] helper for single information updates. Defines the name of the variable where the current information document should be loaded into. This is useful, if you want to perform an update based on the current information, and you need to load that information first (e.g. in a projector that processes an event). The variable becomes available in the update rule. If `filter` matches more than one information, the first match is stored in the specified variable.
 
 ### Delete Information
@@ -1199,12 +1199,12 @@ interface ThenDeleteInformation {
 }
 ```
 
-- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/rule-engine.html#projector-rules))
-- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
+- `information` specifies the namespaced information (automatically set in [projector scope]({{site.baseUrl}}/board_workspace/Rule-Engine.html#projector-rules))
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) to be matched against information
 
 ### Count Information
 
-Find stored information using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) and count the result set.
+Find stored information using a [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) and count the result set.
 
 ```typescript
 interface ThenCountInformation {
@@ -1217,7 +1217,7 @@ interface ThenCountInformation {
 ```
 
 - `information` specifies the namespaced information 
-- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) to be matched against information
 - `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
 
 #### Example
@@ -1246,7 +1246,7 @@ const rules = [
 
 ### Find Information
 
-Find a list of stored information using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter).
+Find a list of stored information using a [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter).
 
 ```typescript
 interface ThenFindInformation {
@@ -1262,10 +1262,10 @@ interface ThenFindInformation {
 ```
 
 - `information` specifies the namespaced information
-- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) to be matched against information
 - `skip` is optional and can be used to select a subset of the result set skipping the given number of results
 - `limit` is optional and can be used to select a subset of the result set limited by the given number
-- `orderBy` is optional to [sort]({{site.baseUrl}}/board_workspace/rule-engine.html#sort-order) the result set
+- `orderBy` is optional to [sort]({{site.baseUrl}}/board_workspace/Rule-Engine.html#sort-order) the result set
 - `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
 
 #### Example
@@ -1335,7 +1335,7 @@ const rules = [
 
 ### Find One Information
 
-Find one information by using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter).
+Find one information by using a [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter).
 If filter matches more than one information, the first match is used.
 
 ```typescript
@@ -1349,7 +1349,7 @@ interface ThenFindOneInformation {
 ```
 
 - `find.information` specifies the namespaced information
-- `find.filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
+- `find.filter` defines the [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) to be matched against information
 - `find.variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
 
 #### Example
@@ -1376,8 +1376,8 @@ const rules = [
 
 ### Find Partial Information
 
-Find a list of information by using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) and [Select]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) a subset of the information.
-Partial queries also support [Lookup]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of additional information aka. joining related information.
+Find a list of information by using a [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) and [Select]({{site.baseUrl}}/board_workspace/Rule-Engine.html#partial-select) a subset of the information.
+Partial queries also support [Lookup]({{site.baseUrl}}/board_workspace/Rule-Engine.html#lookup) of additional information aka. joining related information.
 
 ```typescript
 interface ThenFindPartialInformation {
@@ -1394,11 +1394,11 @@ interface ThenFindPartialInformation {
 ```
 
 - `information` specifies the namespaced information
-- `select` specifies the properties to be [selected]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) for the result and optional [Lookups]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup)
-- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
+- `select` specifies the properties to be [selected]({{site.baseUrl}}/board_workspace/Rule-Engine.html#partial-select) for the result and optional [Lookups]({{site.baseUrl}}/board_workspace/Rule-Engine.html#lookup)
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) to be matched against information
 - `skip` is optional and can be used to select a subset of the result set skipping the given number of results
 - `limit` is optional and can be used to select a subset of the result set limited by the given number
-- `orderBy` is optional to [sort]({{site.baseUrl}}/board_workspace/rule-engine.html#sort-order) the result set
+- `orderBy` is optional to [sort]({{site.baseUrl}}/board_workspace/Rule-Engine.html#sort-order) the result set
 - `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
 
 #### Example
@@ -1472,8 +1472,8 @@ const employeesWithTeamRules = [
 
 ### Find One Partial Information
 
-Find one information by using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) and [Select]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) a subset of the information.
-Partial queries also support [Lookup]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of additional information aka. joining related information.
+Find one information by using a [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) and [Select]({{site.baseUrl}}/board_workspace/Rule-Engine.html#partial-select) a subset of the information.
+Partial queries also support [Lookup]({{site.baseUrl}}/board_workspace/Rule-Engine.html#lookup) of additional information aka. joining related information.
 
 ```typescript
 interface ThenFindOnePartialInformation {
@@ -1487,8 +1487,8 @@ interface ThenFindOnePartialInformation {
 ```
 
 - `information` specifies the namespaced information
-- `select` specifies the properties to be [selected]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) for the result and optional [Lookups]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup)
-- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against information
+- `select` specifies the properties to be [selected]({{site.baseUrl}}/board_workspace/Rule-Engine.html#partial-select) for the result and optional [Lookups]({{site.baseUrl}}/board_workspace/Rule-Engine.html#lookup)
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) to be matched against information
 - `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
 
 #### Example
@@ -1560,8 +1560,8 @@ const employeeWithTeamRules = [
 
 ### Find Partial Information By Id
 
-Find one information by id and [Select]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) a subset of the information.
-Partial queries also support [Lookup]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of additional information aka. joining related information.
+Find one information by id and [Select]({{site.baseUrl}}/board_workspace/Rule-Engine.html#partial-select) a subset of the information.
+Partial queries also support [Lookup]({{site.baseUrl}}/board_workspace/Rule-Engine.html#lookup) of additional information aka. joining related information.
 
 ```typescript
 interface ThenFindPartialInformationById {
@@ -1576,7 +1576,7 @@ interface ThenFindPartialInformationById {
 
 - `information` specifies the namespaced information
 - `id` to be used for matching
-- `select` specifies the properties to be [selected]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select) for the result and optional [Lookups]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup)
+- `select` specifies the properties to be [selected]({{site.baseUrl}}/board_workspace/Rule-Engine.html#partial-select) for the result and optional [Lookups]({{site.baseUrl}}/board_workspace/Rule-Engine.html#lookup)
 - `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
 
 #### Example
@@ -1676,7 +1676,7 @@ const rules = [
 
 ### Lookup Users
 
-Lookup a list of users using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter).
+Lookup a list of users using a [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter).
 
 ```typescript
 interface ThenLookupUsers {
@@ -1691,7 +1691,7 @@ interface ThenLookupUsers {
 }
 ```
 
-- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter) to be matched against users
+- `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) to be matched against users
 - `skip` is optional and can be used to select a subset of the result set skipping the given number of results
 - `limit` is optional and can be used to select a subset of the result set limited by the given number
 - `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `users`
@@ -2104,11 +2104,11 @@ type PartialSelect = Array<FieldName|AliasFieldNameMapping|Lookup>;
 
 1. A simple string specifies a property name to be included as-is.
 2. An object of `{field: string; alias: string;}` mapping, allows you to select a property under a different name in the result. `field` can also be a dot separated path to a nested property.
-3. A [Lookup]({{site.baseUrl}}/board_workspace/rule-engine.html#lookup) of a one-to-one relation.
+3. A [Lookup]({{site.baseUrl}}/board_workspace/Rule-Engine.html#lookup) of a one-to-one relation.
 
 ## Lookup
 
-Lookup additional information and include it in the main [Select]({{site.baseUrl}}/board_workspace/rule-engine.html#partial-select).
+Lookup additional information and include it in the main [Select]({{site.baseUrl}}/board_workspace/Rule-Engine.html#partial-select).
 
 Cody Play/Engine only supports one-to-one relations, but not one-to-many or many-to-many. You should be careful with lookups as they 
 introduce coupling. You trade less complicated projections with more coupling in the data layer. Choose wisely.
@@ -2137,7 +2137,7 @@ interface Lookup {
 - `alias` gives the lookup a name, that can be referenced in further lookups (optional)
 - `using` defines the lookup to be used as the local basis. By default, the local basis is the main information specified in the find * rule, but you can also use another lookup as the local basis. 
 - `optional` defines if the lookup is optional. If false (default) and referenced information cannot be found, also the main select is not included in the result set.
-- `on` defines the matching condition for the lookup. `localKey` needs to be equal to `foreignKey` (defaults to foreign document id). You can define additional matching conditions using a [Filter]({{site.baseUrl}}/board_workspace/rule-engine.html#filter)
+- `on` defines the matching condition for the lookup. `localKey` needs to be equal to `foreignKey` (defaults to foreign document id). You can define additional matching conditions using a [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter)
 - `select` defines which properties of the looked up information should be included in the result 
 
 ### Lookup Examples
@@ -2418,9 +2418,9 @@ Dependencies are added to rule execution contexts by Cody Engine/Play before rul
 
 Dependencies can be configured for: 
 
-- [Businness Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#business-rules)
-- [Processor Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#processor-rules)
-- [Resolver Rules]({{site.baseUrl}}/board_workspace/rule-engine.html#resolver-rules)
+- [Businness Rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#business-rules)
+- [Processor Rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#processor-rules)
+- [Resolver Rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#resolver-rules)
 
 ```typescript
 interface Dependency {
