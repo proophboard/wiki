@@ -46,6 +46,14 @@ Jexl Expressions are supported in different JSON configurations:
 - [Read Model Projector Rules]({{site.baseUrl}}/board_workspace/Rule-Engine.html#projector-rules)
 - [UI Schema]({{site.baseUrl}}/board_workspace/UI-Schema.html)
 
+## Syntax Highlighting
+
+To improve readability of Jexl Expressions within JSON, prooph board supports the expression marker: `$>`.
+If you put this marker at the beginning of an expression string, the editor will activate syntax highlighting for the expression.
+
+prooph board automatically removes the marker before the JSON configuration is passed to Cody. So you won't find the marker in generated code.
+{: .alert .alert-info}
+
 ## Supported Functions
 
 Cody Play/Engine ships with a set of preregistered functions and transforms that are available in Jexl Expressions:

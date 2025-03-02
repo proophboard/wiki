@@ -14,6 +14,12 @@ This page describes how the rule engine works and what rules are available in wh
 Rules are defined as JSON objects flavoured with [Jexl Expressions]({{site.baseUrl}}/board_workspace/Expressions.html) to make them dynamic.
 The various editors in the prooph board [Metadata sidebar]({{site.baseUrl}}/board_workspace/Metadata.html) will help you to write rules by validating the structure and making suggestions.
 
+You can enable [syntax highlighting]({{site.baseUrl}}/board_workspace/Expressions.html#syntax-highlighting) for Jexl Expressions by starting an expression with: `$>`.
+{: .alert .alert-info}
+
+Please note: all examples on this page use the expression marker, but syntax highlighting does not work in the documentation (yet).
+{: .alert .alert-warning}
+
 ### Always vs. Condition
 
 The most basic information about a rule is if it should `always` be executed or only on certain `condition`:
@@ -54,6 +60,39 @@ const rules = [
 ]
 ```
 
+### Comments
+
+Unlike normal JSON, you can use comments within the JSON defined on prooph board. Comments get removed when prooph board passes JSON to Cody, but they are kept on the prooph board side.
+
+#### Line Comments
+
+```js
+[
+  {
+    "rule": "always",
+    "then": {
+      // This is a line comment
+    }
+  }
+]
+```
+
+#### Block Comments
+
+```js
+[
+  {
+    "rule": "always",
+    "then": {
+      /*
+      * This is a block comment
+      */
+    }
+  }
+]
+```
+
+
 ### Then
 
 The `then` part of a rule contains the actual processing logic. An `else` part of a conditional rule is similar to `then` and describes an alternative processing logic if the condition is not met.
@@ -68,7 +107,7 @@ const rules = [
       "log": {
         // Please note: msg is a Jexl Expression, if we want to log a string, 
         // we have to enclose it in single qoutes
-        "msg": "'Hello from Cody Rule Engine'"
+        "msg": "$> 'Hello from Cody Rule Engine'"
       }
     }
   }
@@ -153,7 +192,7 @@ const rules = [
     "then": {
       "record": {
         "event": "Room Booked",
-        "mapping": "command"
+        "mapping": "$> command"
       }
     }
   }
@@ -175,15 +214,15 @@ const rules = [
         // is the more elegant way to deal with this situation
         "event": "Room Booking Failed",
         "mapping": {
-          "roomId": "command.roomId",
-          "reason": "'Room is already booked at: ' + command.day"
+          "roomId": "$> command.roomId",
+          "reason": "$> 'Room is already booked at: ' + command.day"
         }
       }
     },
     "else": {
       "record": {
         "event": "Room Booked",
-        "mapping": "command"
+        "mapping": "$> command"
       }
     }
   }
@@ -233,10 +272,10 @@ const applyEventConfig = {
           "variable": "information",
           "mapping": {
             // First, take all current information
-            "$merge": "information",
+            "$merge": "$> information",
             // Second, apply the event
             // in this case add a new day booking
-            "bookedAt": "information.bookedAt|push(event.day)"
+            "bookedAt": "$> information.bookedAt|push(event.day)"
           }
         }
       }
@@ -301,13 +340,13 @@ const processorConfig = {
           "method": "sendFromTemplate",
           "arguments": [
             // Template name
-            "'RoomBookedConfirmation'",
+            "$> 'RoomBookedConfirmation'",
             // Template data
             {
               // The user who booked the room is available in the event metadata
-              "username": "meta.user.displayName",
-              "roomId": "event.roomId",
-              "roomName": "room.name"
+              "username": "$> meta.user.displayName",
+              "roomId": "$> event.roomId",
+              "roomName": "$> room.name"
             },
             // To address
             "meta.user.email"
@@ -321,11 +360,11 @@ const processorConfig = {
     },
     {
       "rule": "condition",
-      "if_not": "emailSentReport.success",
+      "if_not": "$> emailSentReport.success",
       "then": {
         // A thrown error will trigger a retry
         "throw": {
-          "error": "'Failed to send email: ' + emailSentReport.error"
+          "error": "$> 'Failed to send email: ' + emailSentReport.error"
         }
       }
     }
@@ -382,7 +421,7 @@ const resolverConfig = {
       "filter": {
         "gte": {
           "prop": "age",
-          "value": "18"
+          "value": "$> 18"
         }
       }
     }
@@ -399,12 +438,12 @@ const resolverConfig = {
 const conditionalResolverConfig = {
   "where": {
     "rule": "condition",
-    "if": "query.onlyAdults",
+    "if": "$> query.onlyAdults",
     "then": {
       "filter": {
         "gte": {
           "prop": "age",
-          "value": "18"
+          "value": "$> 18"
         }
       }
     },
@@ -460,7 +499,7 @@ const resolverConfig = {
           "filter": {
             "gte": {
               "prop": "age",
-              "value": "18"
+              "value": "$> 18"
             }
           },
           "select": [
@@ -569,7 +608,7 @@ const projectorConfig = {
           "rule": "always",
           "then": {
             "lookup": {
-              "user": "meta.user.userId",
+              "user": "$> meta.user.userId",
               "variable": "bookedBy"
             }
           }
@@ -580,14 +619,14 @@ const projectorConfig = {
         // so it is not included in the insert rule configuration here
         "insert": {
           // Use the uuid function to generate an id for the room booking
-          "id": "uuid()",
+          "id": "$> uuid()",
           // Provide the data for the room booking
           "set": {
-            "room": "event.roomId",
-            "day": "event.day",
+            "room": "$> event.roomId",
+            "day": "$> event.day",
             // Here we have access to the "bookedBy" variable
             // set in the "given" part when the user was looked up
-            "bookedBy": "bookedBy.email"
+            "bookedBy": "$> bookedBy.email"
           }
         }
       }
@@ -645,16 +684,16 @@ const initializeInformationConfig = {
       "rule": "condition",
       // Check if this room booking needs upcasting
       // timeslots is set for new bookings, but undefined for older bookings
-      "if": "data|get('timeslots')|typeof('undefined')",
+      "if": "$> data|get('timeslots')|typeof('undefined')",
       "then": {
         "assign": {
           "variable": "data",
           "value": {
             // First, merge old data
-            "$merge": "data",
+            "$merge": "$> data",
             // Second, set new required properties to default values
-            "fullDay": "true",
-            "timeslots": "[]"
+            "fullDay": "$> true",
+            "timeslots": "$> []"
           }
         }
       }
@@ -714,19 +753,19 @@ const rules = [
         // if we want to set a fixed string value
         // we have to use single qoutes insight double qoutes
         // to let the expression return a string
-        "value": "'Have a nice day!'"
+        "value": "$> 'Have a nice day!'"
       }
     }
   },
   {
     "rule": "condition",
     // Check if it's Sunday
-    "if": "now()|weekDay() == 0",
+    "if": "$> now()|weekDay() == 0",
     "then": {
       "assign": {
         // Override variable "msg", if it's Sunday
         "variable": "msg",
-        "value": "'Have a nice Sunday!'"
+        "value": "$> 'Have a nice Sunday!'"
       }
     }
   }
@@ -791,7 +830,7 @@ const rules = [
           // Calculate total, by adding each position price to current total
           "assign": {
             "variable": "total",
-            "value": "total + item.price"
+            "value": "$> total + item.price"
           }
         }
       }
@@ -834,7 +873,7 @@ const rules = [
               "call": {
                 "service": "Invoicing",
                 "method": "generate",
-                "arguments": ["order"]
+                "arguments": ["$> order"]
               }
             }
           },
@@ -844,7 +883,7 @@ const rules = [
               "call": {
                 "service": "Shipping",
                 "method": "prepare",
-                "arguments": ["order"]
+                "arguments": ["$> order"]
               }
             }
           }
@@ -883,7 +922,7 @@ const rules = [
       // js equivalent would be: 
       // console.error("Failed to process order: ", order)
       "log": {
-        "msg": ["'Failed to process order: '", "order"],
+        "msg": ["$> 'Failed to process order: '", "$> order"],
         "logLevel": "error"
       }
     },
@@ -918,10 +957,10 @@ all database changes are rolled back, meaning other projection changes as well a
 const rules = [
   {
     "rule": "condition",
-    "if_not": "order.submitted",
+    "if_not": "$> order.submitted",
     "then": {
       "throw": {
-        "error": "'Failed to process order: ' + order.orderId",
+        "error": "$> 'Failed to process order: ' + order.orderId",
       }
     }
   },
@@ -971,15 +1010,15 @@ const rules = [
       "record": {
         "event": "Wiki Page Published",
         "mapping": {
-          "pageId": "uuid()",
-          "title": "command.title",
-          "content": "command.content",
-          "author": "meta.user.userId"
+          "pageId": "$> uuid()",
+          "title": "$> command.title",
+          "content": "$> command.content",
+          "author": "$> meta.user.userId"
         },
         "meta": {
           "tags": [
-            "'wiki'",
-            "'prooph board'"
+            "$> 'wiki'",
+            "$> 'prooph board'"
           ]
         }
       }
@@ -1040,9 +1079,9 @@ const rules = [
         "method": "register",
         // Pass user info as argument to AuthService.register
         "arguments": [{
-          "displayName": "command.name",
-          "email": "command.email",
-          "roles": ["command.role"]
+          "displayName": "$> command.name",
+          "email": "$> command.email",
+          "roles": ["$> command.role"]
         }],
         // It's an async method
         "async": true,
@@ -1093,13 +1132,13 @@ const ctx = {
 const rules = [
   {
     "rule": "condition",
-    "if": "event.roomServiceRequested",
+    "if": "$> event.roomServiceRequested",
     "then": {
       "trigger": {
         "command": "Schedule Room Service",
         "mapping": {
-          "roomId": "event.roomId",
-          "day": "event.day"
+          "roomId": "$> event.roomId",
+          "day": "$> event.day"
         }
       }
     }
@@ -1234,7 +1273,7 @@ const rules = [
         "filter": {
           "gte": {
             "prop": "age",
-            "value": "18"
+            "value": "$> 18"
           }
         },
         "variable": "adultsCount"
@@ -1280,7 +1319,7 @@ const rules = [
         "filter": {
           "eq": {
             "prop": "address.city",
-            "value": "'Hometown'"
+            "value": "$> 'Hometown'"
           }
         },
         "skip": 0,
@@ -1325,7 +1364,7 @@ const rules = [
     "then": {
       "findById": {
         "information": "/Crm/Person",
-        "id": "'e34a13c9-aa9e-4bad-8dae-1d0c81ddcd9f'",
+        "id": "$> 'e34a13c9-aa9e-4bad-8dae-1d0c81ddcd9f'",
         "variable": "person"
       }
     }
@@ -1364,7 +1403,7 @@ const rules = [
         "filter": {
           "eq": {
             "prop": "name",
-            "value": "'Jane'"
+            "value": "$> 'Jane'"
           }
         }
       },
@@ -1520,7 +1559,7 @@ const employeeWithTeamRules = [
       "findOnePartial": {
         "information": "/App/Employee",
         "filter": {
-          "docId": "'25a1eeb1-928e-4772-9943-3f304ee37f64'"
+          "docId": "$> '25a1eeb1-928e-4772-9943-3f304ee37f64'"
         },
         "select": [
           "employeeId",
@@ -1607,7 +1646,7 @@ const employeeWithTeamRules = [
     "then": {
       "findPartialById": {
         "information": "/App/Employee",
-        "id": "'25a1eeb1-928e-4772-9943-3f304ee37f64'",
+        "id": "$> '25a1eeb1-928e-4772-9943-3f304ee37f64'",
         "select": [
           "employeeId",
           {
@@ -1667,7 +1706,7 @@ const rules = [
     "rule": "always",
     "then": {
       "lookup": {
-        "user": "'cce0e57f-5703-4ad4-9137-ab2cf1af80ab'"
+        "user": "$> 'cce0e57f-5703-4ad4-9137-ab2cf1af80ab'"
       }
     } 
   }
@@ -1715,14 +1754,14 @@ const rules = [
                 // Use inArray filter to lookup users of a specific role
                 "inArray": {
                   "prop": "roles",
-                  "value": "'Admin'"
+                  "value": "$> 'Admin'"
                 }
               },
               {
                 // Use equal filter to lookup users by attribute
                 "eq": {
                   "prop": "attributes.company",
-                  "value": "'Acme AG'"
+                  "value": "$> 'Acme AG'"
                 }
               }
             ]
@@ -1765,7 +1804,7 @@ const filter = {
     "prop": "address.city",
     // Note the single qoutes insight double qoutes due to 
     // value being interpreted as a Jexl Expression
-    "value": "'Hometown'"
+    "value": "$> 'Hometown'"
   }
 }
 ```
@@ -1813,7 +1852,7 @@ interface AnyOfFilter {
 const filter: AnyOfFilter = {
   "anyOf": {
     "prop": "address.city",
-    "valueList": "['Hometown', 'Big City']"   
+    "valueList": "$> ['Hometown', 'Big City']"   
   }
 }
 ```
@@ -1828,7 +1867,7 @@ interface DocIdFilter {
 }
 
 const filter: DocIdFilter = {
-  "docId": "'b8474c07-22b2-43f0-b274-36c3dff83335'"
+  "docId": "$> 'b8474c07-22b2-43f0-b274-36c3dff83335'"
 }
 ```
 
@@ -1847,7 +1886,7 @@ interface EqFilter {
 const filter: EqFilter = {
   "eq": {
     "prop": "address.city",
-    "value": "'Hometown'"
+    "value": "$> 'Hometown'"
   }
 }
 ```
@@ -1887,7 +1926,7 @@ interface GteFilter {
 const filter: GteFilter = {
   "gte": {
     "prop": "age",
-    "value": "35"
+    "value": "$> 35"
   }
 }
 ```
@@ -1908,7 +1947,7 @@ interface GtFilter {
 const filter: GtFilter = {
   "gt": {
     "prop": "age",
-    "value": "35"
+    "value": "$> 35"
   }
 }
 ```
@@ -1929,7 +1968,7 @@ interface InArrayFilter {
 const filter: InArrayFilter = {
   "inArray": {
     "prop": "hobbies",
-    "value": "'hiking'"
+    "value": "$> 'hiking'"
   }
 }
 ```
@@ -1951,7 +1990,7 @@ interface LikeFilter {
 const filter: LikeFilter = {
   "like": {
     "prop": "address.city",
-    "value": "'Home%'"
+    "value": "$> 'Home%'"
   }
 }
 ```
@@ -1972,7 +2011,7 @@ interface LteFilter {
 const filter: LteFilter = {
   "lte": {
     "prop": "age",
-    "value": "35"
+    "value": "$> 35"
   }
 }
 ```
@@ -1993,7 +2032,7 @@ interface LtFilter {
 const filter: LtFilter = {
   "lt": {
     "prop": "age",
-    "value": "35"
+    "value": "$> 35"
   }
 }
 ```
@@ -2013,13 +2052,13 @@ const filter: AndFilter = {
     {
       "gt": {
         "prop": "age",
-        "value": "35"
+        "value": "$> 35"
       }
     },
     {
       "eq": {
         "prop": "address.city",
-        "value": "'Hometown'"
+        "value": "$> 'Hometown'"
       }
     }
   ]
@@ -2041,7 +2080,7 @@ const filter: OrFilter = {
     {
       "eq": {
         "prop": "address.city",
-        "value": "'Hometown'"
+        "value": "$> 'Hometown'"
       }
     },
     {
@@ -2069,7 +2108,7 @@ const filter: NotFilter = {
   "not": {
     "eq": {
       "prop": "address.city",
-      "value": "'Hometown'"
+      "value": "$> 'Hometown'"
     }
   }
 }
@@ -2307,7 +2346,7 @@ const rules = [
         // Here is the PropMapping defined for the event.
         // The expression simply provides the data set in the variable "command"
         // The rule logic takes the data and passes it to the event constructor.
-        "mapping": "command"
+        "mapping": "$> command"
       }
     }
   }
@@ -2330,9 +2369,9 @@ const rules = [
         "event": "Post Published",
         "mapping": {
           // Merge all data into the object
-          "$merge": "command",
+          "$merge": "$> command",
           // + set an additional property
-          "publishedAt": "now()"
+          "publishedAt": "$> now()"
         }
       }
     }
@@ -2356,9 +2395,9 @@ const rules = [
         "mapping": {
           "$merge": [
             // First, merge all data from the command
-            "command",
+            "$> command",
             // Second, merge all user data
-            "meta.user"
+            "$> meta.user"
           ]          
         }
       }
@@ -2380,29 +2419,29 @@ const rules = [
       "record": {
         "event": "Post Published",
         "mapping": {
-          "postId": "uuid()",
-          "title": "command.title",
-          "content": "command.content",
+          "postId": "$> uuid()",
+          "title": "$> command.title",
+          "content": "$> command.content",
           // Nested structure is possible, too
           "authorInfo": {
-            "name": "meta.user.displayName",
-            "email": "meta.user.email"
+            "name": "$> meta.user.displayName",
+            "email": "$> meta.user.email"
           },
           // as well as arrays, 
           // whereby string items are treated as expressions again
           "tags": [
-            "command.mainCategory",
-            "command.subCategory"
+            "$> command.mainCategory",
+            "$> command.subCategory"
           ],
           // and finally array of objects
           "links": [
             {
-              "href": "command.previousPost.link",
-              "title": "command.previousPost.title"
+              "href": "$> command.previousPost.link",
+              "title": "$> command.previousPost.title"
             },
             {
-              "href": "command.nextPost.link",
-              "title": "command.nextPost.title"
+              "href": "$> command.nextPost.link",
+              "title": "$> command.nextPost.title"
             }
           ]
         }
