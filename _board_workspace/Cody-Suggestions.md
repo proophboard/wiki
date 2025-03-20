@@ -6,6 +6,10 @@ toc_order: 13
 
 [Cody]({{site.baseUrl}}/cody/introduction.html) is deeply integrated on prooph board. It does not only translate designs into working code, but also helps you with the design itself.
 
+Cody is activated by pressing the **Ctrl** key while hovering with the mouse over a card. The video shows an older version, where Cody appeared without Ctrl key. The behavior was changed
+so that Cody does not get in the way when you just want to connect two cards.
+{: .alert .alert-info}
+
 <div class="video-container">
     <video style="width: 100%" controls>
         <source src="{{site.baseUrl}}/assets/video/board_workspace/cody-suggestions.mp4">
