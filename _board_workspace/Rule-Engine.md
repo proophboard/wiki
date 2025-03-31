@@ -1103,7 +1103,7 @@ console.log('New UserId: ', ctx.userId);
 
 ### Trigger Command
 
-This rule is only available in the [Processor scope](({{site.baseUrl}}/board_workspace/Rule-Engine.html#processor-rules). It can be used to automatically trigger a new command
+This rule is only available in the [Processor scope]({{site.baseUrl}}/board_workspace/Rule-Engine.html#processor-rules). It can be used to automatically trigger a new command
 without user intervention.
 
 ```typescript
