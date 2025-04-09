@@ -751,6 +751,24 @@ jexl.evalSync(`pet|pick(['name', 'breed'])`, ctx);
 // { name: "Lessy", breed: "Colie" }
 ```
 
+### omit
+
+Extract a subset from an object omitting given keys. Use `.` to omit subkeys.
+
+**available as: transform**
+
+```ts
+type omit = <T extends object>(obj: T, paths: string[]) => Partial<T>;
+```
+
+```js
+const pet = { name: "Lessy", animal: "dog", breed: "Colie" };
+const ctx = {pet};
+
+jexl.evalSync(`pet|omit(['animal', 'breed'])`, ctx);
+
+// { name: "Lessy" }
+```
 
 
 ### set
