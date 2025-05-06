@@ -389,6 +389,24 @@ jexl.evalSync(`person|set('age', 35)|pick(['firstname', 'age'])`, ctx);
 
 Same as [userAttr]({{site.baseUrl}}/board_workspace/Expressions.html#userattr), but provided as a transform.
 
+### call
+
+Call a function.
+
+```js
+const person = {
+  say: (something: string) => {
+    console.log(something);
+  }
+}
+
+jexl.evalSync(`person.say|call('Hello')`, {person});
+
+// Hello
+```
+
+_Calling a function directly (e.g. person.say()) is not allowed in Jexl due to its limited scope. The call transform mitigates this limitation._
+
 ### data
 
 Same as [pageData]({{site.baseUrl}}/board_workspace/Expressions.html#pagedata), but provided as a transform. Since Cody always registers page data under the key `page` in a Jexl Context
@@ -850,6 +868,48 @@ const msg = 'HELLO';
 jexl.evalSync(`msg|lower()`, {msg});
 
 // hello
+```
+
+### pad
+
+Calls Lodash [_.pad](https://lodash.com/docs/5#pad){: target="_blank" rel="noopener noreferrer"} to pads string on the left and right sides if it's shorter than length.
+
+**available as: transform**
+
+```js
+const msg = 'HELLO';
+
+jexl.evalSync(`msg|pad(9, '*')`, {msg});
+
+// **HELLO**
+```
+
+### padEnd
+
+Calls Lodash [_.padEnd](https://lodash.com/docs/5#padEnd){: target="_blank" rel="noopener noreferrer"} to pads string on the right side if it's shorter than length.
+
+**available as: transform**
+
+```js
+const msg = 'HELLO';
+
+jexl.evalSync(`msg|padEnd(7, '*')`, {msg});
+
+// HELLO**
+```
+
+### padStart
+
+Calls Lodash [_.padStart](https://lodash.com/docs/5#padStart){: target="_blank" rel="noopener noreferrer"} to pads string on the left side if it's shorter than length.
+
+**available as: transform**
+
+```js
+const msg = 'HELLO';
+
+jexl.evalSync(`msg|padStart(7, '*')`, {msg});
+
+// **HELLO
 ```
 
 ### split
