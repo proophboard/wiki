@@ -581,6 +581,7 @@ In the `then` configuration, you only have access to:
 #### Jexl Context
 
 - `event`: data of the event that the projector case is handling
+- `eventCreatedAt`: Date when the event was recorded
 - `meta`: metadata of the event 
 
 Please Note: Unlike other scopes, projectors only have access to the `userId` in the event metadata by accessing `meta.user.userId`.
