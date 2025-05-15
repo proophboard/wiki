@@ -702,12 +702,12 @@ const extendedNumbers = jexl.evalSync(`numbers|push(4)|push(5)`, ctx);
 
 ### get
 
-Get a value from an object or array. Use `.` to access subkeys. 
+Get a value from an object, array, or JSON string. Use `.` to access subkeys. 
 
 **available as: transform**
 
 ```typescript
-type get = <T>(obj: object | Array<unknown>, path: string, notSetValue?: T | undefined) => T | undefined;
+type get = <T>(obj: object | Array<unknown> | string, path: string, notSetValue?: T | undefined) => T | undefined;
 ```
 
 ```js
@@ -733,12 +733,12 @@ jexl.evalSync(`person|get('address.city', 'Unknown City')`, ctx);
 
 ### keys
 
-Get a list of the keys of an object.
+Get a list of the keys of an object or JSON string representing an object.
 
 **available as: transform**
 
 ```typescript
-type keys = <T extends object, K extends keyof T>(obj: T) => K[];
+type keys = <T extends object, K extends keyof T>(obj: T | string) => K[];
 ```
 
 ```js
@@ -752,12 +752,12 @@ jexl.evalSync(`pet|keys()`, ctx);
 
 ### pick
 
-Extract a subset from an object into a new object. Use `.` to extract subkeys.
+Extract a subset from an object (or JSON string representing an object) into a new object. Use `.` to extract subkeys.
 
 **available as: transform**
 
 ```ts
-type pick = <T extends object>(obj: T, paths: string[]) => Partial<T>;
+type pick = <T extends object>(obj: T | string, paths: string[]) => Partial<T>;
 ```
 
 ```js
@@ -771,12 +771,12 @@ jexl.evalSync(`pet|pick(['name', 'breed'])`, ctx);
 
 ### omit
 
-Extract a subset from an object omitting given keys. Use `.` to omit subkeys.
+Extract a subset from an object (or JSON string representing an object) omitting given keys. Use `.` to omit subkeys.
 
 **available as: transform**
 
 ```ts
-type omit = <T extends object>(obj: T, paths: string[]) => Partial<T>;
+type omit = <T extends object>(obj: T | string, paths: string[]) => Partial<T>;
 ```
 
 ```js
@@ -791,12 +791,12 @@ jexl.evalSync(`pet|omit(['animal', 'breed'])`, ctx);
 
 ### set
 
-Set a value of an object or array path. Use `.` to set subkeys. If path does not exist, subkeys are created.
+Set a value of an object, array, or JSON string path. Use `.` to set subkeys. If path does not exist, subkeys are created.
 
 **available as: transform**
 
 ```typescript
-type set = <T extends object>(obj: T, path: string, value: any) => T;
+type set = <T extends object>(obj: T | string, path: string, value: any) => T | string;
 ```
 
 ```js
@@ -813,12 +813,12 @@ console.log(ctx.person);
 
 ### unset
 
-Delete a key of an object or array path. Use `.` to unset subkeys. If path does not exist, nothing happens.
+Delete a key of an object, array, or JSON string path. Use `.` to unset subkeys. If path does not exist, nothing happens.
 
 **available as: transform**
 
 ```typescript
-type unset = <T extends object>(obj: T, path: string) => T;
+type unset = <T extends object>(obj: T | string, path: string) => T | string;
 ```
 
 ```js
@@ -837,12 +837,12 @@ console.log(ctx.user);
 
 ### values
 
-Get a list of the values of an object.
+Get a list of the values of an object or JSON string representing an object.
 
 **available as: transform**
 
 ```typescript
-type values = <T extends object, V extends T[keyof T]>(obj: T) => V[];
+type values = <T extends object, V extends T[keyof T]>(obj: T | string) => V[];
 ```
 
 ```js
