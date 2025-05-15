@@ -407,6 +407,32 @@ jexl.evalSync(`person.say|call('Hello')`, {person});
 
 _Calling a function directly (e.g. person.say()) is not allowed in Jexl due to its limited scope. The call transform mitigates this limitation._
 
+### companyRole
+
+Similar to [role]({{site.baseUrl}}/board_workspace/Expressions.html#role), but takes a `companyId` as first argument to check roles specifically set for the given company.
+
+Use [setCompanyRole]({{site.baseUrl}}/board_workspace/Expressions.html#setcompanyrole){: .alert-link} to set roles for a specific company.
+{: .alert .alert-info}
+
+#### FE Example
+
+```js
+// Current user
+const user = useUser();
+// Route parameters of the active route/page, 
+// let's assume we're on a company details page: /companies/:companyId
+const routeParams = useParams();
+
+// Always available in frontend context (ensured by Cody)
+const ctx = {user, routeParams};
+
+// Check if the user has the "Admin" role in the company 
+// identified by the route parameter companyId
+jexl.evalSync(`user|companyRole(routeParams.companyId, 'Admin')`, ctx);
+
+// true
+```
+
 ### data
 
 Same as [pageData]({{site.baseUrl}}/board_workspace/Expressions.html#pagedata), but provided as a transform. Since Cody always registers page data under the key `page` in a Jexl Context
@@ -466,6 +492,33 @@ async function handleChangeProductPrice(command: Command<ChangeProductPrice>)
   // ...
 }
 
+```
+
+### setCompanyRole
+
+Set a user role or a list of roles for a specific company. The roles are stored in a user attribute called `companiesConfig`
+with `companyId` being the index and `{roles: [...]}` being the value for each company.
+
+`companiesConfig` is stored as a JSON string in the user attributes. However, all object related Jexl transforms can seamlessly access and update JSON strings.
+{: .alert .alert-info}
+
+#### FE Example
+
+```js
+// Current user
+const user = useUser();
+// Route parameters of the active route/page, 
+// let's assume we're on a company details page: /companies/:companyId
+const routeParams = useParams();
+
+// Always available in frontend context (ensured by Cody)
+const ctx = {user, routeParams};
+
+// Set the "Admin" role in the company 
+jexl.evalSync(`user|setCompanyRole(routeParams.companyId, 'Admin')`, ctx);
+
+// Please note: setCompanyRole returns the updated user
+// Call the AuthService with the updated user to activate the permissions
 ```
 
 ### typeof
