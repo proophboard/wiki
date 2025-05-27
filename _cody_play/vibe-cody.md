@@ -79,6 +79,19 @@ status: Ready, Booked, Damaged, Sold
 bookable: boolean
 ```
 
+The prompt demonstrates different options:
+
+1. vin: is a **string** with min and max length validation as well as a title used in the UI (vin is still the data property name)
+2. brand: is a reference to the **Brand** data type, it becomes a dropdown in the form to add or edit a car
+3. model: similar to brand, a reference to the **Model** data type
+4. licence plate: no type specified, so it defaults to **string** without any validation
+5. status: a list of fixed **string** values, it becomes a dropdown in the form to add or edit a car
+6. bookable: a **boolean** type (or flag), it becomes a checkbox in the form to add or edit a car
+
+Types and validation rules are based on [JSON Schema](https://json-schema.org/){: target="_blank" rel="noopener noreferrer"}{: .alert-link}. 
+And, Cody will be able to suggest own JSON Schemas soon.
+{: .alert .alert-info}
+
 Watch the video to see the result of this prompt:
 
 <div class="video-container">
