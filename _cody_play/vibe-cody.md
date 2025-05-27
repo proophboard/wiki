@@ -89,7 +89,7 @@ Watch the video to see the result of this prompt:
 
 ### Colors and Theming
 
-Cody Play uses [Material UI](https://mui.com/){: target="_blank" rel="noopener noreferrer"} as UI library. It ships with powerful theming options, and a theme creator tool is available that has an AI integrated to help you with theming.
+Cody Play uses [Material UI](https://mui.com/){: target="_blank" rel="noopener noreferrer"} as UI library. It ships with powerful theming options, and a theme creator tool with integrated AI.
 For now, Cody is trained to import themes created with the [MUI Theme Creator](https://muiv6-theme-creator.web.app/?tab=preview){: target="_blank" rel="noopener noreferrer"} tool.
 
 Here is how it works:
