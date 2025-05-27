@@ -52,7 +52,7 @@ Start typing in the instructions input to get prompt suggestions. A single space
 ### Focused Elements
 
 Cody can focus a specific element in the app to concentrate his work on this element. Many prompt suggestions only appear in combination with a focused element.
-To focus an element, click the target icon next to it. Alternately, tell Cody to focus an element.
+To focus an element, click the target icon next to it. Or, tell Cody to focus an element.
 
 ### Data Structures and Validation
 
