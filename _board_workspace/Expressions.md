@@ -749,7 +749,42 @@ const extendedNumbers = jexl.evalSync(`numbers|push(4)|push(5)`, ctx);
 // [1,2,3,4,5]
 ```
 
+### reduce
 
+Invokes a reducer expression for each item and returns the aggregated value.
+
+**available as: transform**
+
+```typescript
+type reduce = <T>(arr: Array, expression: string, initialValue: T, reducerContext?: object) => T;
+```
+
+The `expression` has access to the `item` (alias `_`) and the current `sum`, which is set to *initialValue* initially and then set to the return value of each expression. If you need to access variables from the
+parent context, you have to pass them explicitly to the optional `filterContext`.
+
+```js
+const numbers = [1,2,3];
+const ctx = {numbers};
+
+const sum = jexl.evalSync(`numbers|reduce('sum + item', 0)`, ctx);
+
+// 6
+```
+
+### reverse
+
+```js
+const numbers = [1,2,3];
+const ctx = {numbers};
+
+const reversedNumbers = jexl.evalSync(`numbers|reverse()`, ctx);
+
+// [3,2,1]
+```
+
+Reverses the ordering of array items (last becomes first, ...)
+
+**available as: transform**
 
 ## Object-specific transforms
 
