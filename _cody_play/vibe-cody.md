@@ -74,7 +74,7 @@ Add the following columns to the table:
 vin: string|minLength:17|maxLength:17|title:Vehicle Identification Number
 brand: Brand
 model: Model
-licence plate
+licence plate?
 status: Ready, Booked, Damaged, Sold
 bookable: boolean
 ```
@@ -84,7 +84,7 @@ The prompt demonstrates different options:
 1. vin: is a **string** with min and max length validation as well as a title used in the UI (vin is still the data property name)
 2. brand: is a reference to the **Brand** data type, it becomes a dropdown in the form to add or edit a car
 3. model: similar to brand, a reference to the **Model** data type
-4. licence plate: no type specified, so it defaults to **string** without any validation
+4. licence plate: no type specified, so it defaults to **string** without any validation, the question mark indicates that licence plate is optional
 5. status: a list of fixed **string** values, it becomes a dropdown in the form to add or edit a car
 6. bookable: a **boolean** type (or flag), it becomes a checkbox in the form to add or edit a car
 
