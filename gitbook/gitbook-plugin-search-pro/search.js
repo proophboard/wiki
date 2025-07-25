@@ -59,7 +59,7 @@ require([
             var $title = $('<h3>');
 
             var $link = $('<a>', {
-                'href': gitbook.state.basePath + item.url + '?h=' + encodeURIComponent(res.query),
+                'href': item.url + '?h=' + encodeURIComponent(res.query),
                 'text': item.title,
                 'data-is-search': 1
             });
@@ -126,23 +126,32 @@ require([
         $('#book-search-results').removeClass('open');
     }
 
-    function bindSearch() {
+    function bindSearch(target) {
+        // Asynchronously load the index data
+        {
+            var url = state.basePath + "/assets/search_plus_index.json";
+            $.getJSON(url).then(function(data) {
+                INDEX_DATA = data;
+                handleUpdate();
+            });
+        }
+
         // Bind DOM
         var $body = $('body');
 
         // Launch query based on input content
         function handleUpdate() {
-            var $searchInput = $('#book-search-input input');
+            var $searchInput = $(target);
             var keyword = $searchInput.val();
 
-            if (keyword.length == 0) {
+            if (keyword === undefined || keyword.length == 0) {
                 closeSearch();
             } else {
                 launchSearch(keyword);
             }
         }
 
-        $body.on('keyup', '#book-search-input input', function(e) {
+        $body.on('keyup', target, function(e) {
             if (e.keyCode === 13) {
                 if (usePushState) {
                     var uri = updateQueryString('q', $(this).val());
@@ -154,20 +163,18 @@ require([
             handleUpdate();
         });
 
-        $body.on('click', '#book-search-input input', function(e) {
+        $body.on('click', target, function(e) {
             if (Object.keys(INDEX_DATA).length === 0) {
-                var url = state.basePath + "/search_plus_index.json";
-                console.log("start get json");
+                var url = state.basePath + "/assets/search_plus_index.json";
                 $.getJSON(url).then(function(data) {
                     INDEX_DATA = data;
-                    console.log('INDEX_DATA = ' + INDEX_DATA);
                     handleUpdate();
                 });
             }
         });
 
         // Push to history on blur
-        $body.on('blur', '#book-search-input input', function(e) {
+        $body.on('blur', target, function(e) {
             // Update history state
             if (usePushState) {
                 var uri = updateQueryString('q', $(this).val());
@@ -179,7 +186,9 @@ require([
     }
 
     gitbook.events.on('start', function() {
-        bindSearch();
+        bindSearch('#book-search-input input');
+        bindSearch('#book-search-input-inside input');
+
         showResult();
         closeSearch();
     });
@@ -211,6 +220,7 @@ require([
                 highLightPageInner(keyword);
             }
             $('#book-search-input input').val(keyword);
+            $('#book-search-input-inside input').val(keyword);
         }
     }
 
