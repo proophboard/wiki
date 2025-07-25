@@ -148,7 +148,7 @@
     var currentPath = null;
 
     // Only active scroll behavior for non-mobile screens
-    if ($(document).width() <= 1240) {
+    if ($(document).width() > 1240) {
         window.setInterval(() => {
             if(currentPath !== window.location.pathname) {
                 addParagraphLinks();
