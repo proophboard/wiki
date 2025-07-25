@@ -12,6 +12,7 @@
         $(element).closest('li.chapter').find('ul>li').removeClass('active');
         $(element).parent().addClass('active');
         if ($(document).width() <= 1240) {
+          alert("small screen");
           let target = $($(element).attr('href'));
           if (target.length) {
             $('div.body-inner').animate({
