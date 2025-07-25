@@ -1,4 +1,28 @@
 <div class="book-summary">
+    <script type="text/javascript">
+      // Fixes the page links scroll problem on both desktop and mobile browsers
+      function pageScrollToTop(element) {
+        // both mobile and non-mobile
+        $('div.body-inner').animate({scrollTop: 0});
+        $(element).parent().find('li>ul>li').removeClass('active');
+        return true;  // propagate
+      }
+      // Fixes the anchor links scroll problem on mobile browsers
+      function mobilePageScrollToAnchor(element) {
+        $(element).closest('li.chapter').find('ul>li').removeClass('active');
+        $(element).parent().addClass('active');
+        if ($(document).width() <= 1240) {
+          let target = $($(element).attr('href'));
+          if (target.length) {
+            $('div.body-inner').animate({
+              scrollTop: target.get(0).offsetTop,
+            });
+          }
+        }
+        return true;
+      }
+    </script>
+
     <div id="logo-container">
         <a href="https://prooph-board.com"><img src="{{site.baseurl}}/assets/images/prooph-board-logo.png" alt="Logo" width="200" /></a>
         <p class="markdown-section">by <a href="http://prooph.de" rel="noopener nofollow" target="_blank">prooph software</a></p>
@@ -16,7 +40,7 @@
                 {% else %}
             <li class="chapter gs-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% endif %}
-                <a href="{{site.baseurl}}{{col_page.url}}">
+                <a href="{{site.baseurl}}{{col_page.url}}" onclick="pageScrollToTop(this)">
                     {%- if col_page.sidebar_label -%}
                     {{col_page.sidebar_label | escape }}
                     {%- else -%}
@@ -40,7 +64,7 @@
                 {% else %}
             <li class="chapter es-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% endif %}
-                <a href="{{site.baseurl}}{{col_page.url}}">
+                <a href="{{site.baseurl}}{{col_page.url}}" onclick="pageScrollToTop(this)">
                     {%- if col_page.sidebar_label -%}
                     {{col_page.sidebar_label | escape }}
                     {%- else -%}
@@ -64,7 +88,7 @@
                 {% else %}
             <li class="chapter em-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% endif %}
-                <a href="{{site.baseurl}}{{col_page.url}}">
+                <a href="{{site.baseurl}}{{col_page.url}}" onclick="pageScrollToTop(this)">
                     {%- if col_page.sidebar_label -%}
                     {{col_page.sidebar_label | escape }}
                     {%- else -%}
@@ -88,7 +112,7 @@
                 {% else %}
             <li class="chapter co-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% endif %}
-                <a href="{{site.baseurl}}{{col_page.url}}">
+                <a href="{{site.baseurl}}{{col_page.url}}" onclick="pageScrollToTop(this)">
                     {%- if col_page.sidebar_label -%}
                     {{col_page.sidebar_label | escape }}
                     {%- else -%}
@@ -112,7 +136,7 @@
                 {% else %}
             <li class="chapter cp-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% endif %}
-                <a href="{{site.baseurl}}{{col_page.url}}">
+                <a href="{{site.baseurl}}{{col_page.url}}" onclick="pageScrollToTop(this)">
                     {%- if col_page.sidebar_label -%}
                     {{col_page.sidebar_label | escape }}
                     {%- else -%}
@@ -136,7 +160,7 @@
                 {% else %}
             <li class="chapter ce-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% endif %}
-                <a href="{{site.baseurl}}{{col_page.url}}">
+                <a href="{{site.baseurl}}{{col_page.url}}" onclick="pageScrollToTop(this)">
                     {%- if col_page.sidebar_label -%}
                     {{col_page.sidebar_label | escape }}
                     {%- else -%}
@@ -160,7 +184,7 @@
                 {% else %}
             <li class="chapter ws-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{workspace_page.url}}">
                 {% endif %}
-                <a href="{{site.baseurl}}{{workspace_page.url}}">
+                <a href="{{site.baseurl}}{{workspace_page.url}}" onclick="pageScrollToTop(this)">
                     {%- if page.sidebar_label -%}
                     {{page.sidebar_label | escape }}
                     {%- else -%}
@@ -183,7 +207,7 @@
                 {% else %}
             <li class="chapter og-accordion accordion-hidden" data-level="1.1" data-path="{{site.baseurl}}{{col_page.url}}">
                 {% endif %}
-                <a href="{{site.baseurl}}{{col_page.url}}">
+                <a href="{{site.baseurl}}{{col_page.url}}" onclick="pageScrollToTop(this)">
                     {%- if col_page.sidebar_label -%}
                     {{col_page.sidebar_label | escape }}
                     {%- else -%}
