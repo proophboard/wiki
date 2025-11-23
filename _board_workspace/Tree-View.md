@@ -57,9 +57,10 @@ You can drag an element from the tree view and drop it on the board, which is a 
 
 ## Working with Layers
 
-You may know layers from drawing and image editing tools like Photoshop. In prooph board they work quite the same, but have a slightly different purpose. Let's imagine your team did a High Level Event Storming on prooph board and now you would like to sketch out some first model design ideas. You'd like to do that next to the High Level Storming to use it as a reference. Anyway, next time your team wants to continue with the High Level Storming and design-level ideas would distract other team members. With layers you can have both! Sketch ideas on dedicated layers, but hide them when the team works together on the event map.
-
-**That's just one example of using layers to better organize ongoing work on an event map.**
+You may know layers from drawing and image editing tools like Photoshop. 
+In prooph board they work quite the same, but have a slightly different purpose. 
+An Event Model on prooph board is organized in [Frames]({{site.baseUrl}}/board_workspace/Frames.html) on the default layer (see below).
+With additional layers, you can attach secondary information to the Event Model like technical documentation, project planning, etc.
 
 ### Default Layer
 
@@ -71,13 +72,17 @@ Each board has a default layer which is called `Board` by default. You'll find i
 
 Adding a layer is quickly done. Click on the `plus icon` above the layer tree. A new layer gets added to the tree and you can set a name for it. Pressing `ESC` will abort the operation and pressing `Enter` completes it.
 
-The layer tree is sorted alphabetically, so your new layer is moved to it's final position in the tree after pressing enter. It becomes the active layer (see below, for more information) and is therefor marked with a blue folder icon (instead of black).
+The layer tree is sorted alphabetically, so your new layer is moved to its final position in the tree after pressing Enter. It becomes the active layer (see below, for more information) and is therefore marked with a blue folder icon (instead of black).
 
 <img src="{{site.baseurl}}/assets/images/layer_add_new.gif" alt="Add New Layer" />
 
 ### Switch active Layer and move Elements to it
 
-A single click on a `folder` icon opens (or closes) it and marks the layer as active (folder icon becomes blue). New elements added to the board are basically added to the currently active layer.
+The active layer can be changed with the dropdown above the elements tree.
+
+There is always only one layer active. Elements of other layers are hidden, while the elements of the active layer are shown.
+
+[Frames]({{site.baseUrl}}/board_workspace/Frames.html) are shown on all layers. They provide the basic structure of the board. Layers work with the basic structure.
 
 Existing elements can be moved from another layer to the active one by selecting the elements on the board and then clicking on the copy icon next to the plus above the layer tree. The folder icon becomes orange for a second to signal success of the operation. You'll now find the moved elements beneath the active layer.
 

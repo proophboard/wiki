@@ -56,7 +56,11 @@ To be able to navigate on the board even if a frame fills the entire screen, the
 
 <img src="{{site.baseurl}}/assets/images/bc_move.gif" alt="Move BC" />
 
-As you can see in the GIF, the border of a frame gets highlighted when the mouse pointer is close to it. You need to select the frame, move your mouse next to border, so that the pointer turns into a hand and only then you're able to move the frame. Don't worry if it is a bit tricky at the beginning. You should get used to it quickly and it really helps to navigate on the board.
+As you can see in the GIF, the border of a frame gets highlighted when the mouse pointer is close to it. 
+
+Either you select the frame **near the border**, or you **hold the Ctrl key** while clicking on a frame.
+
+Once the frame is selected, move your mouse next to the border, so that the pointer turns into a hand and only then you're able to move the frame. Don't worry if it is a bit tricky at the beginning. You should get used to it quickly and it really helps to navigate on the board.
 
 ## Change Shape
 
