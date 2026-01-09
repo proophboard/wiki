@@ -1392,6 +1392,16 @@ interface ThenFindOneInformation {
 - `find.filter` defines the [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) to be matched against information
 - `find.variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
 
+#### Returns
+
+Returns a single information document. If no document is found, a `NotFoundException` is thrown by default. 
+
+You can mark a query resolver as `allowNullReturn: true` in its corresponding information metadata to let the resolver return `null` instead of a NotFoundException.
+Alternatively, you can wrap the find-one-rule in a try-catch-rule. 
+{: .alert .alert-info}
+
+
+
 #### Example
 
 ```js
@@ -1530,6 +1540,14 @@ interface ThenFindOnePartialInformation {
 - `select` specifies the properties to be [selected]({{site.baseUrl}}/board_workspace/Rule-Engine.html#partial-select) for the result and optional [Lookups]({{site.baseUrl}}/board_workspace/Rule-Engine.html#lookup)
 - `filter` defines the [Filter]({{site.baseUrl}}/board_workspace/Rule-Engine.html#filter) to be matched against information
 - `variable` is optional and defines the context name where the result is stored. If not set, result is stored in the context variable `information`
+
+#### Returns
+
+Returns a single partial information document. If no document is found, a `NotFoundException` is thrown by default.
+
+You can mark a query resolver as `allowNullReturn: true` in its corresponding information metadata to let the resolver return `null` instead of a NotFoundException.
+Alternatively, you can wrap the find-one-partial-rule in a try-catch-rule.
+{: .alert .alert-info}
 
 #### Example
 
