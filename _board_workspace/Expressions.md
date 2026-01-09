@@ -1352,6 +1352,23 @@ jexl.evalSync(`docuTime|isoMonth()`, {docuTime});
 Please note: the behavior is different compared to the `month` transform, which uses a zero-based month index where the first month is represented by `0` whereas here the first month is `01`.
 {: .alert .alert-warning}
 
+### lastDayOfMonth
+
+Returns the last day of the month for the given date.
+
+**available as: transform**
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|lastDayOfMonth()`, {docuTime});
+
+// 28
+```
+
+
+
 ### localDate
 
 Returns a string representing the date portion of the given date according to language-specific conventions.
