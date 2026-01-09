@@ -1100,6 +1100,21 @@ jexl.evalSync(`price|toFloat()`, {price});
 // 10.99
 ```
 
+### toLocal
+
+Cast any type to string. If the type has a `toLocaleString` function (like String, Number, Date), this function is used to cast the type.
+
+**available as: transform**
+
+```js
+const price = "10.99";
+
+jexl.evalSync(`price|toFloat()|toLocal()`, {price});
+
+// assuming locale is set to de-DE: 
+//  10,99
+```
+
 ### toStr
 
 Cast any type to string.
@@ -1366,8 +1381,6 @@ jexl.evalSync(`docuTime|lastDayOfMonth()`, {docuTime});
 
 // 28
 ```
-
-
 
 ### localDate
 
