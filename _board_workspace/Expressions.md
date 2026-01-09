@@ -531,6 +531,27 @@ jexl.evalSync(`countdown|typeof('number')`, ctx);
 // true
 ```
 
+### slice
+
+Slices a string or an array.
+
+```typescript
+type slice = (strOrarr: string | Array, strart: number, end?: number) => string | Array;
+```
+
+#### Example
+
+```js
+const countdown = 10;
+const ctx = {longText: 'This is a long text'};
+
+jexl.evalSync(`longText|slice(5, 2)`, ctx);
+
+// "is"
+```
+
+**available as: transform**
+
 ## Array functions
 
 ### contains
@@ -995,6 +1016,26 @@ const msg = 'HELLO';
 jexl.evalSync(`msg|padStart(7, '*')`, {msg});
 
 // **HELLO
+```
+
+### replace
+
+Replaces all occurrences of `search` with `replace` in a given string.
+
+**available as: transform**
+
+```typescript
+type replace = (str: string, search: string, replace: string) => string;
+```
+
+#### Example
+
+```js
+const msg = 'Hello World';
+
+jexl.evalSync(`msg|replace('World', 'Planet')`, {msg});
+
+// Hello Planet
 ```
 
 ### split
