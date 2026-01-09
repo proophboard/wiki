@@ -1319,6 +1319,39 @@ jexl.evalSync(`docuTime|isoDateTime()`, {docuTime});
 // 2025-02-14T20:41:02.032Z
 ```
 
+### isoDay
+
+Similar to the [day transform]({{site.baseUrl}}/board_workspace/Expressions.html#day), but returns the day of the given date as a two-digit string with a leading zero when the day is less than 10.
+
+**available as: transform**
+
+```js
+
+const docuTime = "2025-02-04T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|day()`, {docuTime});
+
+// 04
+```
+
+### isoMonth
+
+Returns the month for the given date in ISO format, as a two digit string. The first month of the year is `01`.
+
+**available as: transform**
+
+```js
+
+const docuTime = "2025-02-14T20:41:02.032+01:00";
+
+jexl.evalSync(`docuTime|isoMonth()`, {docuTime});
+
+// 02
+```
+
+Please note: the behavior is different compared to the `month` transform, which uses a zero-based month index where the first month is represented by `0` whereas here the first month is `01`.
+{: .alert .alert-warning}
+
 ### localDate
 
 Returns a string representing the date portion of the given date according to language-specific conventions.
